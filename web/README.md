@@ -9,7 +9,8 @@ Git : https://git-scm.com/download
 Wamp : http://www.wampserver.com/
 Composer : https://getcomposer.org/download/
 Symfony : https://symfony.com/download
-
+Node.js : https://nodejs.org/en/download/
+Yarn : https://yarnpkg.com/fr/docs/install
 ER/Builder : https://soft-builder.com/en/downloads/ERBuilder_Install.zip
 
 
@@ -48,8 +49,14 @@ D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console make:controller UserContro
 
 # composer require symfony/validator doctrine/annotations
 
+D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console cache:clear
 
 # symfony server:start
+
+
+# yarn install
+# yarn add bootstrap --dev
+# yarn add jquery popper.js --dev
 
 
 
@@ -58,7 +65,15 @@ Install o2sw...
 ===============
 
 >> connect ssh
+
+Récupère les sources
 # git clone https://github.com/f-agu/crm.git
+
+Récupère les libs
 # cd crm/web
 # composer install
 
+Initialise la DB
+# php bin/console make:migration
+# php bin/console doctrine:migrations:migrate
+# php bin/console doctrine:fixtures:load
