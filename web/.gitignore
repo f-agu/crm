@@ -4,7 +4,7 @@
 /.env.local.php
 /.env.*.local
 /public/bundles/
-/src/Migrations
+/src/Migrations/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
