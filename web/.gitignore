@@ -3,7 +3,8 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-/public_html/bundles/
+/public/bundles/
+/src/Migrations
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

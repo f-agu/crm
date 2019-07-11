@@ -50,3 +50,15 @@ D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console make:controller UserContro
 
 
 # symfony server:start
+
+
+
+
+Install o2sw...
+===============
+
+>> connect ssh
+# git clone https://github.com/f-agu/crm.git
+# cd crm/web
+# composer install
+
