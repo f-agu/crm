@@ -10,6 +10,7 @@ Wamp : http://www.wampserver.com/
 Composer : https://getcomposer.org/download/
 Symfony : https://symfony.com/download
 
+ER/Builder : https://soft-builder.com/en/downloads/ERBuilder_Install.zip
 
 
 
