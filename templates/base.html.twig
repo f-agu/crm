@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="C&eacute;nacle R&eacute;mi Mollet">
-        <link rel="icon" href="/favicon.ico">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="C&eacute;nacle R&eacute;mi Mollet">
+		<link rel="icon" href="/favicon.ico">
+		<title>{% block title %}{% endblock %}</title>
+		<link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+		<link href="/assets/base/base.css" rel="stylesheet">
+		{% block stylesheets %}{% endblock %}
+	</head>
+	<body>
+		{% block body %}{% endblock %}
+		{% block javascripts %}{% endblock %}
+	</body>
 </html>
