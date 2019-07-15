@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class ClubLesson
      * @ORM\Column(type="string", length=512, nullable=true)
      */
     private $age_level;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClubLessonTimeSlot", mappedBy="club_lesson", orphanRemoval=true)
+     */
+    private $clubLessonTimeSlots;
+
+    public function __construct()
+    {
+        $this->clubLessonTimeSlots = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +116,37 @@ class ClubLesson
     public function setAgeLevel(?string $age_level): self
     {
         $this->age_level = $age_level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClubLessonTimeSlot[]
+     */
+    public function getClubLessonTimeSlots(): Collection
+    {
+        return $this->clubLessonTimeSlots;
+    }
+
+    public function addClubLessonTimeSlot(ClubLessonTimeSlot $clubLessonTimeSlot): self
+    {
+        if (!$this->clubLessonTimeSlots->contains($clubLessonTimeSlot)) {
+            $this->clubLessonTimeSlots[] = $clubLessonTimeSlot;
+            $clubLessonTimeSlot->setClubLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClubLessonTimeSlot(ClubLessonTimeSlot $clubLessonTimeSlot): self
+    {
+        if ($this->clubLessonTimeSlots->contains($clubLessonTimeSlot)) {
+            $this->clubLessonTimeSlots->removeElement($clubLessonTimeSlot);
+            // set the owning side to null (unless already changed)
+            if ($clubLessonTimeSlot->getClubLesson() === $this) {
+                $clubLessonTimeSlot->setClubLesson(null);
+            }
+        }
 
         return $this;
     }

@@ -13,8 +13,13 @@ class ClubsFixtures extends Fixture
     
 	public function load(ObjectManager $manager)
 	{
-		//$manager->persist($this->createClub("Koryo", 100));
-		//$manager->persist($this->createItem("documents", 200));
+		// Bry
+		$club     = $this->createClub('Koryo', 'bry_sur_marne.gif', 'http://www.taekwondobry.fr');
+		$location = $this->createLocation('Ecole Henri Cahn', '26 Boulevard Général Gallieni', 'Bry-sur-Marne', '94360', '94');
+		$manager->persist($club);
+		$manager->persist($location);
+		$lesson = $this->createLesson($club, $location, 'Taekwondo', 'Tous niveaux');
+	
 		//$manager->flush();
 	}
     
@@ -30,7 +35,7 @@ class ClubsFixtures extends Fixture
 		return $club;
 	}
 	
-	private function createClubLesson($club, $location, $discipline, $age_level, $point = 1)
+	private function createLesson($club, $location, $discipline, $age_level, $point = 1)
 	{
 		$clubloc = new ClubLesson();
 		$clubloc->setClub($club);
@@ -41,7 +46,7 @@ class ClubsFixtures extends Fixture
 		return $clubloc;
 	}
 	
-	private function createClubLocation($name, $address, $city, $zipcode, $county, $country = "France")
+	private function createLocation($name, $address, $city, $zipcode, $county, $country = "France")
 	{
 		$clubloc = new ClubLocation();
 		$clubloc->setName($name);
@@ -51,5 +56,14 @@ class ClubsFixtures extends Fixture
 		$clubloc->setCounty($county);
 		$clubloc->setCountry($country);
 		return $clubloc;
+	}
+	
+	private function createTimeSlot($day_of_week, $start_time, $end_time = new \Date()) // TODO
+	{
+		$timeslot = new ClubTimeSlot();
+		$timeslot->setDayOfWeek($day_of_week);
+		$timeslot->setStartTime($start_time);
+		$timeslot->setEndTime($end_time);
+		return $timeslot;
 	}
 }
