@@ -68,6 +68,7 @@
         "symfony": {
             "allow-contrib": false,
             "require": "4.3.*"
-        }
+        },
+        "public-dir": "public_html"
     }
 }
