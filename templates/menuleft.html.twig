@@ -1,0 +1,21 @@
+{% for menuItem in menuItems %}
+	
+	{% if menuItem.code == 'clubs' %}
+		<li class="nav-item">
+			<a class="nav-link" href="#">
+				<span data-feather="globe"></span>
+				Clubs
+			</a>
+		</li>
+	{% endif %}
+	
+	{% if menuItem.code == 'documents' %}
+		<li class="nav-item">
+			<a class="nav-link" href="#">
+				<span data-feather="book"></span>
+				Documents
+			</a>
+		</li>
+	{% endif %}
+	
+{% endfor %}

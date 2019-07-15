@@ -41,11 +41,11 @@ Dans le dossier de Wamp64, supprimer le dosier www
 
 -- edit .env
 
-D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console doctrine:database:create
-D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console make:entity
-D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console make:migration
-D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console doctrine:migrations:migrate
-D:\cenaclerm\wamp64\bin\php\php7.2.10\php bin/console make:controller UserController
+php bin/console doctrine:database:create
+php bin/console make:entity
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+php bin/console make:controller UserController
 
 # composer require symfony/validator doctrine/annotations
 
