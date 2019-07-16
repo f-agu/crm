@@ -7,9 +7,11 @@ Install the following softwares (keep order) :
 
 - Git : https://git-scm.com/download
 - Wamp : http://www.wampserver.com/
-- Composer : https://getcomposer.org/download/
+- Composer : https://getcomposer.org/download/  (select php 7.2.x)
 - Symfony : https://symfony.com/download
 - ER/Builder : https://soft-builder.com/en/downloads/ERBuilder_Install.zip
+
+If you have a error message like this : "MSVCR110.dll is missing", download the fix from https://www.microsoft.com/fr-FR/download/details.aspx?id=30679
 
 
 ## Prepare your environment
