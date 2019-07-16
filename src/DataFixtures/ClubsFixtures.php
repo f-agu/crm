@@ -58,12 +58,12 @@ class ClubsFixtures extends Fixture
 		return $clubloc;
 	}
 	
-	private function createTimeSlot($day_of_week, $start_time, $end_time = new \Date()) // TODO
-	{
-		$timeslot = new ClubTimeSlot();
-		$timeslot->setDayOfWeek($day_of_week);
-		$timeslot->setStartTime($start_time);
-		$timeslot->setEndTime($end_time);
-		return $timeslot;
-	}
+//	private function createTimeSlot($day_of_week, $start_time, $end_time = new \Date()) // TODO
+//	{
+//		$timeslot = new ClubTimeSlot();
+//		$timeslot->setDayOfWeek($day_of_week);
+//		$timeslot->setStartTime($start_time);
+//		$timeslot->setEndTime($end_time);
+//		return $timeslot;
+//	}
 }
