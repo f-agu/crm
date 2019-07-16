@@ -18,7 +18,7 @@ If you have a error message like this : "MSVCR110.dll is missing", download the 
 
 ### Sources
 
-In a folder, with a bash, retreive the project :
+In a new folder (ex: c:\projects), with a bash or cmd, retreive the project :
 
 ```
 git clone https://github.com/f-agu/crm.git
@@ -33,7 +33,7 @@ composer install
 
 Run wamp64.
 
-In the folder project, copy the `.env` to `.env.local`. Edit it and replace `DATABASE_URL=...` with :
+In the crm folder project, copy the `.env` to `.env.local`. Edit it and replace `DATABASE_URL=...` with :
 
 ```
 DATABASE_URL=mysql://root:@127.0.0.1:3306/my_db
@@ -49,7 +49,9 @@ Create a symbolic link to the crm project : with a `cmd`, in the wamp folder :
 mklink /D www <path_to_crm_project>\public_html
 ```
 
-### Initialize the database
+### Initialize the database    
+
+In the crm folder project, with cmd :
 
 ```
 php bin/console doctrine:database:create
@@ -57,5 +59,7 @@ php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 ```
+
+Inspect the result with a browser : http://localhost/phpmyadmin/
 
 
