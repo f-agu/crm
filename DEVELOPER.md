@@ -1,5 +1,4 @@
 # Windows developer
-===================
 
 
 ## Required softwares
@@ -32,7 +31,7 @@ composer install
 
 Run wamp64.
 
-Copy the .env to .env.local. Edit it and replace `DATABASE_URL=...` with :
+In the folder project, copy the `.env` to `.env.local`. Edit it and replace `DATABASE_URL=...` with :
 
 ```
 DATABASE_URL=mysql://root:@127.0.0.1:3306/my_db
