@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Club;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,10 +17,14 @@ class ClubsController extends AbstractController
 			'blockName' => 'clublist',
 			'templateName' => 'clubs.html.twig'
 		]);*/
+		$clubs = $this->getDoctrine()->getManager()
+				->getRepository(Club::class)
+				->findBy([], ['name' => 'ASC']);
+				
 		$user = $this->getUser();
 		return $this->render('clubs.html.twig', [
 			'user' => $user,
-		  'controller_name' => 'ClubsController',
+		  'clubs' => $clubs
 		]);
 	}
 }

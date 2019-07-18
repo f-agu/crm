@@ -19,13 +19,13 @@ class ClubLesson
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ClubLocation", inversedBy="clubLessons")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ClubLocation", inversedBy="clubLessons", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $club_location;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="clubLessons")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="clubLessons", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $club;

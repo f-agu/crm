@@ -23,7 +23,7 @@ class AccountFixtures extends Fixture
 		$user = $this->createUser('admin', 'admin', '11/07/2019');
 		$manager->persist($user);
 
-		$account = $this->createAccount($user, 'admin', 'admin');
+		$account = $this->createAccount($user, 'admin', 'admin', ['ROLE_ADMIN']);
 		$manager->persist($account);
 
 		$manager->persist($this->createUser('u1', 'u1', '11/07/2019'));
@@ -43,12 +43,13 @@ class AccountFixtures extends Fixture
 		return $user;
 	}
 
-	private function createAccount($user, $login, $password)
+	private function createAccount($user, $login, $password, $roles)
 	{
 		$account = new Account();
 		$account->setUser($user);
 		$account->setLogin($login);
 		$account->setPassword($this->passwordEncoder->encodePassword($account, $password));        
+		$account->setRoles($roles);
 		return $account;
 	}
 
