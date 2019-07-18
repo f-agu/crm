@@ -71,4 +71,14 @@ class MenuItem
 
         return $this;
     }
+    
+	public function __toString()
+	{
+		if($this->getAvailableForRoles() != null) {
+			return $this->getCode().' '.$this->getPriority().' ['.implode(', ', $this->getAvailableForRoles()).']';
+		}
+		return $this->getCode().' '.$this->getPriority();
+	}
+  
+  
 }

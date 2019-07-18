@@ -11,16 +11,18 @@ class MenuItemFixtures extends Fixture
     
 	public function load(ObjectManager $manager)
 	{
-		$manager->persist($this->createItem("clubs", 100));
-		$manager->persist($this->createItem("documents", 200));
+		$manager->persist($this->createItem("clubs", 100, ["ROLE_USER"]));
+		$manager->persist($this->createItem("documents", 200, ["ROLE_TEACHER", "ROLE_STUDENT"]));
+		$manager->persist($this->createItem("students", 300, ["ROLE_TEACHER"]));
 		$manager->flush();
 	}
     
-    private function createItem($code, $priority)
-    {
-    	$item = new MenuItem();
-    	$item->setCode($code);
-    	$item->setPriority($priority);
-    	return $item;
-    }
+	private function createItem($code, $priority, $roles = [])
+	{
+		$item = new MenuItem();
+		$item->setCode($code);
+		$item->setPriority($priority);
+		$item->setAvailableForRoles($roles);
+		return $item;
+	}
 }

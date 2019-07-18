@@ -60,6 +60,6 @@ php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 ```
 
-Inspect the result with a browser : http://localhost/phpmyadmin/
+Inspect the result with a browser : http://localhost/phpmyadmin/  (user : root, password : )
 
 

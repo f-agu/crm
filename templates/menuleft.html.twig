@@ -2,9 +2,9 @@
 	
 	{% if menuItem.code == 'clubs' %}
 		<li class="nav-item">
-			<a class="nav-link" href="#">
+			<a class="nav-link" href="/clubs">
 				<span data-feather="globe"></span>
-				Clubs
+				{% trans %}Clubs{% endtrans %} {#{ menuItem }#}
 			</a>
 		</li>
 	{% endif %}
@@ -13,7 +13,7 @@
 		<li class="nav-item">
 			<a class="nav-link" href="#">
 				<span data-feather="book"></span>
-				Documents
+				{% trans %}Documents{% endtrans %} {#{ menuItem }#}
 			</a>
 		</li>
 	{% endif %}

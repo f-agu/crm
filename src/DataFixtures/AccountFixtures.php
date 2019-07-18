@@ -10,31 +10,46 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountFixtures extends Fixture
 {
-    private $passwordEncoder;
+	private $passwordEncoder;
 
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $this->passwordEncoder = $passwordEncoder;
-    }
-    
-    public function load(ObjectManager $manager)
-    {
-        $user = new User();
-        $user->setLastname("admin");
-        $user->setFirstname("admin");
-        //$user->setBirthday(\DateTime::createFromFormat("yyyy-mm-dd", "2019-07-11"));
-        $user->setBirthday(new \DateTime("11/07/2019"));
+	public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+	{
+		$this->passwordEncoder = $passwordEncoder;
+	}
 
-        $manager->persist($user);
-        
-        $account = new Account();
-        $account->setUser($user);
-        $account->setLogin("admin");
-        $account->setPassword($this->passwordEncoder->encodePassword($account, 'admin'));        
+	public function load(ObjectManager $manager)
+	{
+		$user = $this->createUser('admin', 'admin', '11/07/2019');
+		$manager->persist($user);
 
-        $manager->persist($account);
+		$account = $this->createAccount($user, 'admin', 'admin');
+		$manager->persist($account);
 
-        $manager->flush();
-    }
+		$manager->persist($this->createUser('u1', 'u1', '11/07/2019'));
+		$manager->persist($this->createUser('u2', 'u2', '11/07/2019'));
+		$manager->persist($this->createUser('u3', 'u3', '11/07/2019'));
+		$manager->persist($this->createUser('u4', 'u4', '11/07/2019'));
+
+		$manager->flush();
+	}
+
+	private function createUser($lastname, $firstname, $birthday)
+	{
+		$user = new User();
+		$user->setLastname($lastname);
+		$user->setFirstname($firstname);
+		$user->setBirthday(new \DateTime($birthday));
+		return $user;
+	}
+
+	private function createAccount($user, $login, $password)
+	{
+		$account = new Account();
+		$account->setUser($user);
+		$account->setLogin($login);
+		$account->setPassword($this->passwordEncoder->encodePassword($account, $password));        
+		return $account;
+	}
+
 }

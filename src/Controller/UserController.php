@@ -11,29 +11,28 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/user", name="create_user")
-     */
-    public function createUser(ValidatorInterface $validator): Response
-    {
-       
-			$entityManager = $this->getDoctrine()->getManager();
+	/**
+	* @Route("/user", name="create_user")
+	*/
+	public function createUser(ValidatorInterface $validator): Response
+	{
+		$entityManager = $this->getDoctrine()->getManager();
 
-			$user = new User();
-			$user->setLastname('Doe');
-			$user->setFirstname('John');
-			
-			$errors = $validator->validate($user);
-			if (count($errors) > 0) {
-				return new Response((string) $errors, 400);
-      }
+		$user = new User();
+		$user->setLastname('Doe');
+		$user->setFirstname('John');
 
-			// tell Doctrine you want to (eventually) save the user (no queries yet)
-			$entityManager->persist($user);
+		$errors = $validator->validate($user);
+		if (count($errors) > 0) {
+		return new Response((string) $errors, 400);
+		}
 
-			// actually executes the queries (i.e. the INSERT query)
-			$entityManager->flush();
+		// tell Doctrine you want to (eventually) save the user (no queries yet)
+		$entityManager->persist($user);
 
-			return new Response('Saved new user with id '.$user->getId());
-     }
+		// actually executes the queries (i.e. the INSERT query)
+		$entityManager->flush();
+
+		return new Response('Saved new user with id '.$user->getId());
+	}
 }

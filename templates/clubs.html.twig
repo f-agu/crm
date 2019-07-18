@@ -1,0 +1,39 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block dashboardcontent %}
+
+<table class="table">
+	<thead>
+		<tr>
+			{#<th scope="col">{% trans %}Name{% endtrans %}</th>
+			<th scope="col">{% trans %}County{% endtrans %}</th>
+			<th scope="col">{% trans %}City{% endtrans %}</th>#}
+			<th scope="col">Name</th>
+			<th scope="col">County</th>
+			<th scope="col">City</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th scope="row">1</th>
+			<td>Mark</td>
+			<td>Otto</td>
+			<td>@mdo</td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
+<script src="/vendor/popper/popper.min.js"></script>
+<script src="/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script src="/vendor/feather/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>
+
+{% endblock %}

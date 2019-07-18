@@ -8,11 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function viewHome(): Response
-    {
-			return $this->render('home.html.twig', ['last_username' => 'une_var', 'error' => '$error']);
-     }
+	/**
+	* @Route("/", name="home")
+	*/
+	public function viewHome($blockName = null, $templateName = null): Response
+	{
+		return $this->forward('App\Controller\DashboardController::dashboard', [
+				'blockName' => null,
+				'templateName' => null
+			]);
+	}
 }

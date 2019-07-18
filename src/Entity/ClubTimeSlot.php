@@ -24,19 +24,19 @@ class ClubTimeSlot
     private $day_of_week;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\OneToMany(targetEntity="App\Entity\ClubLessonTimeSlot", mappedBy="club_time_slot", orphanRemoval=true)
+     */
+    private $clubLessonTimeSlots;
+
+    /**
+     * @ORM\Column(type="time")
      */
     private $start_time;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="time")
      */
     private $end_time;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ClubLessonTimeSlot", mappedBy="club_time_slot", orphanRemoval=true)
-     */
-    private $clubLessonTimeSlots;
 
     public function __construct()
     {
@@ -56,30 +56,6 @@ class ClubTimeSlot
     public function setDayOfWeek(string $day_of_week): self
     {
         $this->day_of_week = $day_of_week;
-
-        return $this;
-    }
-
-    public function getStartTime(): ?\DateTimeInterface
-    {
-        return $this->start_time;
-    }
-
-    public function setStartTime(\DateTimeInterface $start_time): self
-    {
-        $this->start_time = $start_time;
-
-        return $this;
-    }
-
-    public function getEndTime(): ?\DateTimeInterface
-    {
-        return $this->end_time;
-    }
-
-    public function setEndTime(?\DateTimeInterface $end_time): self
-    {
-        $this->end_time = $end_time;
 
         return $this;
     }
@@ -111,6 +87,30 @@ class ClubTimeSlot
                 $clubLessonTimeSlot->setClubTimeSlot(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->start_time;
+    }
+
+    public function setStartTime(\DateTimeInterface $start_time): self
+    {
+        $this->start_time = $start_time;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->end_time;
+    }
+
+    public function setEndTime(\DateTimeInterface $end_time): self
+    {
+        $this->end_time = $end_time;
 
         return $this;
     }
