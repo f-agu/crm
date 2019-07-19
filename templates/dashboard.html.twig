@@ -56,10 +56,10 @@
 			<input class="form-control form-control-dark" type="text" placeholder="Rechercher" aria-label="Rechercher">
 			<ul class="navbar-nav px-3">
 				<li class="nav-item text-nowrap">
-					{% if user == null %}
-						<h5><a class="nav-link" href="/login">{% trans %}Sign in{% endtrans %}</a></h5>
-					{% else %}
+					{% if user is defined and user != null %}
 						<h5><a class="nav-link" href="/logout">{% trans %}Sign out{% endtrans %}</a></h5>
+					{% else %}
+						<h5><a class="nav-link" href="/login">{% trans %}Sign in{% endtrans %}</a></h5>
 					{% endif %}
 				</li>
 			</ul>

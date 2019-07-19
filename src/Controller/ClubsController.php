@@ -13,10 +13,6 @@ class ClubsController extends AbstractController
 	*/
 	public function index()
 	{
-		/*return $this->forward('App\Controller\DashboardController::dashboard', [
-			'blockName' => 'clublist',
-			'templateName' => 'clubs.html.twig'
-		]);*/
 		$clubDTOs = $this->getDoctrine()->getManager()
 				->getRepository(Club::class)
 				->findAllActiveGroupedWithCities();
