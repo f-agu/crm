@@ -17,14 +17,15 @@ class ClubsController extends AbstractController
 			'blockName' => 'clublist',
 			'templateName' => 'clubs.html.twig'
 		]);*/
-		$clubs = $this->getDoctrine()->getManager()
+		$clubDTOs = $this->getDoctrine()->getManager()
 				->getRepository(Club::class)
-				->findBy([], ['name' => 'ASC']);
+				->findAllActiveGroupedWithCities();
+				//->findBy([], ['name' => 'ASC']);
 				
 		$user = $this->getUser();
 		return $this->render('clubs.html.twig', [
 			'user' => $user,
-		  'clubs' => $clubs
+		  'clubs' => $clubDTOs
 		]);
 	}
 }

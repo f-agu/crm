@@ -1,75 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block title %}C&eacute;nacle R&eacute;mi Mollet{% endblock %}
-
-{% block stylesheets %}
-<link href="/assets/base/base.css" rel="stylesheet">
-{% endblock %}
-
-
-{% block body %}
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0">
-	<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="{{ path('home') }}"><img src="/assets/img/logo.png" style="max-height:32px" /></a>
-	<input class="form-control form-control-dark w-100" type="text" placeholder="Rechercher" aria-label="Rechercher">
-	<ul class="navbar-nav px-3">
-		<li class="nav-item text-nowrap">
-			{% if user == null %}
-				<a class="nav-link" href="/login">{% trans %}Sign in{% endtrans %}</a>
-			{% else %}
-				<a class="nav-link" href="/logout">{% trans %}Sign out{% endtrans %}</a>
-			{% endif %}
-		</li>
-	</ul>
-</nav>
-
-<div class="container-fluid h-100">
-	<div class="row h-100">
-		<nav class="col-md-2 d-none d-md-block bg-light sidebar" style="padding-top: 46px;">
-			<div class="sidebar-sticky">
-				<div style="position:relative;z-index:1">
-					<ul class="nav flex-column">
-						{#<li class="nav-item">
-							<a class="nav-link active" href="#">
-								<span data-feather="home"></span>
-								Dashboard <span class="sr-only">(current)</span>
-							</a>
-						</li> #}
-						{{ render(controller('App\\Controller\\MenuLeftController::viewMenuLeft')) }}
-					</ul>
-				</div>
-			</div>
-		</nav>
-
-		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="padding-top: 56px !important;">
-			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-				<h1 class="h2">Dashboard</h1>
-				<div class="btn-toolbar mb-2 mb-md-0">
-					<div class="btn-group mr-2">
-						<button class="btn btn-sm btn-outline-secondary">Share</button>
-						<button class="btn btn-sm btn-outline-secondary">Export</button>
-					</div>
-					<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-						<span data-feather="calendar"></span>
-						This week
-					</button>
-				</div>
-			</div>
-		</main>
-
+{% block dashboardcontent %}
+				
+<h1 class="h2">Dashboard</h1>
+<div class="btn-toolbar mb-2 mb-md-0">
+	<div class="btn-group mr-2">
+		<button class="btn btn-sm btn-outline-secondary">Share</button>
+		<button class="btn btn-sm btn-outline-secondary">Export</button>
 	</div>
+	<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+		<span data-feather="calendar"></span>
+		This week
+	</button>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
-<script src="/vendor/popper/popper.min.js"></script>
-<script src="/vendor/bootstrap/bootstrap.min.js"></script>
-
-<!-- Icons -->
-<script src="/vendor/feather/feather.min.js"></script>
-<script>
-  feather.replace()
-</script>
 
 {% endblock %}

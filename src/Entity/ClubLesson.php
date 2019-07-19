@@ -46,9 +46,19 @@ class ClubLesson
     private $age_level;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ClubLessonTimeSlot", mappedBy="club_lesson", orphanRemoval=true)
+     * @ORM\Column(type="string", length=20)
      */
-    private $clubLessonTimeSlots;
+    private $day_of_week;
+
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $start_time;
+
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $end_time;
 
     public function __construct()
     {
@@ -120,34 +130,40 @@ class ClubLesson
         return $this;
     }
 
-    /**
-     * @return Collection|ClubLessonTimeSlot[]
-     */
-    public function getClubLessonTimeSlots(): Collection
+    public function getDayOfWeek(): ?string
     {
-        return $this->clubLessonTimeSlots;
+        return $this->day_of_week;
     }
 
-    public function addClubLessonTimeSlot(ClubLessonTimeSlot $clubLessonTimeSlot): self
+    public function setDayOfWeek(string $day_of_week): self
     {
-        if (!$this->clubLessonTimeSlots->contains($clubLessonTimeSlot)) {
-            $this->clubLessonTimeSlots[] = $clubLessonTimeSlot;
-            $clubLessonTimeSlot->setClubLesson($this);
-        }
+        $this->day_of_week = $day_of_week;
 
         return $this;
     }
 
-    public function removeClubLessonTimeSlot(ClubLessonTimeSlot $clubLessonTimeSlot): self
+    public function getStartTime(): ?\DateTimeInterface
     {
-        if ($this->clubLessonTimeSlots->contains($clubLessonTimeSlot)) {
-            $this->clubLessonTimeSlots->removeElement($clubLessonTimeSlot);
-            // set the owning side to null (unless already changed)
-            if ($clubLessonTimeSlot->getClubLesson() === $this) {
-                $clubLessonTimeSlot->setClubLesson(null);
-            }
-        }
+        return $this->start_time;
+    }
+
+    public function setStartTime(\DateTimeInterface $start_time): self
+    {
+        $this->start_time = $start_time;
 
         return $this;
     }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->end_time;
+    }
+
+    public function setEndTime(\DateTimeInterface $end_time): self
+    {
+        $this->end_time = $end_time;
+
+        return $this;
+    }
+
 }

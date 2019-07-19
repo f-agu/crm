@@ -1,0 +1,21 @@
+{% for menuItem in menuItems %}
+	
+	{% if menuItem.code == 'clubs' %}
+		<li class="nav-item">
+			<a class="nav-link" href="/clubs">
+				<span data-feather="globe"></span>
+				{% trans %}Clubs{% endtrans %} {#{ menuItem }#}
+			</a>
+		</li>
+	{% endif %}
+	
+	{% if menuItem.code == 'documents' %}
+		<li class="nav-item">
+			<a class="nav-link" href="#">
+				<span data-feather="book"></span>
+				{% trans %}Documents{% endtrans %} {#{ menuItem }#}
+			</a>
+		</li>
+	{% endif %}
+	
+{% endfor %}

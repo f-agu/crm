@@ -13,9 +13,9 @@ class HomeController extends AbstractController
 	*/
 	public function viewHome($blockName = null, $templateName = null): Response
 	{
-		return $this->forward('App\Controller\DashboardController::dashboard', [
-				'blockName' => null,
-				'templateName' => null
-			]);
+		$user = $this->getUser();
+		return $this->render('home.html.twig', [
+			'user' => $user
+		]);
 	}
 }

@@ -16,30 +16,36 @@ class ClubsFixtures extends Fixture
 	public function load(ObjectManager $manager)
 	{
 		// ======================== Bry
-		$club             = $this->createClub('Koryo', 'bry_sur_marne.gif', 'http://www.taekwondobry.fr');
-		$location         = $this->createLocation('Ecole Henri Cahn', '26 Boulevard Général Gallieni', 'Bry-sur-Marne', '94360', '94');
-		$lessonTKiDAll    = $this->createLesson($club, $location, 'Taekwonkido', 'Tous niveaux');
-		$lessonTKDAll     = $this->createLesson($club, $location, 'Taekwondo', 'Tous niveaux');
-		$lessonTKDChild   = $this->createLesson($club, $location, 'Taekwondo', 'Baby / enfants');
-		$lessonHKD        = $this->createLesson($club, $location, 'Hapkido', 'Tous niveaux');
-		$lessonHKDBlkBelt = $this->createLesson($club, $location, 'Hapkido', 'Ceintures noires');
-		$timeslotTues19   = $this->createTimeSlot('tuesday', new \DateTime('19:00'), new \DateTime('19:45'));
-		$timeslotTues1945 = $this->createTimeSlot('tuesday', new \DateTime('19:45'), new \DateTime('20:30'));
-		$timeslotWed19    = $this->createTimeSlot('wednesday', new \DateTime('19:00'), new \DateTime('20:00'));
-		$timeslotThur19   = $this->createTimeSlot('thursday', new \DateTime('19:00'), new \DateTime('19:45'));
-		$timeslotThur1945 = $this->createTimeSlot('thursday', new \DateTime('19:45'), new \DateTime('20:30'));
-		$timeslotThur1945 = $this->createTimeSlot('thursday', new \DateTime('20:30'), new \DateTime('21:00'));
+		$club           = $this->createClub('Koryo', 'bry_sur_marne.gif', 'http://www.taekwondobry.fr');
+		$location       = $this->createLocation('Ecole Henri Cahn', '26 boulevard Général Gallieni', 'Bry-sur-Marne', '94360', '94');
 		// Tuesday
-		$manager->persist($this->createLinkLessonTimeSlot($lessonTKiDAll, $timeslotTues19));
-		$manager->persist($this->createLinkLessonTimeSlot($lessonTKDAll, $timeslotTues1945));
-		$manager->persist($this->createLinkLessonTimeSlot($lessonHKD, $timeslotTues1945));
+		$manager->persist($this->createLesson($club, $location, 'Taekwonkido', 'Tous niveaux', 'tuesday', new \DateTime('19:00'), new \DateTime('19:45')));
+		$manager->persist($this->createLesson($club, $location, 'Taekwondo', 'Tous niveaux', 'tuesday', new \DateTime('19:45'), new \DateTime('20:30')));
+		$manager->persist($this->createLesson($club, $location, 'Hapkido', 'Tous niveaux', 'tuesday', new \DateTime('19:45'), new \DateTime('20:30')));
 		// Wednesday
-		$manager->persist($this->createLinkLessonTimeSlot($lessonTKDChild, $timeslotWed19));
+		$manager->persist($this->createLesson($club, $location, 'Taekwonkido', 'Baby / enfants', 'wednesday', new \DateTime('19:00'), new \DateTime('20:00')));
 		// Thursday
-		$manager->persist($this->createLinkLessonTimeSlot($lessonTKiDAll, $timeslotThur19));
-		$manager->persist($this->createLinkLessonTimeSlot($lessonTKDAll, $timeslotThur1945));
-		$manager->persist($this->createLinkLessonTimeSlot($lessonHKD, $timeslotThur1945));
-		$manager->persist($this->createLinkLessonTimeSlot($lessonHKDBlkBelt, $timeslotThur1945));
+		$manager->persist($this->createLesson($club, $location, 'Taekwonkido', 'Tous niveaux', 'thursday', new \DateTime('19:00'), new \DateTime('19:45')));
+		$manager->persist($this->createLesson($club, $location, 'Taekwondo', 'Tous niveaux', 'thursday', new \DateTime('19:45'), new \DateTime('20:30')));
+		$manager->persist($this->createLesson($club, $location, 'Hapkido', 'Tous niveaux', 'thursday', new \DateTime('19:45'), new \DateTime('20:30')));
+		$manager->persist($this->createLesson($club, $location, 'Hapkido', 'Ceintures noires', 'thursday', new \DateTime('20:30'), new \DateTime('21:00')));
+		$manager->persist($this->createLesson($club, $location, 'Gumdo', 'Tous niveaux', 'thursday', new \DateTime('21:00'), new \DateTime('22:00')));
+		$manager->flush();
+		
+		// ======================== Chelles
+		$club           = $this->createClub('A.S.C. Taekwondo-Hapkido', 'todo.gif', 'http://www.taekwondochelles.fr');
+		$locationGDel   = $this->createLocation('Gymnase Delambre', 'avenue Delambre', 'Chelles', '77500', '77');
+		$locationPomp   = $this->createLocation('Gymnase de Pomponne', 'rue cornouillers ', 'Pomponne', '77400', '77');
+		$manager->persist($this->createLesson($club, $locationGDel, 'Taekwondo', 'Enfants (6-9 ans), blanches à orange-pourpre', 'monday', new \DateTime('18:30'), new \DateTime('19:30')));
+		$manager->persist($this->createLesson($club, $locationGDel, 'Taekwondo', 'Enfants (10-12 ans), pourpre et +', 'monday', new \DateTime('19:30'), new \DateTime('20:30')));
+		$manager->persist($this->createLesson($club, $locationGDel, 'Taekwondo, Taekwonkido', 'Adultes tous niveaux', 'monday', new \DateTime('20:15'), new \DateTime('22:00')));
+		$manager->persist($this->createLesson($club, $locationGDel, 'Taekwondo', 'Enfants (6-9 ans), blanches à orange-pourpre', 'wednesday', new \DateTime('18:30'), new \DateTime('19:30')));
+		$manager->persist($this->createLesson($club, $locationGDel, 'Taekwondo', 'Enfants (10-12 ans), pourpre et +', 'wednesday', new \DateTime('19:30'), new \DateTime('20:30')));
+		$manager->persist($this->createLesson($club, $locationGDel, 'Taekwondo, Taekwonkido', 'Adultes tous niveaux', 'wednesday', new \DateTime('20:15'), new \DateTime('22:00')));
+		$manager->persist($this->createLesson($club, $locationPomp, 'Taekwondo', 'Enfants (6-12 ans), blanches à orange-pourpre', 'thursday', new \DateTime('19:00'), new \DateTime('20:00')));
+		$manager->persist($this->createLesson($club, $locationPomp, 'Taekwondo', 'Adultes (13 ans et +)', 'thursday', new \DateTime('19:00'), new \DateTime('20:30')));
+		$manager->persist($this->createLesson($club, $locationPomp, 'Taekwonkido', 'Adultes (13 ans et +)', 'thursday', new \DateTime('20:30'), new \DateTime('21:00')));
+		
 	
 		$manager->flush();
 	}
@@ -56,15 +62,18 @@ class ClubsFixtures extends Fixture
 		return $club;
 	}
 	
-	private function createLesson($club, $location, $discipline, $age_level, $point = 1)
+	private function createLesson($club, $location, $discipline, $age_level, $day_of_week, $start_time, $end_time, $point = 1)
 	{
-		$clubloc = new ClubLesson();
-		$clubloc->setClub($club);
-		$clubloc->setClubLocation($location);
-		$clubloc->setDiscipline($discipline);
-		$clubloc->setPoint($point);
-		$clubloc->setAgeLevel($age_level);
-		return $clubloc;
+		$lesson = new ClubLesson();
+		$lesson->setClub($club);
+		$lesson->setClubLocation($location);
+		$lesson->setDiscipline($discipline);
+		$lesson->setPoint($point);
+		$lesson->setAgeLevel($age_level);
+		$lesson->setDayOfWeek($day_of_week);
+		$lesson->setStartTime($start_time);
+		$lesson->setEndTime($end_time);
+		return $lesson;
 	}
 	
 	private function createLocation($name, $address, $city, $zipcode, $county, $country = "France")
@@ -78,21 +87,5 @@ class ClubsFixtures extends Fixture
 		$clubloc->setCountry($country);
 		return $clubloc;
 	}
-	
-	private function createTimeSlot($day_of_week, $start_time, $end_time)
-	{
-		$timeslot = new ClubTimeSlot();
-		$timeslot->setDayOfWeek($day_of_week);
-		$timeslot->setStartTime($start_time);
-		$timeslot->setEndTime($end_time);
-		return $timeslot;
-	}
-	
-	private function createLinkLessonTimeSlot($lesson, $timeslot)
-	{
-		$lessontimeslot = new ClubLessonTimeSlot();
-		$lessontimeslot->setClubLesson($lesson);
-		$lessontimeslot->setClubTimeSlot($timeslot);
-		return $lessontimeslot;
-	}
+
 }

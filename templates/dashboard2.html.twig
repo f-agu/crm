@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}C&eacute;nacle R&eacute;mi Mollet{% endblock %}
+
+{% block stylesheets %}
+<link href="/assets/base/base.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0">
+	<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="{{ path('home') }}"><img src="/assets/img/logo.png" style="max-height:32px" /></a>
+	<input class="form-control form-control-dark w-100" type="text" placeholder="Rechercher" aria-label="Rechercher">
+	<ul class="navbar-nav px-3">
+		<li class="nav-item text-nowrap">
+			{% if user == null %}
+				<a class="nav-link" href="/login">{% trans %}Sign in{% endtrans %}</a>
+			{% else %}
+				<a class="nav-link" href="/logout">{% trans %}Sign out{% endtrans %}</a>
+			{% endif %}
+		</li>
+	</ul>
+</nav>
+ 
+    <nav class="navbar navbar-light bg-light navbar-expand-lg"> 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        	<span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- appeler le logo apres le bouton -->
+        <a class="navbar-brand" href="#">Logo</a>
+        
+        <!-- suite du menu -->
+    </nav>
+    
+
+<div class="container-fluid h-100">
+	<div class="row h-100">
+		<nav class="col-md-2 d-none d-md-block bg-light sidebar" style="padding-top: 46px;">
+			<div class="sidebar-sticky">
+				<div style="position:relative;z-index:1" id="navbarCollapse">
+					<ul class="nav flex-column">
+						{{ render(controller('App\\Controller\\MenuLeftController::viewMenuLeft')) }}
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="padding-top: 56px !important;">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+				{% block dashboardcontent %}{% endblock %}
+			</div>
+		</main>
+
+	</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
+<script src="/vendor/popper/popper.min.js"></script>
+<script src="/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script src="/vendor/feather/feather.min.js"></script>
+<script>
+	feather.replace()
+</script>
+
+{% endblock %}

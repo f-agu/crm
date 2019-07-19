@@ -6,32 +6,17 @@
 	<thead>
 		<tr>
 			<th scope="col">{% trans %}Name{% endtrans %}</th>
-			<th scope="col">{% trans %}County{% endtrans %}</th>
-			<th scope="col">{% trans %}City{% endtrans %}</th>
+			<th scope="col">{% trans %}Cities{% endtrans %}</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for club in clubs %}
 			<tr>
-				<th scope="row">{{ club.getName() }}</th>
-				<td>TODO</td>
-				<td>TODO</td>
+				<th scope="row">{{ club.name }}</th>
+				<td>{{ club.cities }}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
 </table>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
-<script src="/vendor/popper/popper.min.js"></script>
-<script src="/vendor/bootstrap/bootstrap.min.js"></script>
-
-<!-- Icons -->
-<script src="/vendor/feather/feather.min.js"></script>
-<script>
-  feather.replace()
-</script>
 
 {% endblock %}
