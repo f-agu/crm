@@ -60,9 +60,15 @@ class ClubLesson
      */
     private $end_time;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserLessonSubscribe", mappedBy="lesson", orphanRemoval=true)
+     */
+    private $userLessonSubscribes;
+
     public function __construct()
     {
         $this->clubLessonTimeSlots = new ArrayCollection();
+        $this->userLessonSubscribes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,6 +168,37 @@ class ClubLesson
     public function setEndTime(\DateTimeInterface $end_time): self
     {
         $this->end_time = $end_time;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserLessonSubscribe[]
+     */
+    public function getUserLessonSubscribes(): Collection
+    {
+        return $this->userLessonSubscribes;
+    }
+
+    public function addUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
+    {
+        if (!$this->userLessonSubscribes->contains($userLessonSubscribe)) {
+            $this->userLessonSubscribes[] = $userLessonSubscribe;
+            $userLessonSubscribe->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
+    {
+        if ($this->userLessonSubscribes->contains($userLessonSubscribe)) {
+            $this->userLessonSubscribes->removeElement($userLessonSubscribe);
+            // set the owning side to null (unless already changed)
+            if ($userLessonSubscribe->getLesson() === $this) {
+                $userLessonSubscribe->setLesson(null);
+            }
+        }
 
         return $this;
     }

@@ -1,22 +1,102 @@
 {% extends 'dashboard.html.twig' %}
 
+
+{% block stylesheets2 %}
+	<link href="/vendor/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
+{% endblock %}
+
+
 {% block dashboardcontent %}
 
-<table class="table">
-	<thead>
-		<tr>
-			<th scope="col">{% trans %}Lastname{% endtrans %}</th>
-			<th scope="col">{% trans %}Firstname{% endtrans %}</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for student in students %}
-			<tr>
-				<th scope="row">{{ student.lastname }}</th>
-				<td>{{ student.firstname }}</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
+	{% if is_granted('ROLE_TEACHER') %}
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudentModal">{% trans %}Add{% endtrans %}</button>
 
+		<div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createStudentModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="createStudentModalLabel">{% trans %}New student{% endtrans %}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="student_dialog">
+						<form id="student_form" action="/student" method="POST">
+							{# <!-- ========= lastname ========= --> #}
+							<div class="row">
+								<label for="lastname-name" class="col-sm-2 col-form-label">{% trans %}Lastname{% endtrans %}</label>
+								<input type="text" name="lastname" class="form-control col-sm-10" id="lastname-name">
+							</div>
+							{# <!-- ========= firstname ========= --> #}
+							<div class="row">
+								<label for="firstname-name" class="col-sm-2 col-form-label">{% trans %}Firstname{% endtrans %}</label>
+								<input type="text" name="firstname" class="form-control col-sm-10" id="firstname-name">
+							</div>
+							{# <!-- ========= birthday ========= --> #}
+							<div class="row">
+								<label for="birthday-name" class="col-sm-2 col-form-label">{% trans %}Birthday{% endtrans %}</label>
+								<input type="text" name="birthday" class="form-control col-sm-4" id="birthday-name">
+								{# <!-- ========= sex ========= --> #}
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-secondary">
+										<input type="radio" name="options" id="sex_female" autocomplete="off"> {% trans %}Female{% endtrans %}
+									</label>
+									<label class="btn btn-secondary">
+										<input type="radio" name="options" id="sex_male" autocomplete="off"> {% trans %}Male{% endtrans %}
+									</label>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+						<button type="button" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
+						<button id="submitCreateAndAddNew" type="button" class="btn btn-primary">{% trans %}Create and add new{% endtrans %}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br/>
+		<br/>
+	{% endif %}
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">{% trans %}Lastname{% endtrans %}</th>
+				<th scope="col">{% trans %}Firstname{% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for student in students %}
+				<tr>
+					<th scope="row">{{ student.lastname }}</th>
+					<td>{{ student.firstname }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
+
+
+{% block javascriptsafter1 %}
+	<script src="/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript">
+		{#
+		// https://uxsolutions.github.io/bootstrap-datepicker/?markup=input&format=&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&maxViewMode=4&todayBtn=false&clearBtn=false&language=fr&orientation=auto&multidate=&multidateSeparator=&calendarWeeks=on&keyboardNavigation=on&forceParse=on#sandbox
+		#}
+		var maxDate = new Date();
+		maxDate.setFullYear(maxDate.getFullYear() - 2);
+		var minDate = new Date();
+		minDate.setFullYear(minDate.getFullYear() - 100);
+		$('#birthday-name').datepicker({
+			startDate: minDate,
+			endDate: maxDate,
+			language: "fr",
+			calendarWeeks: true
+    });
+	</script>
+	<script src="/assets/students/students.js"></script>
 {% endblock %}

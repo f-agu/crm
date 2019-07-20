@@ -100,11 +100,17 @@ class User
      */
     private $accounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserLessonSubscribe", mappedBy="user", orphanRemoval=true)
+     */
+    private $userLessonSubscribes;
+
     public function __construct()
     {
         //$this->login = new ArrayCollection();
         $this->accounts = new ArrayCollection();
-        $this->created = new \DateTime(); 
+        $this->created = new \DateTime();
+        $this->userLessonSubscribes = new ArrayCollection(); 
     }
 
     public function getId(): ?int
@@ -305,6 +311,37 @@ class User
             // set the owning side to null (unless already changed)
             if ($account->getUser() === $this) {
                 $account->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserLessonSubscribe[]
+     */
+    public function getUserLessonSubscribes(): Collection
+    {
+        return $this->userLessonSubscribes;
+    }
+
+    public function addUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
+    {
+        if (!$this->userLessonSubscribes->contains($userLessonSubscribe)) {
+            $this->userLessonSubscribes[] = $userLessonSubscribe;
+            $userLessonSubscribe->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
+    {
+        if ($this->userLessonSubscribes->contains($userLessonSubscribe)) {
+            $this->userLessonSubscribes->removeElement($userLessonSubscribe);
+            // set the owning side to null (unless already changed)
+            if ($userLessonSubscribe->getUser() === $this) {
+                $userLessonSubscribe->setUser(null);
             }
         }
 
