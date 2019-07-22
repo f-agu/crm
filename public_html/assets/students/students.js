@@ -2,12 +2,13 @@ $(document).ready(function () {
 	$("#student_form").on("submit", function(e) {
 		var postData = $(this).serializeArray();
 		var formURL = $(this).attr("action");
+		console.log(postData);
 		$.ajax({
 			url: formURL,
 			type: "POST",
 			data: postData,
 			success: function(data, textStatus, jqXHR) {
-				console.log('OK');
+				console.log('OK with ', postData);
 				// $('#student_dialog .modal-header .modal-title').html("Result");
 				// $('#student_dialog .modal-body').html(data);
 				// $("#submitForm").remove();

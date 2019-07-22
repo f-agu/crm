@@ -86,3 +86,7 @@ Translations
 
 php bin/console translation:update --dump-messages --force fr
 php bin/console translation:update --dump-messages --force en
+
+
+https://www.codeprimus.de/a-rest-api-w-symfony4-from-scratch/
+
