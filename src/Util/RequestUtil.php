@@ -3,9 +3,12 @@
 namespace App\Util;
 
 use Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validation;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Exception\ViolationException;
 
 class RequestUtil
 {
@@ -13,29 +16,32 @@ class RequestUtil
 	private $validator;
 	private $violator;
 
-	public function __construct(SerializerInterface $serializer, ValidatorInterface $validator,	ViolationUtil $violator)
+	public function __construct(SerializerInterface $serializer, TranslatorInterface $translator)
 	{
 		$this->serializer = $serializer;
-		$this->validator = $validator;
-		$this->violator = $violator;
+		$this->validator = Validation::createValidatorBuilder()
+		      ->enableAnnotationMapping()
+		      ->getValidator();
+	   $this->violator = new ViolationUtil($translator);
 	}
 
-	public function validate(string $data, string $model): object
+	public function validate(Request $request, string $model): object
 	{
-		if (!$data) {
+		$data = $request->getContent();
+		if ( ! $data) {
 			throw new BadRequestHttpException('Empty body.');
 		}
 	
 		try {
 			$object = $this->serializer->deserialize($data, $model, 'json');
 		} catch (Exception $e) {
-			throw new BadRequestHttpException('Invalid body.');
+			throw new BadRequestHttpException('Invalid body, '.$e->getMessage().' - '.$data);
 		}
 
 		$errors = $this->validator->validate($object);
 
 		if ($errors->count()) {
-			throw new BadRequestHttpException(json_encode($this->violator->build($errors)));
+		    throw new ViolationException($this->violator->build($errors));
 		}
 
 		return $object;

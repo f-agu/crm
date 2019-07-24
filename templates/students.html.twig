@@ -21,23 +21,49 @@
 						</button>
 					</div>
 					<div class="modal-body" id="student_dialog">
-						<form id="student_form" action="/student" method="POST">
-							{# <!-- ========= lastname ========= --> #}
+						<form id="student_form" action="/student" method="POST" class="needs-validation" novalidate>
 							<div class="row">
+								<div class="col"> {# <!-- ========= lastname ========= --> #}
+									<input type="text" name="lastname" class="form-control" placeholder="{% trans %}Lastname{% endtrans %}">
+								</div>
+								<div class="col"> {# <!-- ========= firstname ========= --> #}
+									<input type="text" name="firstname" class="form-control" placeholder="{% trans %}Firstname{% endtrans %}">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col"> {# <!-- ========= birthday ========= --> #}
+									<input type="text" name="birthday" class="form-control" id="birthday-name" placeholder="{% trans %}Birthday{% endtrans %}">
+								</div>
+								<div class="col"> {# <!-- ========= sex ========= --> #}
+    								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+    									<label class="btn btn-secondary">
+    										<input type="radio" name="options" id="sex_female" autocomplete="off"> {% trans %}Female{% endtrans %}
+    									</label>
+    									<label class="btn btn-secondary">
+    										<input type="radio" name="options" id="sex_male" autocomplete="off"> {% trans %}Male{% endtrans %}
+    									</label>
+    								</div>
+								</div>
+							</div>
+									
+	
+	                        {# <!-- ========= lastname ========= --> #}
+							{# <div class="row">
 								<label for="lastname-name" class="col-sm-2 col-form-label">{% trans %}Lastname{% endtrans %}</label>
 								<input type="text" name="lastname" class="form-control col-sm-10" id="lastname-name">
-							</div>
+								<div class="valid-feedback">Looks good!</div>
+							</div> #}
 							{# <!-- ========= firstname ========= --> #}
-							<div class="row">
+							{# <div class="row">
 								<label for="firstname-name" class="col-sm-2 col-form-label">{% trans %}Firstname{% endtrans %}</label>
 								<input type="text" name="firstname" class="form-control col-sm-10" id="firstname-name">
-							</div>
+							</div> #}
 							{# <!-- ========= birthday ========= --> #}
-							<div class="row">
+							{# <div class="row">
 								<label for="birthday-name" class="col-sm-2 col-form-label">{% trans %}Birthday{% endtrans %}</label>
-								<input type="text" name="birthday" class="form-control col-sm-4" id="birthday-name">
+								<input type="text" name="birthday" class="form-control col-sm-4" id="birthday-name"> #}
 								{# <!-- ========= sex ========= --> #}
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+								{# <div class="btn-group btn-group-toggle" data-toggle="buttons">
 									<label class="btn btn-secondary">
 										<input type="radio" name="options" id="sex_female" autocomplete="off"> {% trans %}Female{% endtrans %}
 									</label>
@@ -45,7 +71,7 @@
 										<input type="radio" name="options" id="sex_male" autocomplete="off"> {% trans %}Male{% endtrans %}
 									</label>
 								</div>
-							</div>
+							</div> #}
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -83,6 +109,7 @@
 
 {% block javascriptsafter1 %}
 	<script src="/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.fr.min.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 		{#
 		// https://uxsolutions.github.io/bootstrap-datepicker/?markup=input&format=&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&maxViewMode=4&todayBtn=false&clearBtn=false&language=fr&orientation=auto&multidate=&multidateSeparator=&calendarWeeks=on&keyboardNavigation=on&forceParse=on#sandbox
@@ -94,7 +121,7 @@
 		$('#birthday-name').datepicker({
 			startDate: minDate,
 			endDate: maxDate,
-			language: "fr",
+			language: 'fr',
 			calendarWeeks: true
     });
 	</script>

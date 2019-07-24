@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\MenuItem;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 class MenuLeftController extends AbstractController
 {

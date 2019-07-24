@@ -3,10 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Club;
-use App\DTO\Clubs\ClubDTO;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\ResultSetMapping;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**

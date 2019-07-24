@@ -5,8 +5,6 @@ namespace App\DataFixtures;
 use App\Entity\Club;
 use App\Entity\ClubLesson;
 use App\Entity\ClubLocation;
-use App\Entity\ClubTimeSlot;
-use App\Entity\ClubLessonTimeSlot;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
