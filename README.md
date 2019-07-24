@@ -90,3 +90,13 @@ php bin/console translation:update --dump-messages --force en
 
 https://www.codeprimus.de/a-rest-api-w-symfony4-from-scratch/
 
+=======
+
+MEP
+===============
+
+git pull
+composer install
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+====  php bin/console doctrine:fixtures:load  ====
