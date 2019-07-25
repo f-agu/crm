@@ -27,11 +27,21 @@ class UserService
 	    $user->setLastname($userCreate->getLastname());
 	    $user->setFirstname($userCreate->getFirstname());
 	    $user->setBirthday(new \DateTime($userCreate->parseFrBirthday()));
+	    $user->setSex($userCreate->getSex());
+	    $user->setAddress($userCreate->getAddress());
+	    $user->setZipcode($userCreate->getZipcode());
+	    $user->setCity($userCreate->getCity());
+	    $user->setPhone($userCreate->getPhone());
+	    $user->setPhoneEmergency($userCreate->getPhoneEmergency());
+	    $user->setNationality($userCreate->getNationality());
+	    $user->setMails($userCreate->getMails());
 	    $this->em->persist($user);
 	    $this->em->flush();
 		
 		return array(
-		    'id' => $user->getId()
+		    'id' => $user->getId(),
+		    'lastname' => $user->getLastname(),
+		    'firstname' => $user->getFirstname(),
             );
 	}
     

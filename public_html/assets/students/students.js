@@ -1,5 +1,11 @@
+var countCreated = 0;
+
 $(document).ready(function () {
+	//var submitCreateButton = $("#submitCreate");
+	var submitCreateAndAddNewButton = $("#submitCreateAndAddNew");
 	$("#student_form").on("submit", function(e) {
+		//disableButton(submitCreateButton);
+		disableButton(submitCreateAndAddNewButton);
 		var postData = $(this).serializeObject();
 		var formURL = $(this).attr("action");
 		$.ajax({
@@ -9,32 +15,67 @@ $(document).ready(function () {
 			dataType : 'json',
 			contentType: 'application/json',
 			success: function(data2, textStatus, jqXHR) {
-				// TODO
-				console.log('OK with ', postData);
-				// $('#student_dialog .modal-header .modal-title').html("Result");
-				// $('#student_dialog .modal-body').html(data);
-				// $("#submitForm").remove();
+				++countCreated;
+				handleOk("student_form", jqXHR.responseJSON);
+				//console.log('OK with ', postData);
 			},
 			error: function(jqXHR, status, error) {
-				var errorJson = jqXHR.responseJSON;
-				handleError(e, errorJson);
+				handleError("student_form", jqXHR.responseJSON);
 				//console.log('ERRRRROR', status + ": " + error, jqXHR.responseJSON);
 			}
 		});
 		e.preventDefault();
+		//enableButton(submitCreateButton);
+		enableButton(submitCreateAndAddNewButton);
 	});
+	/*$("#submitCreate").on('click', function() {
+		$("#student_form").trigger("reset");
+		//$("#student_form").submit();
+	});*/
 	$("#submitCreateAndAddNew").on('click', function() {
 		$("#student_form").submit();
 	});
 });
 
-function handleError(formElement, errorJson) {
-	var form = document.getElementById("student_form");
+
+function enableButton(button) {
+	button.prop('disabled', false);
+	button.removeClass('disabled');
+}
+
+function disableButton(button) {
+	button.prop('disabled', true);
+	button.addClass('disabled');
+}
+
+function handleOk(formName, jqXHR) {
+	$("#student_form").trigger("reset");
+	var data = jqXHR.extra;
+	console.log('data', data);
+	if(data) {
+		var lastname = data.lastname;
+		var firstname = data.firstname;
+		console.log('lastname', lastname, firstname, firstname);
+		if(lastname && firstname) {
+			console.log('lastname', lastname, firstname, firstname);
+			$("#created_message").css('display', '');
+			$("#name_created").text(lastname + ' ' + firstname);
+		}
+	}
+	resetValidation(formName);
+}
+
+function resetValidation(formName) {
+	$("#" + formName + " .form-control").removeClass("is-valid");
+	$("#" + formName + " .form-control").removeClass("is-invalid");
+}
+
+function handleError(formName, errorJson) {
+	var form = document.getElementById(formName);
+	resetValidation(formName);
 	var data = errorJson.extra;
-	$("#student_form .form-control").removeClass("is-valid");
-	$("#student_form .form-control").removeClass("is-invalid");
 	Object.keys(data).forEach(function(k) {
-		var input = $("#student_form [name='" + k + "']");
+		var input = $("#" + formName + " [name='" + k + "']");
 		if(input) {
 			input.addClass("is-invalid");
 			console.log(k + ' - ' + data[k], input);
@@ -52,19 +93,9 @@ function handleError(formElement, errorJson) {
 	event.stopPropagation();
 }
 
-(function() {
-	'use strict';
-	window.addEventListener('load', function() {
-		var forms = document.getElementsByClassName('needs-validation');
-		var validation = Array.prototype.filter.call(forms, function(form) {
-			
-			form.addEventListener('submit', function(event) {
-				if (form.checkValidity() === false) {
-					event.preventDefault();
-					event.stopPropagation();
-				}
-				form.classList.add('was-validated');
-			}, false);
-		});
-	}, false);
-})();
+$('#createStudentModal').on('hidden.bs.modal', function (e) {
+	if(countCreated > 0) {
+		location.reload();
+	}
+})
+

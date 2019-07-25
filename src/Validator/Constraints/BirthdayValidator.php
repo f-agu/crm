@@ -26,9 +26,9 @@ class BirthdayValidator extends ConstraintValidator
                     ->addViolation();
             }
             $maxDate = new \DateTime("now");
-            $maxDate->sub(new \DateInterval('P10Y'));
+            $maxDate->sub(new \DateInterval('P2Y'));
             $minDate = new \DateTime("now");
-            $minDate->sub(new \DateInterval('P30Y'));
+            $minDate->sub(new \DateInterval('P100Y'));
             $dateLocalizedEN = $matches[2].'/'.$matches[1].'/'.$matches[3];
             $date = new \DateTime($dateLocalizedEN);
             if($maxDate < $date) {
