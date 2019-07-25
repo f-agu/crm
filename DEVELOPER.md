@@ -63,3 +63,21 @@ php bin/console doctrine:fixtures:load
 Inspect the result with a browser : http://localhost/phpmyadmin/  (user : root, password : )
 
 
+## Update your environment
+
+Update the project. In the root folder project, do :
+
+```
+git pull
+composer install
+```
+
+Ensure Wamp64 is running.
+
+Recreate / update the database :
+
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
+```

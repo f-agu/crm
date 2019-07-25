@@ -1,6 +1,7 @@
 /.buildpath
 /.project
 /.settings/
+/*.bak
 
 ###> symfony/framework-bundle ###
 /.env.local
