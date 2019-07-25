@@ -3,6 +3,8 @@
 /.settings/
 /*.bak
 
+
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -20,3 +22,37 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+### MEP ###
+/.bash_history
+/.bash_logout
+/.bash_profile
+/.bashrc
+/.cagefs/
+/.cl.selector/
+/.composer/
+/.contactemail
+/.cpanel/
+/.cphorde/
+/.gemrc
+/.htpasswds/
+/.lastlogin
+/.lesshst
+/.pki/
+/.sitepad/
+/.softaculous/
+/.spamassassin/
+/.spamassassinboxenable
+/.spamassassinenable
+/.ssh/
+/.symfony/
+/.trash/
+/.zshrc
+/access-logs/
+/etc/
+/mail/
+/perl5/
+/ssl/
+/tmp/
+/web/
+/www/
