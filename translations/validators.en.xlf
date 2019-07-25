@@ -365,6 +365,18 @@
         <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
         <target>This password has been leaked in a data breach, it must not be used. Please use another password.</target>
       </trans-unit>
+      <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
+        <source>This form should not contain extra fields.</source>
+        <target>This form should not contain extra fields.</target>
+      </trans-unit>
+      <trans-unit id="WPnLAh9" resname="The uploaded file was too large. Please try to upload a smaller file.">
+        <source>The uploaded file was too large. Please try to upload a smaller file.</source>
+        <target>The uploaded file was too large. Please try to upload a smaller file.</target>
+      </trans-unit>
+      <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
+        <source>The CSRF token is invalid. Please try to resubmit the form.</source>
+        <target>The CSRF token is invalid. Please try to resubmit the form.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
