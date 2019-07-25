@@ -53,6 +53,42 @@
         <source>Remember me</source>
         <target>__Remember me</target>
       </trans-unit>
+      <trans-unit id="M8USxu7" resname="Teachers">
+        <source>Teachers</source>
+        <target>__Teachers</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>__Add</target>
+      </trans-unit>
+      <trans-unit id="XhsuudY" resname="New student">
+        <source>New student</source>
+        <target>__New student</target>
+      </trans-unit>
+      <trans-unit id="xhOKv6a" resname="Birthday">
+        <source>Birthday</source>
+        <target>__Birthday</target>
+      </trans-unit>
+      <trans-unit id="6MyoCK5" resname="Female">
+        <source>Female</source>
+        <target>__Female</target>
+      </trans-unit>
+      <trans-unit id="A.jBJz4" resname="Male">
+        <source>Male</source>
+        <target>__Male</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>__Close</target>
+      </trans-unit>
+      <trans-unit id="R1lJisK" resname="Create">
+        <source>Create</source>
+        <target>__Create</target>
+      </trans-unit>
+      <trans-unit id="lvqenjW" resname="Create and add new">
+        <source>Create and add new</source>
+        <target>__Create and add new</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

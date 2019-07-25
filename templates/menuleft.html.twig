@@ -27,4 +27,13 @@
 		</li>
 	{% endif %}
 	
+	{% if menuItem.code == 'teachers' %}
+		<li class="nav-item">
+			<a class="nav-link" href="#">
+				<span data-feather="award"></span>
+				{% trans %}Teachers{% endtrans %}
+			</a>
+		</li>
+	{% endif %}
+	
 {% endfor %}
