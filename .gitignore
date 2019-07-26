@@ -10,7 +10,7 @@
 /.env.local.php
 /.env.*.local
 /public/bundles/
-/src/Migrations/
+/src/Migrations/Version2019*
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
