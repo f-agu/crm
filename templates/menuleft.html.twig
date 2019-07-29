@@ -18,20 +18,11 @@
 		</li>
 	{% endif %}
 	
-	{% if menuItem.code == 'students' %}
+	{% if menuItem.code == 'users' %}
 		<li class="nav-item">
-			<a class="nav-link" href="/students">
+			<a class="nav-link" href="/user">
 				<span data-feather="users"></span>
-				{% trans %}Students{% endtrans %}
-			</a>
-		</li>
-	{% endif %}
-	
-	{% if menuItem.code == 'teachers' %}
-		<li class="nav-item">
-			<a class="nav-link" href="#">
-				<span data-feather="award"></span>
-				{% trans %}Teachers{% endtrans %}
+				{% trans %}Users{% endtrans %}
 			</a>
 		</li>
 	{% endif %}

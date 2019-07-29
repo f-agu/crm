@@ -25,9 +25,9 @@ class MenuLeftController extends AbstractController
 			}
 		}
 		
-			return $this->render(
-				'menuleft.html.twig',
-				['menuItems' => $filteredMenuItems]
-			);
+		return $this->render(
+			'menuleft.html.twig',
+			['menuItems' => $filteredMenuItems]
+		);
 	}
 }

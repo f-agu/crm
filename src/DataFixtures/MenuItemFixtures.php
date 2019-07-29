@@ -14,8 +14,7 @@ class MenuItemFixtures extends Fixture
 		
 	    $manager->persist($this->createItem("clubs", 100, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("documents", 200, ["ROLE_TEACHER", "ROLE_STUDENT"]));
-		$manager->persist($this->createItem("students", 300, ["ROLE_TEACHER"]));
-		$manager->persist($this->createItem("teachers", 400, ["ROLE_ADMIN"]));
+		$manager->persist($this->createItem("users", 300, ["ROLE_TEACHER"]));
 		
 		$manager->flush();
 	}

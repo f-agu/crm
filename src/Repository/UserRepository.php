@@ -28,12 +28,12 @@ class UserRepository extends ServiceEntityRepository
               ."  JOIN user_lesson_subscribe tsubsc ON teacher.id = tsubsc.user_id"
               ."  JOIN user_lesson_subscribe usubsc ON tsubsc.lesson_id = usubsc.lesson_id"
               ."  JOIN user u ON u.id = usubsc.user_id"
-              ." WHERE a.id = :teacherAccountId";
+              ." WHERE a.id = :accountId";
         
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata('App\Entity\User', 'u');
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
-        $query->setParameter('teacherAccountId', $accountId);
+        $query->setParameter('accountId', $accountId);
         return $query->getResult();
     }
     

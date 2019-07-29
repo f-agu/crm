@@ -371,4 +371,9 @@ class User
         return $this;
     }
 
+    public function __toString()
+    {
+        return 'User[id: '.$this->id.' ; uuid: '.$this->uuid.' ; '.$this->lastname.' '.$this->firstname.']';
+    }
+    
 }

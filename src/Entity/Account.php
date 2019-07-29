@@ -126,4 +126,9 @@ class Account implements UserInterface
         // $this->plainPassword = null;
     }
 
+    public function __toString()
+    {
+        return 'Account[id: '.$this->id.' ; '.$this->login.']';
+    }
+    
 }
