@@ -1,0 +1,123 @@
+{% extends 'dashboard.html.twig' %}
+
+
+{% block stylesheets2 %}
+	<link href="/vendor/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block dashboardcontent %}
+
+	<div class="row p-3">
+    	<button type="button" class="btn btn-primary" id="btn-modify">
+    	    <span data-feather="edit-2"></span>
+    	    {% trans %}Modify{% endtrans %}
+    	</button>
+    	<button type="button" class="btn btn-secondary" id="btn-cancel" style="display: none;">
+    	    <span data-feather="x"></span>
+    	    {% trans %}Cancel{% endtrans %}
+    	</button>
+    </div>
+	
+	<form id="student_form" action="/api/user/{{ user.uuid }}" method="POST" class="needs-validation" novalidate>
+        <div class="row"> {# form-group #}
+            <label for="staticLastname" class="col-sm-2 col-form-label"><strong>{% trans %}Lastname{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticLastname" value="{{ user.lastname }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticFirstname" class="col-sm-2 col-form-label"><strong>{% trans %}Firstname{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticFirstname" value="{{ user.firstname }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticBirthday" class="col-sm-2 col-form-label"><strong>{% trans %}Birthday{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticBirthday" value="{{ user.birthday.date_fr }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticSex" class="col-sm-2 col-form-label"><strong>{% trans %}Sex{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticAddress" class="col-sm-2 col-form-label"><strong>{% trans %}Address{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ user.address }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticZipcode" class="col-sm-2 col-form-label"><strong>{% trans %}Zipcode{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticZipcode" value="{{ user.zipcode }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticCity" class="col-sm-2 col-form-label"><strong>{% trans %}City{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ user.city }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticPhone" class="col-sm-2 col-form-label"><strong>{% trans %}Phone{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ user.phone }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticPhoneEmergency" class="col-sm-2 col-form-label"><strong>{% trans %}Phone emergency{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticPhoneEmergency" value="{{ user.city }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticNationality" class="col-sm-2 col-form-label"><strong>{% trans %}Nationality{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticNationality" value="{{ user.nationality }}">
+        	</div>
+        </div>
+        <div class="row">
+            <label for="staticMails" class="col-sm-2 col-form-label"><strong>{% trans %}Mails{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticMails" value="{{ user.mails }}">
+        	</div>
+        </div>
+        <div class="row p-3">
+        	<button id="submitUpdate" type="button" class="btn btn-primary" style="display: none;">
+        	    <span data-feather="save"></span>
+    	        {% trans %}Save{% endtrans %}
+        	</button>
+        </div>
+	</form>
+
+{% endblock %}
+
+
+
+{% block javascriptsafter1 %}
+	<script src="/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.fr.min.js" charset="UTF-8"></script>
+	<script type="text/javascript">
+		{#
+		// https://uxsolutions.github.io/bootstrap-datepicker/?markup=input&format=&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&maxViewMode=4&todayBtn=false&clearBtn=false&language=fr&orientation=auto&multidate=&multidateSeparator=&calendarWeeks=on&keyboardNavigation=on&forceParse=on#sandbox
+		#}
+		var maxDate = new Date();
+		maxDate.setFullYear(maxDate.getFullYear() - 2);
+		var minDate = new Date();
+		minDate.setFullYear(minDate.getFullYear() - 100);
+		var startDate = new Date();
+		startDate.setFullYear(startDate.getFullYear() - 10);
+		/*$('#staticBirthday').datepicker({
+			startDate: minDate,
+			endDate: maxDate,
+			defaultViewDate: startDate,
+			language: 'fr',
+			calendarWeeks: true
+        });*/
+    </script>
+	<script src="/assets/user/user.js"></script>
+{% endblock %}

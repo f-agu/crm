@@ -9,6 +9,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
 use App\Entity\User;
+use App\Util\DateUtils;
 
 
 class UserService
@@ -26,7 +27,7 @@ class UserService
 	    $user = new User();
 	    $user->setLastname($userCreate->getLastname());
 	    $user->setFirstname($userCreate->getFirstname());
-	    $user->setBirthday(new \DateTime($userCreate->parseFrBirthday()));
+	    $user->setBirthday(DateUtils::parseFrenchToDateTime($userCreate->getBirthday()));
 	    $user->setSex($userCreate->getSex());
 	    $user->setAddress($userCreate->getAddress());
 	    $user->setZipcode($userCreate->getZipcode());

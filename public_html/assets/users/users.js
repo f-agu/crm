@@ -35,6 +35,12 @@ $(document).ready(function () {
 	$("#submitCreateAndAddNew").on('click', function() {
 		$("#student_form").submit();
 	});
+	
+    $('#table-users > tbody > tr').click(function(e) {
+    	document.location.href = '/user/' + e.target.parentNode.id;
+    	//console.log('/user/' + e.target.parentNode.id);
+	});
+
 });
 
 

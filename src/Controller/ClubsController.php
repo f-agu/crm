@@ -20,8 +20,8 @@ class ClubsController extends AbstractController
 				
 		$user = $this->getUser();
 		return $this->render('clubs.html.twig', [
-			'user' => $user,
-		  'clubs' => $clubDTOs
+			'connectedUser' => $user,
+		    'clubs' => $clubDTOs
 		]);
 	}
 }

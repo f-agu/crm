@@ -20,7 +20,7 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findInMyClubs($accountId)
+    public function findInMyClubs($accountId, $uuid = null)
     {
         $sql = "SELECT u.*"
               ." FROM account a"
@@ -29,11 +29,17 @@ class UserRepository extends ServiceEntityRepository
               ."  JOIN user_lesson_subscribe usubsc ON tsubsc.lesson_id = usubsc.lesson_id"
               ."  JOIN user u ON u.id = usubsc.user_id"
               ." WHERE a.id = :accountId";
+        if($uuid) {
+            $sql = $sql." AND u.uuid = :uuid";
+        }
         
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata('App\Entity\User', 'u');
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
         $query->setParameter('accountId', $accountId);
+        if($uuid) {
+            $query->setParameter('uuid', $uuid);
+        }
         return $query->getResult();
     }
     

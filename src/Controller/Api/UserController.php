@@ -26,12 +26,11 @@ class UserController extends AbstractController
      * @IsGranted("ROLE_TEACHER")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function listAll(Request $request, LoggerInterface $logger)
+    public function listAll()
     {
-        $user = $this->getUser();
+        $account = $this->getUser();
         $data = array();
         if($this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) {
-            $logger->info("granted admin");
             $data = $this->getDoctrine()->getManager()
                 ->getRepository(User::class)
                 ->findBy([], [
@@ -39,12 +38,11 @@ class UserController extends AbstractController
                     'firstname' => 'ASC'
                 ]);
         } elseif($this->get('security.authorization_checker')->isGranted("ROLE_TEACHER")) {
-            $logger->info("granted teacher");
             $data = $this->getDoctrine()->getManager()
                 ->getRepository(User::class)
-                ->findInMyClubs($user->getId());
-        } else {
-            $logger->info("granted nothing");
+                ->findInMyClubs($account->getId());
+        } elseif($this->get('security.authorization_checker')->isGranted("ROLE_USER")) {
+            $data = array($account->getUser());
         }
         $output = array();
         foreach ($data as &$u) {
@@ -52,9 +50,37 @@ class UserController extends AbstractController
             array_push($output, $uv->jsonSerialize());
         }
         
-        return ShortResponse::success('created', $output);
+        return ShortResponse::success('listed', $output);
     }
     
+    /**
+     * @Route("/api/user/{uuid}", name="api_user_one", methods={"GET"})
+     * @IsGranted("ROLE_TEACHER")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function one($uuid, LoggerInterface $logger)
+    {
+        $account = $this->getUser();
+        $data = array();
+        if($this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) {
+            $data = $this->getDoctrine()->getManager()
+                ->getRepository(User::class)
+                ->findBy(['uuid' => $uuid]);
+        } elseif($this->get('security.authorization_checker')->isGranted("ROLE_TEACHER")) {
+            $data = $this->getDoctrine()->getManager()
+                ->getRepository(User::class)
+                ->findInMyClubs($account->getId(), $uuid);
+        } elseif($this->get('security.authorization_checker')->isGranted("ROLE_USER")) {
+            $data = array($account->getUser());
+        }
+        $output = [];
+        if(count($data) > 0) {
+            $uv = new UserView($data[0]);
+            $output = $uv->jsonSerialize();
+        }
+        
+        return ShortResponse::success('getted', $output);
+    }
     
     /**
  	 * @Route("/api/user", name="api_user_create-one", methods={"POST"})

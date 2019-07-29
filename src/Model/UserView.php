@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Entity\User;
+use App\Util\DateUtils;
 
 class UserView
 {
@@ -25,7 +26,7 @@ class UserView
 	    $this->uuid = $user->getUuid();
 	    $this->lastname = $user->getLastname();
 	    $this->firstname = $user->getFirstname();
-	    $this->birthday = $user->getBirthday();
+	    $this->birthday = DateUtils::toArray($user->getBirthday());
 	    $this->sex = $user->getSex();
 	    $this->address = $user->getAddress();
 	    $this->zipcode = $user->getZipcode();
@@ -34,7 +35,7 @@ class UserView
 	    $this->phone_emergency = $user->getPhoneEmergency();
 	    $this->nationality = $user->getNationality();
 	    $this->mails = $user->getMails();
-	    $this->created = $user->getCreated();
+	    $this->created = DateUtils::toArray($user->getCreated());
 	}
 	
 	public function getUuid()
@@ -54,15 +55,7 @@ class UserView
 
 	public function getBirthday()
 	{
-		return $this->birthday;
-	}
-	
-	public function parseFrBirthday()
-	{
-	    if (preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/", $this->birthday, $matches)) {
-	        return $matches[2].'/'.$matches[1].'/'.$matches[3];
-	    }
-	    return null;
+	    return $this->birthday;
 	}
 
 	public function getSex(): ?string
@@ -118,7 +111,7 @@ class UserView
 	        'lastname' => $this->getLastname(),
 	        'firstname' => $this->getFirstname(),
 	        'sex' => $this->getSex(),
-	        'birthday' => $this->getBirthday()->format('Y-m-d'),
+	        'birthday' => $this->getBirthday(),
 	        'address' => $this->getAddress(),
 	        'city' => $this->getCity(),
 	        'mails' => $this->getMails(),
@@ -126,7 +119,7 @@ class UserView
 	        'phone' => $this->getPhone(),
 	        'phone_emergency' => $this->getPhoneEmergency(),
 	        'zipcode' => $this->getZipcode(),
-	        'created' => $this->getCreated()->format('Y-m-d'),
+	        'created' => $this->getCreated(),
 	    ];
 	}
 }

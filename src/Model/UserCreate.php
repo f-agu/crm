@@ -93,14 +93,6 @@ class UserCreate
 		return $this->birthday;
 	}
 	
-	public function parseFrBirthday()
-	{
-	    if (preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/", $this->birthday, $matches)) {
-	        return $matches[2].'/'.$matches[1].'/'.$matches[3];
-	    }
-	    return null;
-	}
-	
 	public function setBirthday($birthday)
 	{
 		$this->birthday = $birthday;

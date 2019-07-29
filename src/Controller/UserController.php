@@ -2,31 +2,41 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Psr\Log\LoggerInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user", name="user", methods={"GET"})
+     * @Route("/user", name="web_user_all", methods={"GET"})
      * @IsGranted("ROLE_TEACHER")
      */
-    public function viewAll(Request $request, LoggerInterface $logger)
+    public function viewAll()
     {
         $user = $this->getUser();
-        $response = $this->forward('App\Controller\Api\UserController::listAll', array('request'  => $request));
+        $response = $this->forward('App\Controller\Api\UserController::listAll');
         $json = json_decode($response->getContent());
         return $this->render('users.html.twig', [
-            'user' => $user,
+            'connectedUser' => $user,
             'users' => $json->extra
         ]);
     }
-  
+
+    /**
+     * @Route("/user/{uuid}", name="web_user_one", methods={"GET"})
+     * @IsGranted("ROLE_TEACHER")
+     */
+    public function viewOne($uuid)
+    {
+        $user = $this->getUser();
+        $response = $this->forward('App\Controller\Api\UserController::one', ['uuid' => $uuid]);
+        $json = json_decode($response->getContent());
+        return $this->render('user.html.twig', [
+            'connectedUser' => $user,
+            'user' => $json->extra
+        ]);
+    }
+    
 }
