@@ -81,3 +81,24 @@ php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 ```
+
+
+# Update Translations
+
+```
+php bin/console translation:update --dump-messages --force fr
+php bin/console translation:update --dump-messages --force en
+```
+
+# Push to production
+
+In the production server :
+
+```
+git pull
+composer install
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+php bin/console cache:clear ?

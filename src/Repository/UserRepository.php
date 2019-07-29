@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,23 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function findInMyClubs($accountId)
+    {
+        $sql = "SELECT u.*"
+              ." FROM account a"
+              ."  JOIN user teacher ON a.user_id = teacher.id"
+              ."  JOIN user_lesson_subscribe tsubsc ON teacher.id = tsubsc.user_id"
+              ."  JOIN user_lesson_subscribe usubsc ON tsubsc.lesson_id = usubsc.lesson_id"
+              ."  JOIN user u ON u.id = usubsc.user_id"
+              ." WHERE a.id = :teacherAccountId";
+        
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata('App\Entity\User', 'u');
+        $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
+        $query->setParameter('teacherAccountId', $accountId);
+        return $query->getResult();
+    }
+    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
@@ -45,6 +63,6 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
-    */
+    }*/
+    
 }

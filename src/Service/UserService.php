@@ -39,7 +39,7 @@ class UserService
 	    $this->em->flush();
 		
 		return array(
-		    'id' => $user->getId(),
+		    'uuid' => $user->getUuid(),
 		    'lastname' => $user->getLastname(),
 		    'firstname' => $user->getFirstname(),
             );

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Util\StringUtils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(
+ *      indexes={@ORM\Index(name="idx_user_uuid", columns={"uuid"})},
+ *      uniqueConstraints={@ORM\UniqueConstraint(columns={"uuid"})})
  */
 class User
 {
@@ -20,6 +24,12 @@ class User
      */
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=16)
+     */
+    private $uuid;
+    
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
@@ -110,7 +120,8 @@ class User
         //$this->login = new ArrayCollection();
         $this->accounts = new ArrayCollection();
         $this->created = new \DateTime();
-        $this->userLessonSubscribes = new ArrayCollection(); 
+        $this->userLessonSubscribes = new ArrayCollection();
+        $this->uuid = StringUtils::random_str(16);
     }
 
     public function getId(): ?int
@@ -118,6 +129,18 @@ class User
         return $this->id;
     }
 
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+    
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
+        
+        return $this;
+    }
+    
     public function getLastname(): ?string
     {
         return $this->lastname;

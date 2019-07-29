@@ -1,24 +1,50 @@
 -- #################### SEARCH ####################
 
--- USER
-SELECT 'user', id, CONCAT(lastname, ' ', firstname)
+-- USER (all)
+SELECT 'user', id, uuid, CONCAT(lastname, ' ', firstname) AS name
  FROM user
- WHERE remove_accents(lower(lastname)) LIKE :query 
+ WHERE (remove_accents(lower(lastname)) LIKE :query 
     OR remove_accents(lower(firstname)) LIKE :query
     OR remove_accents(lower(mails)) LIKE :query
     OR remove_accents(lower(address)) LIKE :query
     OR remove_accents(lower(city)) LIKE :query
     OR remove_accents(lower(nationality)) LIKE :query
+    )
+
+
+-- USER (for a teacher)
+SELECT 'user', u.id, CONCAT(u.lastname, ' ', u.firstname) AS name
+ FROM account a
+  JOIN user teacher ON a.user_id = teacher.id
+  JOIN user_lesson_subscribe tsubsc ON teacher.id = tsubsc.user_id
+  JOIN user_lesson_subscribe usubsc ON tsubsc.lesson_id = usubsc.lesson_id
+  JOIN user u ON u.id = usubsc.user_id
+ WHERE a.id = :teacherAccountId
+   AND (remove_accents(lower(u.lastname)) LIKE :query 
+     OR remove_accents(lower(u.firstname)) LIKE :query
+     OR remove_accents(lower(u.mails)) LIKE :query
+     OR remove_accents(lower(u.address)) LIKE :query
+     OR remove_accents(lower(u.city)) LIKE :query
+     OR remove_accents(lower(u.nationality)) LIKE :query
+   	 )
+ GROUP BY 1, 2, 3, 4
+
+
+
 
 -- ACCOUNT
-SELECT 'account', a.id, CONCAT(lastname, ' ', firstname)
+SELECT 'account', a.id, u.uuid, CONCAT(lastname, ' ', firstname) AS name
  FROM account a
   JOIN user u ON a.user_id = u.id
  WHERE remove_accents(lower(login)) LIKE :query
- GROUP BY 1, 2, 3
+ GROUP BY 1, 2, 3, 4
+
+
+
+
 
 -- CLUB
-SELECT 'club', c.id, c.name
+SELECT 'club', c.id, c.uuid, c.name
  FROM club c
   JOIN club_lesson cles ON (cles.club_id = c.id AND c.active)
   JOIN club_location cl ON cles.club_location_id = cl.id

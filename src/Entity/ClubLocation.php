@@ -5,9 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Util\StringUtils;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClubLocationRepository")
+ * @ORM\Table(
+ *      indexes={@ORM\Index(name="idx_club_location_uuid", columns={"uuid"})},
+ *      uniqueConstraints={@ORM\UniqueConstraint(columns={"uuid"})})
  */
 class ClubLocation
 {
@@ -17,7 +21,12 @@ class ClubLocation
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
+    /**
+     * @ORM\Column(type="string", length=16)
+     */
+    private $uuid;
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -56,13 +65,26 @@ class ClubLocation
     public function __construct()
     {
         $this->clubLessons = new ArrayCollection();
+        $this->uuid = StringUtils::random_str(16);
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+    
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
+        
+        return $this;
+    }
+    
     public function getName(): ?string
     {
         return $this->name;
