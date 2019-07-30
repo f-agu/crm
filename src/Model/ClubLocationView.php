@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model;
+
+use App\Entity\ClubLocation;
 
 class ClubLocationView
 {
@@ -56,20 +58,6 @@ class ClubLocationView
     public function getCountry(): ?string
     {
         return $this->country;
-    }
-    
-    public function jsonSerialize()
-    {
-        return
-        [
-            'uuid'   => $this->getUuid(),
-            'name' => $this->getName(),
-            'address' => $this->getAddress(),
-            'city' => $this->getCity(),
-            'zipcode' => $this->getZipcode(),
-            'county' => $this->getCounty(),
-            'country' => $this->getCountry(),
-        ];
     }
     
 }

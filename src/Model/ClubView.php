@@ -1,7 +1,17 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model;
 
+use App\Entity\Club;
+
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+
+/**
+ * @Serializer\XmlRoot("club")
+ *
+ * @Hateoas\Relation("self", href = "expr('/api/club/' ~ object.getUuid())")
+ */
 class ClubView
 {
     private $uuid;
@@ -11,14 +21,14 @@ class ClubView
     private $facebook_url;
     private $locations;
 
-    public function __construct(Club $club)
+    public function __construct(Club $club, $locations)
     {
         $this->uuid = $club->getUuid();
         $this->name = $club->getName();
         $this->logo = $club->getLogo();
         $this->website_url = $club->getWebsiteUrl();
         $this->facebook_url = $club->getFacebookUrl();
-        //$this->locations = $club->getUuid();
+        $this->locations = $locations;
     }
 
     public function getUuid(): ?string
@@ -44,19 +54,6 @@ class ClubView
     public function getFacebookUrl(): ?string
     {
         return $this->facebook_url;
-    }
-
-    public function jsonSerialize()
-    {
-        return
-        [
-            'uuid'   => $this->getUuid(),
-            'name' => $this->getName(),
-            'logo' => $this->getLogo(),
-            'website_url' => $this->getWebsiteUrl(),
-            'facebook_url' => $this->getFacebookUrl(),
-            // TODO locations
-        ];
     }
     
 }

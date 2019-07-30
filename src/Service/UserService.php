@@ -39,11 +39,7 @@ class UserService
 	    $this->em->persist($user);
 	    $this->em->flush();
 		
-		return array(
-		    'uuid' => $user->getUuid(),
-		    'lastname' => $user->getLastname(),
-		    'firstname' => $user->getFirstname(),
-            );
+	    return $user;
 	}
     
 	public function __destruct()

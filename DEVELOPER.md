@@ -10,6 +10,7 @@ Install the following softwares (keep order) :
 - Composer : https://getcomposer.org/download/  (select php 7.2.x)
 - Symfony : https://symfony.com/download
 - ER/Builder : https://soft-builder.com/en/downloads/ERBuilder_Install.zip
+- Eclipse PHP : https://www.eclipse.org/pdt/
 
 If you have a error message like this : "MSVCR110.dll is missing", download the fix from https://www.microsoft.com/fr-FR/download/details.aspx?id=30679
 

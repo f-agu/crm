@@ -1,8 +1,13 @@
 {% extends 'dashboard.html.twig' %}
 
+{% block stylesheets2 %}
+	<link href="/assets/clubs/clubs.css" rel="stylesheet">
+{% endblock %}
+
+
 {% block dashboardcontent %}
 
-<table class="table">
+<table class="table clickable" id="table-clubs">
 	<thead>
 		<tr>
 			<th scope="col">{% trans %}Name{% endtrans %}</th>
@@ -11,12 +16,26 @@
 	</thead>
 	<tbody>
 		{% for club in clubs %}
-			<tr>
-				<th scope="row">{{ club.name }}</th>
-				<td>{{ club.cities }}</td>
+			<tr id="{{ club.uuid }}">
+				<th scope="row">
+				    {{ club.name }}
+				    {% if club.website_url is defined %}
+						<a href="{{ club.website_url }}"><span data-feather="external-link"></span></a>
+					{% endif %}
+				</th>
+				<td>
+					{% for location in club.locations %}
+						{{ location.city }}<br/>
+					{% endfor %}
+				</td>
 			</tr>
 		{% endfor %}
 	</tbody>
 </table>
 
+{% endblock %}
+
+
+{% block javascriptsafter1 %}
+	<script src="/assets/clubs/clubs.js"></script>
 {% endblock %}

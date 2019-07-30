@@ -3,20 +3,22 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
+use App\Exception\ViolationException;
 use App\Model\UserCreate;
+use App\Model\UserView;
 use App\Service\UserService;
 use App\Util\RequestUtil;
-use primus852\ShortResponse\ShortResponse;
+use Hateoas\HateoasBuilder;
+use Hateoas\Representation\CollectionRepresentation;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Exception\ViolationException;
-use Symfony\Component\HttpFoundation\Response;
-use Psr\Log\LoggerInterface;
-use App\Model\UserView;
+use primus852\ShortResponse\ShortResponse;
 
 class UserController extends AbstractController
 {
@@ -26,7 +28,7 @@ class UserController extends AbstractController
      * @IsGranted("ROLE_TEACHER")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function listAll()
+    public function listAll(LoggerInterface $logger)
     {
         $account = $this->getUser();
         $data = array();
@@ -44,13 +46,19 @@ class UserController extends AbstractController
         } elseif($this->get('security.authorization_checker')->isGranted("ROLE_USER")) {
             $data = array($account->getUser());
         }
-        $output = array();
-        foreach ($data as &$u) {
-            $uv = new UserView($u);
-            array_push($output, $uv->jsonSerialize());
-        }
         
-        return ShortResponse::success('listed', $output);
+        
+        $userviews = array();
+        foreach ($data as &$u) {
+            array_push($userviews, new UserView($u));
+        }
+        $output = array('users' => $userviews);
+        $hateoas = HateoasBuilder::create()->build();
+        $json = json_decode($hateoas->serialize($output, 'json'));
+
+        return new Response(json_encode($json), 200, array(
+            'Content-Type' => 'application/hal+json'
+        ));
     }
     
     /**
@@ -75,11 +83,15 @@ class UserController extends AbstractController
         }
         $output = [];
         if(count($data) > 0) {
-            $uv = new UserView($data[0]);
-            $output = $uv->jsonSerialize();
+            $output = array('user' => new UserView($data[0]));
         }
         
-        return ShortResponse::success('getted', $output);
+        $hateoas = HateoasBuilder::create()->build();
+        $json = json_decode($hateoas->serialize($output, 'json'));
+        
+        return new Response(json_encode($json), 200, array(
+            'Content-Type' => 'application/hal+json'
+        ));
     }
     
     /**
@@ -105,11 +117,18 @@ class UserController extends AbstractController
 		}
 	
 		try {
-		    $data = $service->create($userCreate);
+		    $user = $service->create($userCreate);
 		} catch (\Exception $e) {
 			return ShortResponse::exception('Query failed, please try again shortly ('.$e->getMessage().')');
 		}
-
-		return ShortResponse::success('created', $data);
-	}	
+		
+		$output = array('user' => new UserView($user));
+		$hateoas = HateoasBuilder::create()->build();
+		$json = json_decode($hateoas->serialize($output, 'json'));
+		
+		return new Response(json_encode($json), 200, array(
+		    'Content-Type' => 'application/hal+json'
+		));
+	}
+	
 }

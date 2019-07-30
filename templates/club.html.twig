@@ -1,0 +1,44 @@
+{% extends 'dashboard.html.twig' %}
+
+
+{% block dashboardcontent %}
+
+	<div class="row p-3">
+    	<button type="button" class="btn btn-primary" id="btn-modify">
+    	    <span data-feather="edit-2"></span>
+    	    {% trans %}Modify{% endtrans %}
+    	</button>
+    	<button type="button" class="btn btn-secondary" id="btn-cancel" style="display: none;">
+    	    <span data-feather="x"></span>
+    	    {% trans %}Cancel{% endtrans %}
+    	</button>
+    </div>
+	
+	<form id="student_form" action="/api/club/{{ club.uuid }}" method="POST" class="needs-validation" novalidate>
+        <div class="row"> {# form-group #}
+            <label for="staticName" class="col-sm-2 col-form-label"><strong>{% trans %}Name{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticName" value="{{ club.name | default('') }}">
+        	</div>
+        </div>
+        <div class="row"> {# form-group #}
+            <label for="staticWebsite" class="col-sm-2 col-form-label"><strong>{% trans %}Web site{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticWebsite" value="{{ club.website_url | default('') }}">
+        	</div>
+        </div>
+        <div class="row"> {# form-group #}
+            <label for="staticFacebook" class="col-sm-2 col-form-label"><strong>{% trans %}Facebook page{% endtrans %}</strong></label>
+            <div class="col-sm-10">
+            	<input type="text" readonly class="form-control-plaintext" id="staticFacebook" value="{{ club.facebook | default('') }}">
+        	</div>
+        </div>
+        <div class="row p-3">
+        	<button id="submitUpdate" type="button" class="btn btn-primary" style="display: none;">
+        	    <span data-feather="save"></span>
+    	        {% trans %}Save{% endtrans %}
+        	</button>
+        </div>
+	</form>
+
+{% endblock %}

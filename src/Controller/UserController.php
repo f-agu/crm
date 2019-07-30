@@ -5,7 +5,6 @@ namespace App\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
@@ -20,7 +19,7 @@ class UserController extends AbstractController
         $json = json_decode($response->getContent());
         return $this->render('users.html.twig', [
             'connectedUser' => $user,
-            'users' => $json->extra
+            'users' => $json->users
         ]);
     }
 
@@ -35,8 +34,8 @@ class UserController extends AbstractController
         $json = json_decode($response->getContent());
         return $this->render('user.html.twig', [
             'connectedUser' => $user,
-            'user' => $json->extra
+            'user' => $json->user
         ]);
     }
-    
+
 }

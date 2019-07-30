@@ -23,67 +23,67 @@
         <div class="row"> {# form-group #}
             <label for="staticLastname" class="col-sm-2 col-form-label"><strong>{% trans %}Lastname{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticLastname" value="{{ user.lastname }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticLastname" value="{{ user.lastname | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticFirstname" class="col-sm-2 col-form-label"><strong>{% trans %}Firstname{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticFirstname" value="{{ user.firstname }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticFirstname" value="{{ user.firstname | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticBirthday" class="col-sm-2 col-form-label"><strong>{% trans %}Birthday{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticBirthday" value="{{ user.birthday.date_fr }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticBirthday" value="{{ user.birthday.date_fr | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticSex" class="col-sm-2 col-form-label"><strong>{% trans %}Sex{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticAddress" class="col-sm-2 col-form-label"><strong>{% trans %}Address{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ user.address }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ user.address | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticZipcode" class="col-sm-2 col-form-label"><strong>{% trans %}Zipcode{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticZipcode" value="{{ user.zipcode }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticZipcode" value="{{ user.zipcode | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticCity" class="col-sm-2 col-form-label"><strong>{% trans %}City{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ user.city }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ user.city | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticPhone" class="col-sm-2 col-form-label"><strong>{% trans %}Phone{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ user.phone }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ user.phone | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticPhoneEmergency" class="col-sm-2 col-form-label"><strong>{% trans %}Phone emergency{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticPhoneEmergency" value="{{ user.city }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticPhoneEmergency" value="{{ user.city | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticNationality" class="col-sm-2 col-form-label"><strong>{% trans %}Nationality{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticNationality" value="{{ user.nationality }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticNationality" value="{{ user.nationality | default('') }}">
         	</div>
         </div>
         <div class="row">
             <label for="staticMails" class="col-sm-2 col-form-label"><strong>{% trans %}Mails{% endtrans %}</strong></label>
             <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticMails" value="{{ user.mails }}">
+            	<input type="text" readonly class="form-control-plaintext" id="staticMails" value="{{ user.mails | default('') }}">
         	</div>
         </div>
         <div class="row p-3">

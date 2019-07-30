@@ -3,9 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Club;
+use App\Model\ClubLocationView;
+use App\Model\ClubView;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Entity\ClubLocation;
 
 /**
  * @method Club|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,25 +18,37 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ClubRepository extends ServiceEntityRepository
 {
+	private $registry;
+
 	public function __construct(RegistryInterface $registry)
 	{
 		parent::__construct($registry, Club::class);
+		$this->registry = $registry;
 	}
 
 
-	public function findAllActiveGroupedWithCities() //: ?ClubDTO
+	public function findAllActiveWithLocations()
+	{
+		$clubs = $this->findBy(['active' => true]);
+		return $this->registry->getManager()
+					->getRepository(ClubLocation::class)
+					->findByClubs($clubs);
+	}
+
+
+	/*public function findAllActiveGroupedWithCitiesOLD() //: ?ClubDTO
 	{
 		$sql = "SELECT id, name, group_concat(city SEPARATOR  ', ') AS cities"
-					." FROM ("
-					."  SELECT c.id, c.name, loc.city"
-					."   FROM club c"
-					."    JOIN club_lesson les ON c.id = les.club_id"
-					."    JOIN club_location loc ON les.club_location_id = loc.id"
-					."   WHERE c.active"
-					."   GROUP BY 1, 2, 3"
-					."  ) t"
-					." GROUP BY 1, 2";
-		
+		      ." FROM ("
+		      ."  SELECT c.id, c.name, loc.city"
+		      ."   FROM club c"
+		      ."    JOIN club_lesson les ON c.id = les.club_id"
+		      ."    JOIN club_location loc ON les.club_location_id = loc.id"
+		      ."   WHERE c.active"
+		      ."   GROUP BY 1, 2, 3"
+		      ."  ) t"
+		      ." GROUP BY 1, 2";
+
 		$rsm = new ResultSetMapping();
 		$rsm->addScalarResult('id', 'id');
 		$rsm->addScalarResult('name', 'name');
@@ -42,8 +57,8 @@ class ClubRepository extends ServiceEntityRepository
 		$stmt = $this->getEntityManager()->createNativeQuery($sql, $rsm);
 
 		return $stmt->getResult();
-	}
-    
+	}*/
+
 
     // /**
     //  * @return Club[] Returns an array of Club objects

@@ -4,7 +4,14 @@ namespace App\Model;
 
 use App\Entity\User;
 use App\Util\DateUtils;
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
+/**
+ * @Serializer\XmlRoot("user")
+ *
+ * @Hateoas\Relation("self", href = "expr('/api/user/' ~ object.getUuid())")
+ */
 class UserView
 {
     private $uuid;
@@ -102,24 +109,5 @@ class UserView
 	{
 	    return $this->created;
 	}
-	
-	public function jsonSerialize()
-	{
-	    return
-	    [
-	        'uuid'   => $this->getUuid(),
-	        'lastname' => $this->getLastname(),
-	        'firstname' => $this->getFirstname(),
-	        'sex' => $this->getSex(),
-	        'birthday' => $this->getBirthday(),
-	        'address' => $this->getAddress(),
-	        'city' => $this->getCity(),
-	        'mails' => $this->getMails(),
-	        'nationality' => $this->getNationality(),
-	        'phone' => $this->getPhone(),
-	        'phone_emergency' => $this->getPhoneEmergency(),
-	        'zipcode' => $this->getZipcode(),
-	        'created' => $this->getCreated(),
-	    ];
-	}
+
 }
