@@ -14,27 +14,27 @@ use App\Entity\ClubLocation;
 class ClubController extends AbstractController
 {
 
-    /**
-     * @Route("/api/club", name="api_club_list-active", methods={"GET"})
-     */
-    public function listActive()
-    {
-        $clubs = $this->getDoctrine()->getManager()
-            ->getRepository(Club::class)
-            ->findAllActiveWithLocations();
+	/**
+	 * @Route("/api/club", name="api_club_list-active", methods={"GET"})
+	 */
+	public function listActive()
+	{
+		$clubs = $this->getDoctrine()->getManager()
+			->getRepository(Club::class)
+			->findAllActiveWithLocations();
 
-        $output = array('clubs' => $clubs);
-        $hateoas = HateoasBuilder::create()->build();
-        $json = json_decode($hateoas->serialize($output, 'json'));
+		$output = array('clubs' => $clubs);
+		$hateoas = HateoasBuilder::create()->build();
+		$json = json_decode($hateoas->serialize($output, 'json'));
 
-        return new Response(json_encode($json), 200, array(
-            'Content-Type' => 'application/hal+json'
-        ));
-    }
+		return new Response(json_encode($json), 200, array(
+			'Content-Type' => 'application/hal+json'
+		));
+	}
 
-    /**
-     * @Route("/api/club/{uuid}", name="api_club_one", methods={"GET"})
-     */
+	/**
+	 * @Route("/api/club/{uuid}", name="api_club_one", methods={"GET"})
+	 */
 	public function one($uuid)
 	{
 		$clubs = $this->getDoctrine()->getManager()
@@ -48,12 +48,12 @@ class ClubController extends AbstractController
 			$output = array('club' => $clubloc[0]);
 		}
 
-        $hateoas = HateoasBuilder::create()->build();
-        $json = json_decode($hateoas->serialize($output, 'json'));
+		$hateoas = HateoasBuilder::create()->build();
+		$json = json_decode($hateoas->serialize($output, 'json'));
 
-        return new Response(json_encode($json), 200, array(
-            'Content-Type' => 'application/hal+json'
-        ));
-    }
+		return new Response(json_encode($json), 200, array(
+			'Content-Type' => 'application/hal+json'
+		));
+	}
 
 }

@@ -44,25 +44,31 @@
 
 	<div id="content">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
-					<button type="button" id="sidebarCollapse" class="btn btn-info">
-					<i class="fas fa-align-left"></i>
-					<span data-feather="menu"></span>
-				</button>
-				<input class="form-control form-control-dark"
-				       id="search-text"
-				       type="text" placeholder="{% trans %}Search{% endtrans %}"
-				       aria-label="{% trans %}Search{% endtrans %}"
-				       {% if searchResult is defined%}value="{{ searchResult.q }}"{% endif %}>
-				<ul class="navbar-nav px-3">
-					<li class="nav-item text-nowrap">
-						{% if connectedUser is defined and connectedUser != null %}
-							<h5><a class="nav-link" href="/logout">{% trans %}Sign out{% endtrans %}</a></h5>
-						{% else %}
-							<h5><a class="nav-link" href="/login">{% trans %}Sign in{% endtrans %}</a></h5>
-						{% endif %}
-					</li>
-				</ul>
+			<div class="container-fluid" style="/*border-style: solid; border-color: blue;*/">
+				<div class="buttondivforsidenav">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fas fa-align-left"></i>
+						<span data-feather="menu"></span>
+					</button>
+				</div>
+				<div class="searchdiv">
+					<input class="form-control"
+							id="search-text"
+							type="text" placeholder="{% trans %}Search{% endtrans %}"
+							aria-label="{% trans %}Search{% endtrans %}"
+						    {% if searchResult is defined%}value="{{ searchResult.q }}"{% endif %}>
+				</div>
+				<div class="loginoutdiv">
+    				<ul class="navbar-nav">
+    					<li class="nav-item text-nowrap">
+    						{% if connectedUser is defined and connectedUser != null %}
+    							<a class="btn btn-primary" href="/logout" role="button">{% trans %}Sign out{% endtrans %}</a>
+    						{% else %}
+    							<a class="btn btn-primary" href="/login" role="button">{% trans %}Sign in{% endtrans %}</a>
+    						{% endif %}
+    					</li>
+    				</ul>
+				</div>
 			</div>
 		</nav>
 

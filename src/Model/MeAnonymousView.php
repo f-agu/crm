@@ -11,17 +11,17 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class MeAnonymousView
 {
-    private $grantedRoles;
+	private $grantedRoles;
    
-    public function __construct($grantedRoles)
-    {
-        $this->grantedRoles = $grantedRoles;
-    }
-    
-    public function getGrantedRoles()
-    {
-        return $this->grantedRoles;
-    }
-    
+	public function __construct($grantedRoles)
+	{
+		$this->grantedRoles = $grantedRoles;
+	}
+	
+	public function getGrantedRoles()
+	{
+		return $this->grantedRoles;
+	}
+	
 }
 

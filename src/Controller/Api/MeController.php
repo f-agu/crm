@@ -14,45 +14,45 @@ use App\Model\MeAnonymousView;
 class MeController extends AbstractController
 {
 	
-    /**
-     * @Route("/api/me", name="api_me_infos", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function infos()
-    {
-        $grantedRoles = array();
-        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            array_push($grantedRoles, 'ROLE_SUPER_ADMIN');
-        }
-        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            array_push($grantedRoles, 'ROLE_ADMIN');
-        }
-        if($this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
-            array_push($grantedRoles, 'ROLE_TEACHER');
-        }
-        if($this->get('security.authorization_checker')->isGranted('ROLE_STUDENT')) {
-            array_push($grantedRoles, 'ROLE_STUDENT');
-        }
-        if($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            array_push($grantedRoles, 'ROLE_USER');
-        }
-        if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-            array_push($grantedRoles, 'IS_AUTHENTICATED_ANONYMOUSLY');
-        }
-        
-        $account = $this->getUser();
-        if($account) {
-            $me = new MeView($account, $account->getUser(), $grantedRoles);
-        } else {
-            $me = new MeAnonymousView($grantedRoles);
-        }
-        
-        $hateoas = HateoasBuilder::create()->build();
-        $json = json_decode($hateoas->serialize($me, 'json'));
-               
-        return new Response(json_encode($json), 200, array(
-            'Content-Type' => 'application/hal+json'
-        ));
-    }
+	/**
+	 * @Route("/api/me", name="api_me_infos", methods={"GET"})
+	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 */
+	public function infos()
+	{
+		$grantedRoles = array();
+		if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+			array_push($grantedRoles, 'ROLE_SUPER_ADMIN');
+		}
+		if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+			array_push($grantedRoles, 'ROLE_ADMIN');
+		}
+		if($this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+			array_push($grantedRoles, 'ROLE_TEACHER');
+		}
+		if($this->get('security.authorization_checker')->isGranted('ROLE_STUDENT')) {
+			array_push($grantedRoles, 'ROLE_STUDENT');
+		}
+		if($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+			array_push($grantedRoles, 'ROLE_USER');
+		}
+		if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+			array_push($grantedRoles, 'IS_AUTHENTICATED_ANONYMOUSLY');
+		}
+		
+		$account = $this->getUser();
+		if($account) {
+			$me = new MeView($account, $account->getUser(), $grantedRoles);
+		} else {
+			$me = new MeAnonymousView($grantedRoles);
+		}
+		
+		$hateoas = HateoasBuilder::create()->build();
+		$json = json_decode($hateoas->serialize($me, 'json'));
+			   
+		return new Response(json_encode($json), 200, array(
+			'Content-Type' => 'application/hal+json'
+		));
+	}
 	
 }

@@ -37,7 +37,7 @@ class SearchDao
                .implode(" UNION ", $unions)
                .") t"
                ." ORDER BY 3" // variable : ASC / DESC
-               ." LIMIT ".$offset.", ".$limit;
+               ." LIMIT ".$offset.", ".($limit + 1);
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('type', 'type');
@@ -52,13 +52,19 @@ class SearchDao
         //$stmt = $this->em->getConnection()->executeQuery($sql, $params);
         $results = $stmt->getResult();
         $output = array();
-        foreach($results as $result) {
+        foreach(array_slice($results, 0, $limit)  as $result) {
          	array_push($output, new SearchResultView(
         		$result['type'],
         		$result['uuid'],
         		$result['name']));
         }
-        return $output;
+        return [
+        	'query' => $query,
+        	'offset' => $offset,
+        	'limit' => $limit,
+        	'results' => $output,
+        	'hasmore' => count($results) > $limit
+        ];
     }
 
 
