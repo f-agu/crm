@@ -14,31 +14,31 @@ use App\Entity\Account;
  */
 class MeView extends UserView
 {
-    private $login;
-    private $roles;
-    private $grantedRoles;
+	private $login;
+	private $roles;
+	private $grantedRoles;
 	
-    public function __construct(Account $account, User $user, $grantedRoles)
+	public function __construct(Account $account, User $user, $grantedRoles)
 	{
-	    parent::__construct($user);
-	    $this->login = $account->getLogin();
-	    $this->roles = $account->getRoles();
-	    $this->grantedRoles = $grantedRoles;
+		parent::__construct($user);
+		$this->login = $account->getLogin();
+		$this->roles = $account->getRoles();
+		$this->grantedRoles = $grantedRoles;
 	}
 	
 	public function getLogin()
 	{
-	    return $this->login;
+		return $this->login;
 	}
 	
 	public function getRoles()
 	{
-	    return $this->roles;
+		return $this->roles;
 	}
 	
 	public function getGrantedRoles()
 	{
-	    return $this->grantedRoles;
+		return $this->grantedRoles;
 	}
 	
 }

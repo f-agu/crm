@@ -100,98 +100,98 @@ class UserCreate
 
 	public function getSex(): ?string
 	{
-	    return $this->sex;
+		return $this->sex;
 	}
 	
 	public function setSex(string $sex): self
 	{
-	    $this->sex = $sex;
-	    
-	    return $this;
+		$this->sex = $sex;
+		
+		return $this;
 	}
 
 	
 	public function getAddress(): ?string
 	{
-	    return $this->address;
+		return $this->address;
 	}
 	
 	public function setAddress(?string $address): self
 	{
-	    $this->address = $address;
-	    
-	    return $this;
+		$this->address = $address;
+		
+		return $this;
 	}
 	
 	public function getZipcode(): ?string
 	{
-	    return $this->zipcode;
+		return $this->zipcode;
 	}
 	
 	public function setZipcode(?string $zipcode): self
 	{
-	    $this->zipcode = $zipcode;
-	    
-	    return $this;
+		$this->zipcode = $zipcode;
+		
+		return $this;
 	}
 	
 	public function getCity(): ?string
 	{
-	    return $this->city;
+		return $this->city;
 	}
 	
 	public function setCity(?string $city): self
 	{
-	    $this->city = $city;
-	    
-	    return $this;
+		$this->city = $city;
+		
+		return $this;
 	}
 	
 	public function getPhone(): ?string
 	{
-	    return $this->phone;
+		return $this->phone;
 	}
 	
 	public function setPhone(?string $phone): self
 	{
-	    $this->phone = $phone;
-	    
-	    return $this;
+		$this->phone = $phone;
+		
+		return $this;
 	}
 	
 	public function getPhoneEmergency(): ?string
 	{
-	    return $this->phone_emergency;
+		return $this->phone_emergency;
 	}
 	
 	public function setPhoneEmergency(?string $phone_emergency): self
 	{
-	    $this->phone_emergency = $phone_emergency;
-	    
-	    return $this;
+		$this->phone_emergency = $phone_emergency;
+		
+		return $this;
 	}
 	
 	public function getNationality(): ?string
 	{
-	    return $this->nationality;
+		return $this->nationality;
 	}
 	
 	public function setNationality(?string $nationality): self
 	{
-	    $this->nationality = $nationality;
-	    
-	    return $this;
+		$this->nationality = $nationality;
+		
+		return $this;
 	}
 	
 	public function getMails(): ?string
 	{
-	    return $this->mails;
+		return $this->mails;
 	}
 	
 	public function setMails(?string $mails): self
 	{
-	    $this->mails = $mails;
-	    
-	    return $this;
+		$this->mails = $mails;
+		
+		return $this;
 	}
 }

@@ -9,69 +9,69 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MenuItem
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+	/**
+	 * @ORM\Id()
+	 * @ORM\GeneratedValue()
+	 * @ORM\Column(type="integer")
+	 */
+	private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $code;
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $code;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $priority;
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $priority;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $available_for_roles = [];
+	/**
+	 * @ORM\Column(type="json")
+	 */
+	private $available_for_roles = [];
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+	public function getId(): ?int
+	{
+		return $this->id;
+	}
 
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
+	public function getCode(): ?string
+	{
+		return $this->code;
+	}
 
-    public function setCode(string $code): self
-    {
-        $this->code = $code;
+	public function setCode(string $code): self
+	{
+		$this->code = $code;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getPriority(): ?int
-    {
-        return $this->priority;
-    }
+	public function getPriority(): ?int
+	{
+		return $this->priority;
+	}
 
-    public function setPriority(int $priority): self
-    {
-        $this->priority = $priority;
+	public function setPriority(int $priority): self
+	{
+		$this->priority = $priority;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getAvailableForRoles(): ?array
-    {
-        return $this->available_for_roles;
-    }
+	public function getAvailableForRoles(): ?array
+	{
+		return $this->available_for_roles;
+	}
 
-    public function setAvailableForRoles(array $available_for_roles): self
-    {
-        $this->available_for_roles = $available_for_roles;
+	public function setAvailableForRoles(array $available_for_roles): self
+	{
+		$this->available_for_roles = $available_for_roles;
 
-        return $this;
-    }
-    
+		return $this;
+	}
+	
 	public function __toString()
 	{
 		if($this->getAvailableForRoles() != null) {

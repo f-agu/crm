@@ -14,13 +14,13 @@ class SearchController extends AbstractController
 	 */
 	public function search(Request $request)
 	{
-	    $user = $this->getUser();
-	    $response = $this->forward('App\Controller\Api\SearchController::search', ['request' => $request]);
-	    $json = json_decode($response->getContent());
-	    return $this->render('search.html.twig', [
-	        'connectedUser' => $user,
-	        'searchResult' => $json
-	    ]);
+		$user = $this->getUser();
+		$response = $this->forward('App\Controller\Api\SearchController::search', ['request' => $request]);
+		$json = json_decode($response->getContent());
+		return $this->render('search.html.twig', [
+			'connectedUser' => $user,
+			'searchResult' => $json
+		]);
 	}
 
 }

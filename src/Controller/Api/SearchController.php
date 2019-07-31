@@ -9,32 +9,32 @@ use App\Dao\SearchDao;
 use Symfony\Component\HttpFoundation\Response;
 use Hateoas\HateoasBuilder;
 use Psr\Log\LoggerInterface;
+use App\Util\Pager;
 
 class SearchController extends AbstractController
 {
 
 	/**
- 	 * @Route("/api/search", name="api_search", methods={"GET"})
+	 * @Route("/api/search", name="api_search", methods={"GET"})
 	 * @return \Symfony\Component\HttpFoundation\JsonResponse
 	 */
-	public function search(Request $request)
+	public function search(Request $request, LoggerInterface $logger)
 	{
-	    $page = intval($request->query->get('page', 0));
-	    $elementbypage = intval($request->query->get('n', 20));
-	    $offset = $page * $elementbypage;
-	    $query = trim($request->query->get('q', ''));
-
-	    $data = array();
-	    if($page >= 0 && $elementbypage >= 0 && strlen($query) >= 2) {
-	        $search = new SearchDao($this->getDoctrine()->getManager(), $this->get('security.authorization_checker'));
-	        $data = $search->search($query, $this->getUser(), $offset, $elementbypage);
-	    }
+		$pager = new Pager($request);
+		$query = trim($request->query->get('q', ''));
+		$logger->debug('query: ['.$query.']');
+		$searched = array();
+		if($pager->isValid() && strlen($query) >= 2) {
+			$search = new SearchDao($this->getDoctrine()->getManager(), $this->get('security.authorization_checker'));
+			$searched = $search->search($query, $this->getUser(), $pager->getOffset(), $pager->getElementByPage());
+		}
 
 		$result = [
 			'q' => $query,
-			'page' => $page,
-			'n' => $elementbypage,
-			'results' => $data
+			'page' => $pager->getPage(),
+			'n' => $pager->getElementByPage(),
+			'results' => $searched['results'],
+			'hasmore' => $searched['hasmore']
 		];
 		$hateoas = HateoasBuilder::create()->build();
 		$json = json_decode($hateoas->serialize($result, 'json'));

@@ -8,6 +8,7 @@ body {
   vertical-align: text-bottom;
 }
 
+
 /*
  * Sidebar
  */
@@ -168,6 +169,10 @@ a[aria-expanded="true"] {
 	background: #6d7fcc;
 }
 
+#topbar {
+	left: 250px;
+}
+
 a[data-toggle="collapse"] {
 	position: relative;
 }
@@ -223,6 +228,27 @@ a.article:hover {
 	width: 100%;
 }
 
+.buttondivforsidenav {
+	display: inline;
+	width: 3rem;
+	/*border-style: solid;
+	border-color: red;*/
+}
+
+.searchdiv {
+	display: inline ;
+	width: calc(88% - 3rem - 5rem);
+	/*border-style: solid;
+	border-color: green;*/
+}
+
+.loginoutdiv {
+	display: inline;
+	min-width: 5rem;
+	/*border-style: solid;
+	border-color: yellow;*/
+}
+
 @media (max-width: 768px) {
 	#sidebar {
 		margin-left: -250px;
@@ -238,5 +264,8 @@ a.article:hover {
 	}
 	#sidebarCollapse span {
 		display: none;
+	}
+	#topbar {
+		left: 0rem;
 	}
 }
