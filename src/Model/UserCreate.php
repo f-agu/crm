@@ -4,13 +4,21 @@ namespace App\Model;
 
 use App\Validator\Constraints as AcmeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *   schema="UserCreate",
+ *   required={"lastname", "firstname", "birthday", "sex"}
+ * )
+ */
 class UserCreate
 {
 	/**
 	 * @Assert\NotBlank
 	 * @Assert\Type("string")
 	 * @Assert\Length(min = 1, max = 255)
+	 * @OA\Property(type="string")
 	 */
 	private $lastname;
 	
@@ -18,53 +26,63 @@ class UserCreate
 	 * @Assert\NotBlank
 	 * @Assert\Type("string")
 	 * @Assert\Length(min = 1, max = 255)
+	 * @OA\Property(type="string")
 	 */
 	private $firstname;
 	
 	/**
 	 * @Assert\NotBlank
 	 * @AcmeAssert\Birthday
+	 * @OA\Property(type="string", example="31/12/2000")
 	 */
 	private $birthday;
 
 	/**
 	 * @Assert\NotBlank
 	 * @Assert\Regex(pattern = "[F|M]")
+	 * @OA\Property(type="enum", enum={"F", "M"}, example="F")
 	 */
 	private $sex;
 	
 	/**
 	 * @Assert\Length(max = 512)
+	 * @OA\Property(type="string", example="5 Avenue Anatole France")
 	 */
 	private $address;
 	
 	/**
 	 * @Assert\Length(max = 32)
+	 * @OA\Property(type="string", example="75007")
 	 */
 	private $zipcode;
 	
 	/**
 	 * @Assert\Length(max = 255)
+	 * @OA\Property(type="string", example="Paris")
 	 */
 	private $city;
 	
 	/**
 	 * @Assert\Length(max = 32)
+	 * @OA\Property(type="string", example="0 892 70 12 39")
 	 */
 	private $phone;
 	
 	/**
 	 * @Assert\Length(max = 32)
+	 * @OA\Property(type="string", example="0 892 70 12 39")
 	 */
 	private $phone_emergency;
 	
 	/**
 	 * @Assert\Length(max = 64)
+	 * @OA\Property(type="string", example="Française")
 	 */
 	private $nationality;
 	
 	/**
 	 * @Assert\Length(max = 512)
+	 * @OA\Property(type="string", example="mail_1@adresse.fr, mail_2@adresse.fr")
 	 */
 	private $mails;
 	

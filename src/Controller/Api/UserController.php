@@ -35,7 +35,7 @@ class UserController extends AbstractController
 	 */
 	public function listAll(Request $request, LoggerInterface $logger)
 	{
-		//, $offset = 0, $limit = 10
+		
 		
 		
 		$account = $this->getUser();
@@ -122,6 +122,11 @@ class UserController extends AbstractController
 	 * @OA\Post(
 	 *     path="/api/user",
 	 *     summary="Create an user",
+     *     @OA\RequestBody(
+     *         description="User object that needs to be added",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/UserCreate"),
+     *     ),
 	 *     @OA\Response(response="200", description="Successful")
 	 * )
 	 */
