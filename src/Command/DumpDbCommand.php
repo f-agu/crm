@@ -41,11 +41,10 @@ class DumpDbCommand extends Command
 		$path = $path.DIRECTORY_SEPARATOR.'dump-'.$now->format('Ymd-His').'.sql';
 		$output->writeln('Writing dump to '.$path);
 
-		$cmd = sprintf('mysqldump -u %s --password=%s %s %s > %s',
+		$cmd = sprintf('mysqldump -u %s --password=%s %s > %s',
 			$conn->getUsername(),
 			$conn->getPassword(),
 			$conn->getDatabase(),
-			implode(' ', ['variables', 'config']),
 			$path
 			);
 		$output->writeln($cmd);
