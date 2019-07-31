@@ -10,13 +10,18 @@ use App\Model\MeView;
 use Hateoas\HateoasBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use App\Model\MeAnonymousView;
+use OpenApi\Annotations as OA;
 
 class MeController extends AbstractController
 {
 	
 	/**
 	 * @Route("/api/me", name="api_me_infos", methods={"GET"})
-	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 * @OA\Get(
+	 *     path="/api/me",
+	 *     summary="Gives informations about me",
+	 *     @OA\Response(response="200", description="Successful")
+	 * )
 	 */
 	public function infos()
 	{

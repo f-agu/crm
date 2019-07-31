@@ -102,4 +102,17 @@ php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 ```
 
-php bin/console cache:clear ?
+# Cache
+
+Sometimes, it's necessary to clear the cache : 
+
+```
+php bin/console cache:clear
+```
+
+
+# Swagger
+
+Swagger is available  : http://localhost/swagger/index.html
+
+

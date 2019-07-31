@@ -10,13 +10,47 @@ use Symfony\Component\HttpFoundation\Response;
 use Hateoas\HateoasBuilder;
 use Psr\Log\LoggerInterface;
 use App\Util\Pager;
+use OpenApi\Annotations as OA;
 
 class SearchController extends AbstractController
 {
 
 	/**
 	 * @Route("/api/search", name="api_search", methods={"GET"})
-	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 * @OA\Get(
+	 *     path="/api/search",
+	 *     summary="Search",
+	 *     @OA\Parameter(
+     *         description="query",
+     *         in="query",
+     *         name="q",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+	 *     @OA\Parameter(
+     *         description="page number",
+     *         in="query",
+     *         name="page",
+     *         required=false,
+     *         @OA\Schema(
+     *             format="string",
+     *             type="string"
+     *         )
+     *     ),
+	 *     @OA\Parameter(
+     *         description="max number of result in a page",
+     *         in="query",
+     *         name="n",
+     *         required=false,
+     *         @OA\Schema(
+     *             format="string",
+     *             type="string"
+     *         )
+     *     ),
+	 *     @OA\Response(response="200", description="Successful search")
+	 * )
 	 */
 	public function search(Request $request, LoggerInterface $logger)
 	{

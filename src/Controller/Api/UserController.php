@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use primus852\ShortResponse\ShortResponse;
+use OpenApi\Annotations as OA;
 
 class UserController extends AbstractController
 {
@@ -26,7 +27,11 @@ class UserController extends AbstractController
 	/**
 	 * @Route("/api/user", name="api_user_list-all", methods={"GET"})
 	 * @IsGranted("ROLE_TEACHER")
-	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 * @OA\Get(
+	 *     path="/api/user",
+	 *     summary="List of users instead of your permissions",
+	 *     @OA\Response(response="200", description="Successful")
+	 * )
 	 */
 	public function listAll(Request $request, LoggerInterface $logger)
 	{
@@ -67,7 +72,21 @@ class UserController extends AbstractController
 	/**
 	 * @Route("/api/user/{uuid}", name="api_user_one", methods={"GET"})
 	 * @IsGranted("ROLE_TEACHER")
-	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 * @OA\Get(
+	 *     path="/api/user/{uuid}",
+	 *     summary="Give an user",
+	 *     @OA\Parameter(
+     *         description="UUID of user",
+     *         in="path",
+     *         name="uuid",
+     *         required=true,
+     *         @OA\Schema(
+     *             format="string",
+     *             type="string"
+     *         )
+     *     ),
+	 *     @OA\Response(response="200", description="Successful")
+	 * )
 	 */
 	public function one($uuid, LoggerInterface $logger)
 	{
@@ -100,7 +119,11 @@ class UserController extends AbstractController
 	/**
  	 * @Route("/api/user", name="api_user_create-one", methods={"POST"})
 	 * @IsGranted("ROLE_TEACHER")
-	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 * @OA\Post(
+	 *     path="/api/user",
+	 *     summary="Create an user",
+	 *     @OA\Response(response="200", description="Successful")
+	 * )
 	 */
 	public function createOne(Request $request, SerializerInterface $serializer, TranslatorInterface $translator)
 	{
