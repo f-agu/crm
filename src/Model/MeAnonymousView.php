@@ -6,22 +6,21 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\XmlRoot("me")
- *
  * @Hateoas\Relation("self", href = "/api/me")
  */
 class MeAnonymousView
 {
 	private $grantedRoles;
-   
+
 	public function __construct($grantedRoles)
 	{
 		$this->grantedRoles = $grantedRoles;
 	}
-	
+
 	public function getGrantedRoles()
 	{
 		return $this->grantedRoles;
 	}
-	
+
 }
 

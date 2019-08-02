@@ -18,18 +18,18 @@ class UserCreate
 	 * @Assert\NotBlank
 	 * @Assert\Type("string")
 	 * @Assert\Length(min = 1, max = 255)
-	 * @OA\Property(type="string")
+	 * @OA\Property(type="string", example="abcDEF654")
 	 */
 	private $lastname;
-	
+
 	/**
 	 * @Assert\NotBlank
 	 * @Assert\Type("string")
 	 * @Assert\Length(min = 1, max = 255)
-	 * @OA\Property(type="string")
+	 * @OA\Property(type="string", example="Doe")
 	 */
 	private $firstname;
-	
+
 	/**
 	 * @Assert\NotBlank
 	 * @AcmeAssert\Birthday
@@ -43,49 +43,49 @@ class UserCreate
 	 * @OA\Property(type="enum", enum={"F", "M"}, example="F")
 	 */
 	private $sex;
-	
+
 	/**
 	 * @Assert\Length(max = 512)
 	 * @OA\Property(type="string", example="5 Avenue Anatole France")
 	 */
 	private $address;
-	
+
 	/**
 	 * @Assert\Length(max = 32)
 	 * @OA\Property(type="string", example="75007")
 	 */
 	private $zipcode;
-	
+
 	/**
 	 * @Assert\Length(max = 255)
 	 * @OA\Property(type="string", example="Paris")
 	 */
 	private $city;
-	
+
 	/**
 	 * @Assert\Length(max = 32)
 	 * @OA\Property(type="string", example="0 892 70 12 39")
 	 */
 	private $phone;
-	
+
 	/**
 	 * @Assert\Length(max = 32)
 	 * @OA\Property(type="string", example="0 892 70 12 39")
 	 */
 	private $phone_emergency;
-	
+
 	/**
 	 * @Assert\Length(max = 64)
 	 * @OA\Property(type="string", example="Française")
 	 */
 	private $nationality;
-	
+
 	/**
 	 * @Assert\Length(max = 512)
 	 * @OA\Property(type="string", example="mail_1@adresse.fr, mail_2@adresse.fr")
 	 */
 	private $mails;
-	
+
 	public function getLastname()
 	{
 		return $this->lastname;
@@ -110,7 +110,7 @@ class UserCreate
 	{
 		return $this->birthday;
 	}
-	
+
 	public function setBirthday($birthday)
 	{
 		$this->birthday = $birthday;
@@ -120,96 +120,96 @@ class UserCreate
 	{
 		return $this->sex;
 	}
-	
+
 	public function setSex(string $sex): self
 	{
 		$this->sex = $sex;
-		
+
 		return $this;
 	}
 
-	
+
 	public function getAddress(): ?string
 	{
 		return $this->address;
 	}
-	
+
 	public function setAddress(?string $address): self
 	{
 		$this->address = $address;
-		
+
 		return $this;
 	}
-	
+
 	public function getZipcode(): ?string
 	{
 		return $this->zipcode;
 	}
-	
+
 	public function setZipcode(?string $zipcode): self
 	{
 		$this->zipcode = $zipcode;
-		
+
 		return $this;
 	}
-	
+
 	public function getCity(): ?string
 	{
 		return $this->city;
 	}
-	
+
 	public function setCity(?string $city): self
 	{
 		$this->city = $city;
-		
+
 		return $this;
 	}
-	
+
 	public function getPhone(): ?string
 	{
 		return $this->phone;
 	}
-	
+
 	public function setPhone(?string $phone): self
 	{
 		$this->phone = $phone;
-		
+
 		return $this;
 	}
-	
+
 	public function getPhoneEmergency(): ?string
 	{
 		return $this->phone_emergency;
 	}
-	
+
 	public function setPhoneEmergency(?string $phone_emergency): self
 	{
 		$this->phone_emergency = $phone_emergency;
-		
+
 		return $this;
 	}
-	
+
 	public function getNationality(): ?string
 	{
 		return $this->nationality;
 	}
-	
+
 	public function setNationality(?string $nationality): self
 	{
 		$this->nationality = $nationality;
-		
+
 		return $this;
 	}
-	
+
 	public function getMails(): ?string
 	{
 		return $this->mails;
 	}
-	
+
 	public function setMails(?string $mails): self
 	{
 		$this->mails = $mails;
-		
+
 		return $this;
 	}
 }

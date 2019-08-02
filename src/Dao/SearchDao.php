@@ -18,7 +18,7 @@ class SearchDao
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    public function search($query, ?Account $connectedAccount, $offset = 0, $limit = 10) {
+    public function search($query, ?Account $connectedAccount, $offset = 0, $limit = 20) {
         $paramLC = \Transliterator::create('NFD; [:Nonspacing Mark:] Remove; NFC')
             ->transliterate($query);
         $paramLC = '%'.mb_strtolower($paramLC).'%';

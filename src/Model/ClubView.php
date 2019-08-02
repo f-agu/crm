@@ -4,12 +4,11 @@ namespace App\Model;
 
 use App\Entity\Club;
 
-use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\XmlRoot("club")
- *
  * @Hateoas\Relation("self", href = "expr('/api/club/' ~ object.getUuid())")
  */
 class ClubView
@@ -35,7 +34,7 @@ class ClubView
 	{
 		return $this->uuid;
 	}
-	
+
 	public function getName(): ?string
 	{
 		return $this->name;
@@ -55,5 +54,5 @@ class ClubView
 	{
 		return $this->facebook_url;
 	}
-	
+
 }

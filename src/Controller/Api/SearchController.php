@@ -11,6 +11,8 @@ use Hateoas\HateoasBuilder;
 use Psr\Log\LoggerInterface;
 use App\Util\Pager;
 use OpenApi\Annotations as OA;
+use App\Model\SearchResultsView;
+use App\Model\Pagination;
 
 class SearchController extends AbstractController
 {
@@ -63,15 +65,10 @@ class SearchController extends AbstractController
 			$searched = $search->search($query, $this->getUser(), $pager->getOffset(), $pager->getElementByPage());
 		}
 
-		$result = [
-			'q' => $query,
-			'page' => $pager->getPage(),
-			'n' => $pager->getElementByPage(),
-			'results' => $searched['results'],
-			'hasmore' => $searched['hasmore']
-		];
+		$pagination = new Pagination($pager->getPage(), $pager->getElementByPage(), $searched['hasmore']);
+		$output = new SearchResultsView($query, $searched['results'], $pagination);
 		$hateoas = HateoasBuilder::create()->build();
-		$json = json_decode($hateoas->serialize($result, 'json'));
+		$json = json_decode($hateoas->serialize($output, 'json'));
 
 		return new Response(json_encode($json), 200, array(
 			'Content-Type' => 'application/hal+json'

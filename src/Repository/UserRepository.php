@@ -20,7 +20,7 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findInMyClubs($accountId, $uuid = null)
+    public function findInMyClubs($accountId, $uuid = null, $offset = 0, $limit = 20)
     {
         $sql = "SELECT u.*"
               ." FROM account a"
@@ -32,7 +32,9 @@ class UserRepository extends ServiceEntityRepository
         if($uuid) {
             $sql = $sql." AND u.uuid = :uuid";
         }
-        
+        $sql .= " ORDER BY lastname ASC, firstname ASC";
+        $sql .= " LIMIT ".$offset.", ".$limit;
+
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata('App\Entity\User', 'u');
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
@@ -42,7 +44,7 @@ class UserRepository extends ServiceEntityRepository
         }
         return $query->getResult();
     }
-    
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
@@ -70,5 +72,5 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }*/
-    
+
 }

@@ -2,10 +2,12 @@
 
 namespace App\Model;
 
+use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\XmlRoot("searchResult")
+ * @Hateoas\Relation("self", href = "expr('/api/' ~ object.getType() ~ '/' ~ object.getUuid())")
  */
 class SearchResultView
 {
