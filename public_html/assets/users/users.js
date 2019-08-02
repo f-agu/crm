@@ -56,11 +56,11 @@ function disableButton(button) {
 
 function handleOk(formName, jqXHR) {
 	$("#student_form").trigger("reset");
-	var data = jqXHR.extra;
-	console.log('data', data);
-	if(data) {
-		var lastname = data.lastname;
-		var firstname = data.firstname;
+	var user = jqXHR.user;
+	console.log('user', user);
+	if(user) {
+		var lastname = user.lastname;
+		var firstname = user.firstname;
 		console.log('lastname', lastname, firstname, firstname);
 		if(lastname && firstname) {
 			console.log('lastname', lastname, firstname, firstname);
