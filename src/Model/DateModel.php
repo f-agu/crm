@@ -59,6 +59,11 @@ class DateModel
 		return $this->date_fr;
 	}
 
+	public function __toString()
+	{
+		return $this->iso8601;
+	}
+	
 
 }
 
