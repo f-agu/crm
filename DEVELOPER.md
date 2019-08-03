@@ -121,5 +121,5 @@ Swagger is available  : http://localhost/swagger/index.html
 
 ## PDM
 
-![PDM](/tree/master/doc/database.jpg)
+![PDM](/doc/database.jpg)
 
