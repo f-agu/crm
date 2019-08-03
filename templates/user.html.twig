@@ -62,7 +62,15 @@
 				<div class="row">
 					<label for="staticSex" class="col-sm-2 col-form-label"><strong>{% trans %}Sex{% endtrans %}</strong></label>
 					<div class="col-sm-10">
-						<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex | default('') }}">
+						{#<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex | default('') }}">#}
+						<div class="btn-group btn-group-toggle disabled" data-toggle="buttons">
+							<label class="btn btn-outline-secondary {% if user.sex == 'F' %}active{%  endif %}">
+								<input type="radio" name="sex" id="sex_female" autocomplete="off" value="F"> {% trans %}Female{% endtrans %}
+							</label>
+							<label class="btn btn-outline-secondary {% if user.sex == 'M' %}active{%  endif %}">
+								<input type="radio" name="sex" id="sex_male" autocomplete="off" value="M"> {% trans %}Male{% endtrans %}
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="row">
