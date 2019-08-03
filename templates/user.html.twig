@@ -8,91 +8,129 @@
 
 {% block dashboardcontent %}
 
-	<div class="row p-3">
-    	<button type="button" class="btn btn-primary" id="btn-modify">
-    	    <span data-feather="edit-2"></span>
-    	    {% trans %}Modify{% endtrans %}
-    	</button>
-    	<button type="button" class="btn btn-secondary" id="btn-cancel" style="display: none;">
-    	    <span data-feather="x"></span>
-    	    {% trans %}Cancel{% endtrans %}
-    	</button>
-    </div>
-	
-	<form id="student_form" action="/api/user/{{ user.uuid }}" method="POST" class="needs-validation" novalidate>
-        <div class="row"> {# form-group #}
-            <label for="staticLastname" class="col-sm-2 col-form-label"><strong>{% trans %}Lastname{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticLastname" value="{{ user.lastname | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticFirstname" class="col-sm-2 col-form-label"><strong>{% trans %}Firstname{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticFirstname" value="{{ user.firstname | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticBirthday" class="col-sm-2 col-form-label"><strong>{% trans %}Birthday{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticBirthday" value="{{ user.birthday.date_fr | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticSex" class="col-sm-2 col-form-label"><strong>{% trans %}Sex{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticAddress" class="col-sm-2 col-form-label"><strong>{% trans %}Address{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ user.address | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticZipcode" class="col-sm-2 col-form-label"><strong>{% trans %}Zipcode{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticZipcode" value="{{ user.zipcode | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticCity" class="col-sm-2 col-form-label"><strong>{% trans %}City{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ user.city | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticPhone" class="col-sm-2 col-form-label"><strong>{% trans %}Phone{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ user.phone | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticPhoneEmergency" class="col-sm-2 col-form-label"><strong>{% trans %}Phone emergency{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticPhoneEmergency" value="{{ user.city | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticNationality" class="col-sm-2 col-form-label"><strong>{% trans %}Nationality{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticNationality" value="{{ user.nationality | default('') }}">
-        	</div>
-        </div>
-        <div class="row">
-            <label for="staticMails" class="col-sm-2 col-form-label"><strong>{% trans %}Mails{% endtrans %}</strong></label>
-            <div class="col-sm-10">
-            	<input type="text" readonly class="form-control-plaintext" id="staticMails" value="{{ user.mails | default('') }}">
-        	</div>
-        </div>
-        <div class="row p-3">
-        	<button id="submitUpdate" type="button" class="btn btn-primary" style="display: none;">
-        	    <span data-feather="save"></span>
-    	        {% trans %}Save{% endtrans %}
-        	</button>
-        </div>
-	</form>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="contactinfo-tab" data-toggle="tab" href="#contactinfo" role="tab" aria-controls="contactinfo" aria-selected="true">{% trans %}Information{% endtrans %}</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="access-tab" data-toggle="tab" href="#access" role="tab" aria-controls="access" aria-selected="false">{% trans %}Access & roles{% endtrans %}</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="modifhst-tab" data-toggle="tab" href="#modifhst" role="tab" aria-controls="modifhst" aria-selected="false">{% trans %}Modifications{% endtrans %}</a>
+		</li>
+	</ul>
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="contactinfo" role="tabpanel" aria-labelledby="contactinfo-tab">
+			<div class="row p-3">
+				<div class="col" align="left">
+    				<button type="button" class="btn btn-primary" id="btn-modify-top-info">
+    					<span data-feather="edit-2"></span>
+    					{% trans %}Modify{% endtrans %}
+    				</button>
+    				<button type="button" class="btn btn-secondary" id="btn-cancel-top-info" style="display: none;">
+    					<span data-feather="x"></span>
+    					{% trans %}Cancel{% endtrans %}
+    				</button>
+				</div>
+				<div class="col" align="right">
+					<button id="submitUpdate-top-info" type="button" class="btn btn-primary" style="display: none;">
+						<span data-feather="save"></span>
+						{% trans %}Save{% endtrans %}
+					</button>
+				</div>
+			</div>
+			
+			<form id="user_form-info" action="/api/user/{{ user.uuid }}" method="POST" class="needs-validation" novalidate>
+				<div class="row"> {# form-group #}
+					<label for="staticLastname" class="col-sm-2 col-form-label"><strong>{% trans %}Lastname{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticLastname" value="{{ user.lastname | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticFirstname" class="col-sm-2 col-form-label"><strong>{% trans %}Firstname{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticFirstname" value="{{ user.firstname | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticBirthday" class="col-sm-2 col-form-label"><strong>{% trans %}Birthday{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticBirthday" value="{{ user.birthday.date_fr | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticSex" class="col-sm-2 col-form-label"><strong>{% trans %}Sex{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ user.sex | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticAddress" class="col-sm-2 col-form-label"><strong>{% trans %}Address{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ user.address | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticZipcode" class="col-sm-2 col-form-label"><strong>{% trans %}Zipcode{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticZipcode" value="{{ user.zipcode | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticCity" class="col-sm-2 col-form-label"><strong>{% trans %}City{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ user.city | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticPhone" class="col-sm-2 col-form-label"><strong>{% trans %}Phone{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ user.phone | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticPhoneEmergency" class="col-sm-2 col-form-label"><strong>{% trans %}Phone emergency{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticPhoneEmergency" value="{{ user.city | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticNationality" class="col-sm-2 col-form-label"><strong>{% trans %}Nationality{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticNationality" value="{{ user.nationality | default('') }}">
+					</div>
+				</div>
+				<div class="row">
+					<label for="staticMails" class="col-sm-2 col-form-label"><strong>{% trans %}Mails{% endtrans %}</strong></label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control-plaintext" id="staticMails" value="{{ user.mails | default('') }}">
+					</div>
+				</div>
+    			<div class="row p-3">
+    				<div class="col" align="left">
+        				<button type="button" class="btn btn-primary" id="btn-modify-bottom-info">
+        					<span data-feather="edit-2"></span>
+        					{% trans %}Modify{% endtrans %}
+        				</button>
+        				<button type="button" class="btn btn-secondary" id="btn-cancel-bottom-info" style="display: none;">
+        					<span data-feather="x"></span>
+        					{% trans %}Cancel{% endtrans %}
+        				</button>
+    				</div>
+    				<div class="col" align="right">
+    					<button id="submitUpdate-bottom-info" type="button" class="btn btn-primary" style="display: none;">
+    						<span data-feather="save"></span>
+    						{% trans %}Save{% endtrans %}
+    					</button>
+    				</div>
+    			</div>
+			</form>
+
+		</div>
+		<div class="tab-pane fade" id="access" role="tabpanel" aria-labelledby="access-tab">access TODO</div>
+		<div class="tab-pane fade" id="modifhst" role="tabpanel" aria-labelledby="modifhst-tab">modif TODO</div>
+	</div>
 
 {% endblock %}
 
@@ -111,13 +149,13 @@
 		minDate.setFullYear(minDate.getFullYear() - 100);
 		var startDate = new Date();
 		startDate.setFullYear(startDate.getFullYear() - 10);
-		/*$('#staticBirthday').datepicker({
+		$('#staticBirthday').datepicker({
 			startDate: minDate,
 			endDate: maxDate,
 			defaultViewDate: startDate,
 			language: 'fr',
 			calendarWeeks: true
-        });*/
-    </script>
+		});
+	</script>
 	<script src="/assets/user/user.js"></script>
 {% endblock %}

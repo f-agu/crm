@@ -23,8 +23,7 @@ class DiffTool
 			$value = $prop->getValue($object);
 			if($value instanceof \DateTime) {
 				$value = $value->format(\DateTime::RFC3339_EXTENDED);
-			}
-			if(is_object($value)) {
+			} else if(is_object($value)) {
 				$value = json_encode($value, true);
 			}
 			$array[$prop->getName()] = $value;

@@ -20,8 +20,8 @@ $(document).ready(function () {
 				//console.log('OK with ', postData);
 			},
 			error: function(jqXHR, status, error) {
+				console.log('ERRRRROR', status + ": " + error, jqXHR.responseJSON);
 				handleError("student_form", jqXHR.responseJSON);
-				//console.log('ERRRRROR', status + ": " + error, jqXHR.responseJSON);
 			}
 		});
 		e.preventDefault();

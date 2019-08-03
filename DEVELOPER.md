@@ -116,3 +116,10 @@ php bin/console cache:clear
 Swagger is available  : http://localhost/swagger/index.html
 
 
+
+# Database
+
+## PDM
+
+![PDM](/tree/master/doc/database.jpg)
+

@@ -179,7 +179,7 @@ class UserController extends AbstractController
 		}
 
 		try {
-			$user = $service->create($userCreate);
+			$user = $service->create($this->getUser(), $userCreate);
 		} catch (\Exception $e) {
 			return ShortResponse::exception('Query failed, please try again shortly ('.$e->getMessage().')');
 		}
