@@ -327,6 +327,11 @@ class User
 		return $this;
 	}
 
+	public function getAccount(): ?Account
+	{
+		return empty($this->accounts) ? null : $this->accounts[0];
+	}
+	
 	public function removeAccount(Account $account): self
 	{
 		if ($this->accounts->contains($account)) {

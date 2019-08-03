@@ -14,6 +14,7 @@ use App\Util\DiffTool;
 use App\Entity\UserHistory;
 use App\Entity\Account;
 use App\Util\TreeWalker;
+use App\Model\UserUpdate;
 
 
 class UserService
@@ -54,7 +55,37 @@ class UserService
 		}
 		
 		return $user;
-		//return ['u'=> $user, 'e' => $elements];
+	}
+	
+	public function update(Account $modifierAccount, $uuid, UserUpdate $userUpdate)
+	{
+		$previousUser = $this->em->getRepository(User::class)->findBy(['uuid' => $uuid]);
+		$previousElements = DiffTool::toArray($previousUser);
+		
+		$previousUser->setLastname($userUpdate->getLastname());
+		$previousUser->setFirstname($userUpdate->getFirstname());
+		$previousUser->setBirthday(DateUtils::parseFrenchToDateTime($userUpdate->getBirthday()));
+		$previousUser->setSex($userUpdate->getSex());
+		$previousUser->setAddress($userUpdate->getAddress());
+		$previousUser->setZipcode($userUpdate->getZipcode());
+		$previousUser->setCity($userUpdate->getCity());
+		$previousUser->setPhone($userUpdate->getPhone());
+		$previousUser->setPhoneEmergency($userUpdate->getPhoneEmergency());
+		$previousUser->setNationality($userUpdate->getNationality());
+		$previousUser->setMails($userUpdate->getMails());
+		$this->em->flush();
+		
+		// history
+		$newElements = DiffTool::toArray($previousUser);
+		$treewalker = new TreeWalker(["debug" => false, "returntype" => "array"]);
+		$diffArray = $treewalker->getdiff($newElements, $previousElements);
+		
+		foreach (UserHistory::diffToHistories($diffArray, $modifierAccount, $previousUser) as $uh) {
+			$this->em->persist($uh);
+			$this->em->flush();
+		}
+		
+		return $previousUser;
 	}
 	
 	public function __destruct()

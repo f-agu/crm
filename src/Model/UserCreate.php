@@ -18,7 +18,7 @@ class UserCreate
 	 * @Assert\NotBlank
 	 * @Assert\Type("string")
 	 * @Assert\Length(min = 1, max = 255)
-	 * @OA\Property(type="string", example="abcDEF654")
+	 * @OA\Property(type="string", example="Doe")
 	 */
 	private $lastname;
 
@@ -26,7 +26,7 @@ class UserCreate
 	 * @Assert\NotBlank
 	 * @Assert\Type("string")
 	 * @Assert\Length(min = 1, max = 255)
-	 * @OA\Property(type="string", example="Doe")
+	 * @OA\Property(type="string", example="John")
 	 */
 	private $firstname;
 
