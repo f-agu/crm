@@ -10,6 +10,4 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Info(title="CRM", version="0.1")
  */
-
-
 class SwaggerInfo {}

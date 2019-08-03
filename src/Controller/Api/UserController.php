@@ -244,7 +244,7 @@ class UserController extends AbstractController
 	}
 
 	/**
-	 * @Route("/api/user/{uuid}", name="api_user_update-one", methods={"Put"})
+	 * @Route("/api/user/{uuid}", name="api_user_update-one", methods={"PUT"})
 	 * @IsGranted("ROLE_TEACHER")
 	 * @OA\Put(
 	 *     path="/api/user/{uuid}",
@@ -270,7 +270,7 @@ class UserController extends AbstractController
 	public function updateOne($uuid, Request $request, SerializerInterface $serializer, TranslatorInterface $translator)
 	{
 		if(! self::one($uuid)) {
-			$this->denyAccessUnlessGranted('ROLE_TEACHER', 'User not found or access denied', 'User not found or access denied');
+			$this->denyAccessUnlessGranted('ROLE_USER', 'User not found or access denied', 'User not found or access denied');
 		}
 		$requestUtil = new RequestUtil($serializer, $translator);
 		
@@ -296,6 +296,60 @@ class UserController extends AbstractController
 		$output = array('user' => new UserView($user));
 		$hateoas = HateoasBuilder::create()->build();
 		$json = json_decode($hateoas->serialize($output, 'json'));
+		
+		return new Response(json_encode($json), 200, array(
+			'Content-Type' => 'application/hal+json'
+		));
+	}
+	
+	/**
+	 * @Route("/api/user/{uuid}", name="api_user_update-one", methods={"DELETE"})
+	 * @IsGranted("ROLE_TEACHER")
+	 * @OA\Delete(
+	 *     path="/api/user/{uuid}",
+	 *     summary="Delete an user",
+	 *     @OA\Parameter(
+	 *         description="UUID of user",
+	 *         in="path",
+	 *         name="uuid",
+	 *         required=true,
+	 *         @OA\Schema(
+	 *             format="string",
+	 *             type="string"
+	 *         )
+	 *     ),
+	 *     @OA\RequestBody(
+	 *         description="User object that needs to be added",
+	 *         required=true,
+	 *         @OA\JsonContent(ref="#/components/schemas/UserUpdate"),
+	 *     ),
+	 *     @OA\Response(response="200", description="Successful")
+	 * )
+	 */
+	public function deleteOne($uuid, Request $request, SerializerInterface $serializer, TranslatorInterface $translator)
+	{
+		if(! self::one($uuid)) {
+			$this->denyAccessUnlessGranted('ROLE_USER', 'User not found or access denied', 'User not found or access denied');
+		}
+		
+		// TODO
+		
+		
+// 		try {
+// 			$service = new UserService($this->getDoctrine()->getManager(), $request);
+// 		} catch (\Exception $e) {
+// 			return ShortResponse::exception('Initialization failed, '.$e->getMessage());
+// 		}
+		
+// 		try {
+// 			$user = $service->update($this->getUser(), $uuid, $userUpdate);
+// 		} catch (\Exception $e) {
+// 			return ShortResponse::exception('Query failed, please try again shortly ('.$e->getMessage().')');
+// 		}
+		
+// 		$output = array('user' => new UserView($user));
+// 		$hateoas = HateoasBuilder::create()->build();
+// 		$json = json_decode($hateoas->serialize($output, 'json'));
 		
 		return new Response(json_encode($json), 200, array(
 			'Content-Type' => 'application/hal+json'
