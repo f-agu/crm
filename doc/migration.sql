@@ -183,6 +183,8 @@ INSERT INTO account(user_id, login, password, roles, has_access)
 
 -- **** USER_LESSON_SUBSCRIBE ****
 
+-- TEACHER
+
 INSERT INTO user_club_subscribe(user_id, club_id, roles)
  SELECT u.id AS user_id,
         c.id AS club_id,
@@ -218,6 +220,7 @@ INSERT INTO user_club_subscribe(user_id, club_id, roles)
   JOIN user u ON zu.uuid = u.uuid
   JOIN account a ON u.id = a.user_id;
 
+-- STUDENT
 
   
   
