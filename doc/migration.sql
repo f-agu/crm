@@ -1,9 +1,23 @@
+/*
+On "source" database :
 
-DROP FUNCTION IF EXISTS fagu1.`proper_case`;
+mysqldump -h127.0.0.1 -p<password> <database> develeve_site develeve_blacklist develeve_cenacle devclub > dump_src.sql
+
+On "destination" database :
+
+mysql -h127.0.0.1 -p<password> --database=<database> < dump_src.sql
+
+
+
+*/
+
+
+
+DROP FUNCTION IF EXISTS `camel_case`;
 
 DELIMITER $$
 
-CREATE FUNCTION fagu1.`proper_case`(str varchar(128)) RETURNS varchar(128)
+CREATE FUNCTION `camel_case`(str varchar(128)) RETURNS varchar(128)
 BEGIN
 DECLARE n, pos INT DEFAULT 1;
 DECLARE sub, proper VARCHAR(128) DEFAULT '';
@@ -26,53 +40,53 @@ RETURN trim(proper);
 END 
 $$
 
-DELIMITER ;
+DELIMITER;
 
 
 -- ============================================
 
 -- **** CLUB ****
 
-CREATE TABLE fagu1.zzmigr_club AS 
+CREATE TABLE zzmigr_club AS 
  SELECT id,
         concat(lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)), lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0))) AS uuid,
-        fagu1.proper_case(nom) AS name,
+        camel_case(nom) AS name,
         coalesce(logo, 'default.png') AS logo,
         url AS website_url,
         url_fb AS facebook_url,
         mailing_list,
         a_supprimer = 'N' AS active
-   FROM cenacle_webdev.devclub;
+   FROM devclub;
 
 
-INSERT INTO fagu1.club(uuid, name, logo, website_url, facebook_url, mailing_list, active)
+INSERT INTO club(uuid, name, logo, website_url, facebook_url, mailing_list, active)
  SELECT uuid, name, logo, website_url, facebook_url, mailing_list, active
-  FROM fagu1.zzmigr_club;
+  FROM zzmigr_club;
 
 -- **** CLUB_LOCATION ****
 
-CREATE TABLE fagu1.zzmigr_club_location AS 
+CREATE TABLE zzmigr_club_location AS 
  SELECT oc.id AS o_id,
         nc.id AS n_id,
         concat(lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)), lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0))) AS uuid,
         '?' AS name,
         '?' AS address,
-        fagu1.proper_case(ville) AS city,
+        camel_case(ville) AS city,
         '?' AS zipcode,
         departement AS county,
-        fagu1.proper_case(pays) AS country
-  FROM cenacle_webdev.devclub oc
-   JOIN fagu1.zzmigr_club mc USING (id)
-   JOIN fagu1.club nc USING (uuid);
+        camel_case(pays) AS country
+  FROM devclub oc
+   JOIN zzmigr_club mc USING (id)
+   JOIN club nc USING (uuid);
 
-INSERT INTO fagu1.club_location(uuid, name, address, city, zipcode, county, country)
+INSERT INTO club_location(uuid, name, address, city, zipcode, county, country)
  SELECT uuid, name, address, city, zipcode, county, country
-  FROM fagu1.zzmigr_club_location;
+  FROM zzmigr_club_location;
 
 
 -- **** CLUB_LESSON ****
 
-CREATE TABLE fagu1.zzmigr_club_lesson AS 
+CREATE TABLE zzmigr_club_lesson AS 
  SELECT mcl.o_id AS o_id,
         ncl.id AS club_location_id,
         nc.id AS club_id,
@@ -83,18 +97,100 @@ CREATE TABLE fagu1.zzmigr_club_lesson AS
         'monday' AS day_of_week,
         '19:00:00' AS start_time,
         '20:00:00' AS end_time      
-  FROM fagu1.zzmigr_club mc
-   JOIN fagu1.zzmigr_club_location mcl ON mc.id = mcl.o_id
+  FROM zzmigr_club mc
+   JOIN zzmigr_club_location mcl ON mc.id = mcl.o_id
    JOIN club nc ON mc.uuid = nc.uuid
    JOIN club_location ncl ON mcl.uuid = ncl.uuid;
 
-INSERT INTO fagu1.club_lesson(club_location_id, club_id, uuid, point, discipline, age_level, day_of_week, start_time, end_time)
+INSERT INTO club_lesson(club_location_id, club_id, uuid, point, discipline, age_level, day_of_week, start_time, end_time)
  SELECT club_location_id, club_id, uuid, point, discipline, age_level, day_of_week, start_time, end_time
-  FROM fagu1.zzmigr_club_lesson;
+  FROM zzmigr_club_lesson;
 
+
+
+-- **** USER ****
+
+CREATE TABLE zzmigr_user AS 
+ SELECT eleve_id AS o_id,
+        concat(lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)), lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0))) AS uuid,
+        Nom AS lastname,
+        Prenom AS firstname,
+        Sexe AS sex,
+        Date_naissance AS birthday,
+        Adresse AS address,
+        Code_postal AS zipcode,
+        Ville AS city,
+        Tel AS phone,
+        Tel_accident AS phone_emergency,
+        Nationalite AS nationality,
+        Email AS mails,
+        Date_ins AS created,
+        0 AS blacklist_id,
+        null AS blacklist_date,
+        null AS blacklist_reason
+  FROM develeve_cenacle;
+
+INSERT INTO zzmigr_user
+ SELECT 0 AS o_id,
+        concat(lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)), lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0))) AS uuid,
+        Nom AS lastname,
+        Prenom AS firstname,
+        Sexe AS sex,
+        Date_naissance AS birthday,
+        Adresse AS address,
+        Code_postal AS zipcode,
+        Ville AS city,
+        Tel AS phone,
+        Tel_accident AS phone_emergency,
+        Nationalite AS nationality,
+        Email AS mails,
+        str_to_date('2000-01-01 0:00:00','%Y-%m-%d %H:%i:%s') AS created,
+        Id AS blacklist_id,
+        Date_blacklist AS blacklist_date,
+        Motif AS blacklist_reason
+  FROM develeve_blacklist;
+
+
+INSERT INTO user(uuid, lastname, firstname, sex, birthday, address, zipcode, city, phone, phone_emergency, nationality, mails, created, blacklist_date, blacklist_reason)
+ SELECT uuid, lastname, firstname, sex, birthday, address, zipcode, city, phone, phone_emergency, nationality, mails, created, blacklist_date, blacklist_reason
+  FROM zzmigr_user;
+
+
+CREATE TABLE zzmigr_account AS 
+
+
+ SELECT eleve_id AS o_id,
+        u.id AS user_id,
+        o_s.Email AS login,
+        substr(Pwd, 1, 40) AS password_sha1,
+        json_array(if(Statut = 'Prof', 'ROLE_TEACHER', null), if(Statut = 'Elève', 'ROLE_STUDENT', null)) AS roles,
+        Acces = 'O' AS has_access
+  FROM develeve_site o_s
+   JOIN zzmigr_user z_u ON o_s.eleve_id = z_u.o_id
+   JOIN user u ON u.uuid = z_u.uuid
+  LIMIT 10;
+
+
+select JSON_ARRAY( IF(500<1000, "YES", "NO"), null);
+
+select json_array(if(Status = 'Prof', 'ROLE_TEACHER', null), );
+
+
+SELECT substr('81943ddddf5d23118d932358613a96aa8c04a123DFBG4875%7+1.7JJHG#245H', 1, 40);
 
 -- **** << DROP temporary tables >> ****
 
-DROP TABLE fagu1.zzmigr_club;
-DROP TABLE fagu1.zzmigr_club_location;
+DROP TABLE zzmigr_club;
+DROP TABLE zzmigr_club_location;
 DROP TABLE zzmigr_club_lesson;
+
+
+
+
+
+
+
+
+
+
+  

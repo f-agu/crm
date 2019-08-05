@@ -39,6 +39,17 @@ class Account implements UserInterface
 	 */
 	private $roles = [];
 
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	private $has_access;
+
+
+	public function __construct()
+	{
+		$this->has_access = true;
+	}
+
 	public function getId(): ?int
 	{
 		return $this->id;
@@ -79,7 +90,7 @@ class Account implements UserInterface
 
 		return $this;
 	}
-	
+
 	/**
 	 * A visual identifier that represents this user.
 	 *
@@ -108,7 +119,7 @@ class Account implements UserInterface
 
 		return $this;
 	}
-	
+
 	/**
 	 * @see UserInterface
 	 */
@@ -130,5 +141,16 @@ class Account implements UserInterface
 	{
 		return 'Account[id: '.$this->id.' ; '.$this->login.']';
 	}
-	
+
+	public function getHasAccess(): ?bool
+	{
+		return $this->has_access;
+	}
+
+	public function setHasAccess(bool $has_access): self
+	{
+		$this->has_access = $has_access;
+		return $this;
+	}
+
 }
