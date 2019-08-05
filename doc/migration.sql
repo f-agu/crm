@@ -156,55 +156,45 @@ INSERT INTO user(uuid, lastname, firstname, sex, birthday, address, zipcode, cit
   FROM zzmigr_user;
 
 
+-- **** ACCOUNT ****
+
 CREATE TABLE zzmigr_account AS 
+ SELECT eleve_id AS o_id,
+        u.id AS user_id,
+        o_s.Email AS login,
+        concat('sha1:', substr(Pwd, 1, 40)) AS password,
+        json_array(
+           if(Resp_Club IS NOT NULL AND Resp_Club <> '', 'ROLE_CLUB_MANAGER', 'ROLE_USER'),
+           if(Statut = 'Prof', 'ROLE_TEACHER', 'ROLE_USER'),
+           if(remove_accents(Statut) = 'Eleve', 'ROLE_STUDENT', 'ROLE_USER')
+        ) AS roles,
+        Acces = 'O' AS has_access
+  FROM develeve_site o_s
+   JOIN zzmigr_user z_u ON o_s.eleve_id = z_u.o_id
+   JOIN user u ON u.uuid = z_u.uuid;
 
- SELECT o_id, user_id, login, password_sha1,
-        json_remove(),
-        has_access
-  FROM (
-   SELECT eleve_id AS o_id,
-          u.id AS user_id,
-          o_s.Email AS login,
-          substr(Pwd, 1, 40) AS password_sha1,
-          json_array(if(Statut = 'Prof', 'ROLE_TEACHER', 'ROLE_USER'), if(Statut = 'Elève', 'ROLE_STUDENT', null)) AS roles_json,
-          Acces = 'O' AS has_access
-    FROM develeve_site o_s
-     JOIN zzmigr_user z_u ON o_s.eleve_id = z_u.o_id
-     JOIN user u ON u.uuid = z_u.uuid
-  ) t;
+UPDATE zzmigr_account
+ SET roles = replace(replace(replace(roles, ', "ROLE_USER"', ''), '["ROLE_USER", ', '['), ', "ROLE_USER"]', ']')
 
-SELECT Resp_club, Statut
- FROM develeve_site
- WHERE Resp_club IS NOT NULL
- 
---- Prof / Elève
- 
- 
-select JSON_ARRAY( IF(500<1000, "YES", "NO"), null);
-
-select json_array(if(Status = 'Prof', 'ROLE_TEACHER', null), );
+INSERT INTO account(user_id, login, password, roles, has_access)
+ SELECT user_id, login, password, roles, has_access
+  FROM zzmigr_account;
 
 
-select json_remove(
-             json_array(if(500<1000, "y", "n"), null, null),
-             replace(json_search(json_array(null, if(500<1000, "y", "n"), null, 'end'), 'all', 'null'), '"', '')
-            );
+-- **** USER_LESSON_SUBSCRIBE ****
 
-
-select replace(json_search(json_array(if(500<1000, "y", "n"), null, null), 'all', 'null'), '"', '');
-
-select JSON_UNQUOTE(json_search(json_array(if(500<1000, "y", "n"), null, null), 'all', 'null');
-
-
-
-SELECT substr('81943ddddf5d23118d932358613a96aa8c04a123DFBG4875%7+1.7JJHG#245H', 1, 40);
+SELECT *
+   
+ FROM develeve_cenacle
+  JOIN 
 
 -- **** << DROP temporary tables >> ****
 
 DROP TABLE zzmigr_club;
 DROP TABLE zzmigr_club_location;
 DROP TABLE zzmigr_club_lesson;
---DROP TABLE zzmigr_user;
+DROP TABLE zzmigr_user;
+DROP TABLE zzmigr_account;
 
 
 

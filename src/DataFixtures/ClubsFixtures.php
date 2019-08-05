@@ -11,7 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ClubsFixtures extends Fixture implements OrderedFixtureInterface
 {
-	
+
 	public function load(ObjectManager $manager)
 	{
 		// ======================== Bry
@@ -30,8 +30,8 @@ class ClubsFixtures extends Fixture implements OrderedFixtureInterface
 		$this->persistLesson($manager, $club, $location, 'bry', 'Hapkido', 'Ceintures noires', 'thursday', new \DateTime('20:30'), new \DateTime('21:00'));
 		$this->persistLesson($manager, $club, $location, 'bry', 'Gumdo', 'Tous niveaux', 'thursday', new \DateTime('21:00'), new \DateTime('22:00'));
 		$manager->flush();
-		
-		
+
+
 		// ======================== Chelles
 		$club           = $this->createClub('A.S.C. Taekwondo-Hapkido', 'todo.gif', 'http://www.taekwondochelles.fr');
 		$locationGDel   = $this->createLocation('Gymnase Delambre', 'avenue Delambre', 'Chelles', '77500', '77');
@@ -47,8 +47,8 @@ class ClubsFixtures extends Fixture implements OrderedFixtureInterface
 		$this->persistLesson($manager, $club, $locationPomp, 'chelles', 'Taekwonkido', 'Adultes (13 ans et +)', 'thursday', new \DateTime('20:30'), new \DateTime('21:00'));
 		$manager->flush();
 	}
-    
-	
+
+
 	public function getOrder()
 	{
 		return 200;
@@ -64,9 +64,10 @@ class ClubsFixtures extends Fixture implements OrderedFixtureInterface
 		$club->setFacebookUrl($facebook_url);
 		$club->setMailingList($mailing_list);
 		$club->setActive($active);
+		$this->addReference($name, $club);
 		return $club;
 	}
-	
+
 	private function persistLesson(ObjectManager $manager, $club, $location, $refloc, $discipline, $age_level, $day_of_week, $start_time, $end_time, $point = 1)
 	{
 		$lesson = new ClubLesson();
@@ -79,10 +80,9 @@ class ClubsFixtures extends Fixture implements OrderedFixtureInterface
 		$lesson->setStartTime($start_time);
 		$lesson->setEndTime($end_time);
 		$manager->persist($lesson);
-		$this->addReference($refloc.'-'.$day_of_week.'-'.$discipline.'-'.$start_time->format('Hi'), $lesson);
 		return $lesson;
 	}
-	
+
 	private function createLocation($name, $address, $city, $zipcode, $county, $country = "France")
 	{
 		$clubloc = new ClubLocation();

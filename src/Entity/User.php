@@ -29,7 +29,7 @@ class User
 	 * @ORM\Column(type="string", length=16)
 	 */
 	private $uuid;
-	
+
 	/**
 	 * @Assert\NotBlank
 	 * @ORM\Column(type="string", length=255)
@@ -111,16 +111,16 @@ class User
 	private $accounts;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="App\Entity\UserLessonSubscribe", mappedBy="user", orphanRemoval=true)
+	 * @ORM\OneToMany(targetEntity="App\Entity\UserClubSubscribe", mappedBy="user", orphanRemoval=true)
 	 */
-	private $userLessonSubscribes;
+	private $userClubSubscribes;
 
 	public function __construct()
 	{
 		//$this->login = new ArrayCollection();
 		$this->accounts = new ArrayCollection();
 		$this->created = new \DateTime();
-		$this->userLessonSubscribes = new ArrayCollection();
+		$this->userClubSubscribes = new ArrayCollection();
 		$this->uuid = StringUtils::random_str(16);
 	}
 
@@ -133,14 +133,14 @@ class User
 	{
 		return $this->uuid;
 	}
-	
+
 	public function setUuid(string $uuid): self
 	{
 		$this->uuid = $uuid;
-		
+
 		return $this;
 	}
-	
+
 	public function getLastname(): ?string
 	{
 		return $this->lastname;
@@ -331,7 +331,7 @@ class User
 	{
 		return empty($this->accounts) ? null : $this->accounts[0];
 	}
-	
+
 	public function removeAccount(Account $account): self
 	{
 		if ($this->accounts->contains($account)) {
@@ -346,30 +346,30 @@ class User
 	}
 
 	/**
-	 * @return Collection|UserLessonSubscribe[]
+	 * @return Collection|UserClubSubscribe[]
 	 */
-	public function getUserLessonSubscribes(): Collection
+	public function getUserClubSubscribes(): Collection
 	{
-		return $this->userLessonSubscribes;
+		return $this->userClubSubscribes;
 	}
 
-	public function addUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
+	public function addUserClubSubscribe(UserClubSubscribe $userClubSubscribe): self
 	{
-		if (!$this->userLessonSubscribes->contains($userLessonSubscribe)) {
-			$this->userLessonSubscribes[] = $userLessonSubscribe;
-			$userLessonSubscribe->setUser($this);
+		if (!$this->userClubSubscribes->contains($userClubSubscribe)) {
+			$this->userClubSubscribes[] = $userClubSubscribe;
+			$userClubSubscribe->setUser($this);
 		}
 
 		return $this;
 	}
 
-	public function removeUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
+	public function removeUserClubSubscribe(UserClubSubscribe $userClubSubscribe): self
 	{
-		if ($this->userLessonSubscribes->contains($userLessonSubscribe)) {
-			$this->userLessonSubscribes->removeElement($userLessonSubscribe);
+		if ($this->userClubSubscribes->contains($userClubSubscribe)) {
+			$this->userClubSubscribes->removeElement($userClubSubscribe);
 			// set the owning side to null (unless already changed)
-			if ($userLessonSubscribe->getUser() === $this) {
-				$userLessonSubscribe->setUser(null);
+			if ($userClubSubscribe->getUser() === $this) {
+				$userClubSubscribe->setUser(null);
 			}
 		}
 
@@ -380,5 +380,5 @@ class User
 	{
 		return 'User[id: '.$this->id.' ; uuid: '.$this->uuid.' ; '.$this->lastname.' '.$this->firstname.']';
 	}
-	
+
 }

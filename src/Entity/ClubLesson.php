@@ -26,7 +26,7 @@ class ClubLesson
 	 * @ORM\Column(type="string", length=16)
 	 */
 	private $uuid;
-	
+
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\ClubLocation", inversedBy="clubLessons", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
@@ -69,15 +69,10 @@ class ClubLesson
 	 */
 	private $end_time;
 
-	/**
-	 * @ORM\OneToMany(targetEntity="App\Entity\UserLessonSubscribe", mappedBy="lesson", orphanRemoval=true)
-	 */
-	private $userLessonSubscribes;
-
 	public function __construct()
 	{
 		$this->clubLessonTimeSlots = new ArrayCollection();
-		$this->userLessonSubscribes = new ArrayCollection();
+		$this->userClubSubscribes = new ArrayCollection();
 		$this->uuid = StringUtils::random_str(16);
 	}
 
@@ -85,19 +80,19 @@ class ClubLesson
 	{
 		return $this->id;
 	}
-	
+
 	public function getUuid(): ?string
 	{
 		return $this->uuid;
 	}
-	
+
 	public function setUuid(string $uuid): self
 	{
 		$this->uuid = $uuid;
-		
+
 		return $this;
 	}
-	
+
 	public function getClubLocation(): ?ClubLocation
 	{
 		return $this->club_location;
@@ -194,35 +189,6 @@ class ClubLesson
 		return $this;
 	}
 
-	/**
-	 * @return Collection|UserLessonSubscribe[]
-	 */
-	public function getUserLessonSubscribes(): Collection
-	{
-		return $this->userLessonSubscribes;
-	}
 
-	public function addUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
-	{
-		if (!$this->userLessonSubscribes->contains($userLessonSubscribe)) {
-			$this->userLessonSubscribes[] = $userLessonSubscribe;
-			$userLessonSubscribe->setLesson($this);
-		}
-
-		return $this;
-	}
-
-	public function removeUserLessonSubscribe(UserLessonSubscribe $userLessonSubscribe): self
-	{
-		if ($this->userLessonSubscribes->contains($userLessonSubscribe)) {
-			$this->userLessonSubscribes->removeElement($userLessonSubscribe);
-			// set the owning side to null (unless already changed)
-			if ($userLessonSubscribe->getLesson() === $this) {
-				$userLessonSubscribe->setLesson(null);
-			}
-		}
-
-		return $this;
-	}
 
 }

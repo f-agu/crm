@@ -82,6 +82,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
 	public function checkCredentials($credentials, UserInterface $user)
 	{
+		$pwd = $user->getPassword();
+		if(substr($pwd, 0, 5) === 'sha1:') {
+			return $this->checkCredentialsLegacy(substr($pwd, 0, 5), $user);
+		}
 		return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
 	}
 
@@ -107,5 +111,18 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	protected function getLoginUrl()
 	{
 		return $this->urlGenerator->generate('app_login');
+	}
+
+	private function checkCredentialsLegacy($sha1, $credentials, Account $user)
+	{
+		$salt = 'gh(-#fgbVD56ù@iutyxc +tyu_75^rrtyè6';
+		$input = sha1($credentials['password'].$salt);
+		if($input === $sha1) {
+			$newpwd = $this->passwordEncoder->encodePassword($user, $credentials['password']);
+			$user->setPassword($newpwd);
+			$user = $this->entityManager->flush();
+			return true;
+		}
+		return false;
 	}
 }

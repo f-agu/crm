@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserLessonSubscribeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserClubSubscribeRepository")
  */
-class UserLessonSubscribe
+class UserClubSubscribe
 {
 	/**
 	 * @ORM\Id()
@@ -17,21 +17,21 @@ class UserLessonSubscribe
 	private $id;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userLessonSubscribes")
+	 * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userClubSubscribes")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $user;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Entity\ClubLesson", inversedBy="userLessonSubscribes")
+	 * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="userClubSubscribes")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $lesson;
+	private $club;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="json")
 	 */
-	private $role;
+	private $roles;
 
 	/**
 	 * @ORM\Column(type="date", nullable=true)
@@ -44,41 +44,40 @@ class UserLessonSubscribe
 	private $unsubscribe_date;
 
 	public function getId(): ?int
-						   	{
-						   		return $this->id;
-						   	}
+   	{
+   		return $this->id;
+   	}
 
 	public function getUser(): ?User
-						   	{
-						   		return $this->user;
-						   	}
+   	{
+   		return $this->user;
+   	}
 
 	public function setUser(?User $user): self
-						   	{
-						   		$this->user = $user;
-						   		return $this;
-						   	}
+   	{
+   		$this->user = $user;
+   		return $this;
+   	}
 
-	public function getLesson(): ?ClubLesson
-						   	{
-						   		return $this->lesson;
-						   	}
+	public function getClub(): ?Club
+   	{
+   		return $this->club;
+   	}
 
-	public function setLesson(?ClubLesson $lesson): self
-						   	{
-						   		$this->lesson = $lesson;
-						   		return $this;
-						   	}
+	public function setClub(?Club $club): self
+   	{
+   		$this->club = $club;
+   		return $this;
+   	}
 
-	public function getRole(): ?string
+	public function getRoles(): ?array
 	{
-		return $this->role;
+		return array_unique($this->roles);
 	}
 
-	public function setRole(string $role): self
+	public function setRoles(array $roles): self
 	{
-		$this->role = $role;
-
+		$this->roles = $roles;
 		return $this;
 	}
 
@@ -90,7 +89,6 @@ class UserLessonSubscribe
 	public function setSubscribeDate(?\DateTimeInterface $subscribe_date): self
 	{
 		$this->subscribe_date = $subscribe_date;
-
 		return $this;
 	}
 
@@ -102,7 +100,6 @@ class UserLessonSubscribe
 	public function setUnsubscribeDate(?\DateTimeInterface $unsubscribe_date): self
 	{
 		$this->unsubscribe_date = $unsubscribe_date;
-
 		return $this;
 	}
 }

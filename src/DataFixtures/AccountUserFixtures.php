@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountUserFixtures extends Fixture implements OrderedFixtureInterface
 {
 	public const ADMIN_USER_REFERENCE = 'admin-user';
-	public const TEACHER_CLUB_MANAGER_REFERENCE_PREFIX = 'club-manager-';
+	public const CLUB_MANAGER_REFERENCE_PREFIX = 'club-manager-';
 	public const TEACHER_USER_REFERENCE_PREFIX = 'prof-user-';
 	public const STUDENT_USER_REFERENCE_PREFIX = 'student-user-';
 	public const TEACHER_STUDENT_USER_REFERENCE_PREFIX = 'prof-eleve-user-';
@@ -32,7 +32,7 @@ class AccountUserFixtures extends Fixture implements OrderedFixtureInterface
 
 		for ($i = 0; $i < 1; $i++)
 		{
-			$this->persistUserAccount($manager, 'cman nom '.$i, 'cman prenom '.$i, '07/11/2019', 'man'.$i, 'man'.$i, ['ROLE_CLUB_MANAGER'], self::TEACHER_CLUB_MANAGER_REFERENCE_PREFIX.$i);
+			$this->persistUserAccount($manager, 'cman nom '.$i, 'cman prenom '.$i, '07/11/2019', 'man'.$i, 'man'.$i, ['ROLE_CLUB_MANAGER'], self::CLUB_MANAGER_REFERENCE_PREFIX.$i);
 		}
 
 		for ($i = 0; $i < 10; $i++)

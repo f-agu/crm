@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\UserLessonSubscribe;
+use App\Entity\UserClubSubscribe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method UserLessonSubscribe|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserLessonSubscribe|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserLessonSubscribe[]    findAll()
- * @method UserLessonSubscribe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserClubSubscribe|null find($id, $lockMode = null, $lockVersion = null)
+ * @method UserClubSubscribe|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserClubSubscribe[]    findAll()
+ * @method UserClubSubscribe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserLessonSubscribeRepository extends ServiceEntityRepository
+class UserClubSubscribeRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, UserLessonSubscribe::class);
+        parent::__construct($registry, UserClubSubscribe::class);
     }
 
     // /**
-    //  * @return UserLessonSubscribe[] Returns an array of UserLessonSubscribe objects
+    //  * @return UserClubSubscribe[] Returns an array of UserClubSubscribe objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class UserLessonSubscribeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?UserLessonSubscribe
+    public function findOneBySomeField($value): ?UserClubSubscribe
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')

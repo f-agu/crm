@@ -8,17 +8,17 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class MenuItemFixtures extends Fixture
 {
-    
+
 	public function load(ObjectManager $manager)
 	{
-		
+
 	    $manager->persist($this->createItem("clubs", 100, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("documents", 200, ["ROLE_TEACHER", "ROLE_STUDENT"]));
-		$manager->persist($this->createItem("users", 300, ["ROLE_TEACHER"]));
-		
+		$manager->persist($this->createItem("users", 300, ["ROLE_CLUB_MANAGER"]));
+
 		$manager->flush();
 	}
-    
+
 	private function createItem($code, $priority, $roles = [])
 	{
 		$item = new MenuItem();
