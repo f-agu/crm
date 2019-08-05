@@ -62,10 +62,16 @@ class Club
 	 */
 	private $clubLessons;
 
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Entity\UserClubSubscribe", mappedBy="club", orphanRemoval=true)
+	 */
+	private $userClubSubscribes;
+
 	public function __construct()
 	{
 		$this->clubLessons = new ArrayCollection();
 		$this->uuid = StringUtils::random_str(16);
+		$this->userClubSubscribes = new ArrayCollection();
 	}
 
 	public function getId(): ?int
@@ -81,7 +87,6 @@ class Club
 	public function setUuid(string $uuid): self
 	{
 		$this->uuid = $uuid;
-		
 		return $this;
 	}
 	
@@ -93,7 +98,6 @@ class Club
 	public function setName(string $name): self
 	{
 		$this->name = $name;
-
 		return $this;
 	}
 
@@ -105,7 +109,6 @@ class Club
 	public function setLogo(string $logo): self
 	{
 		$this->logo = $logo;
-
 		return $this;
 	}
 
@@ -117,7 +120,6 @@ class Club
 	public function setWebsiteUrl(?string $website_url): self
 	{
 		$this->website_url = $website_url;
-
 		return $this;
 	}
 
@@ -129,7 +131,6 @@ class Club
 	public function setFacebookUrl(?string $facebook_url): self
 	{
 		$this->facebook_url = $facebook_url;
-
 		return $this;
 	}
 
@@ -141,7 +142,6 @@ class Club
 	public function setMailingList(?string $mailing_list): self
 	{
 		$this->mailing_list = $mailing_list;
-
 		return $this;
 	}
 
@@ -153,7 +153,6 @@ class Club
 	public function setActive(bool $active): self
 	{
 		$this->active = $active;
-
 		return $this;
 	}
 
@@ -171,7 +170,6 @@ class Club
 			$this->clubLessons[] = $clubLesson;
 			$clubLesson->setClub($this);
 		}
-
 		return $this;
 	}
 
@@ -182,6 +180,35 @@ class Club
 			// set the owning side to null (unless already changed)
 			if ($clubLesson->getClub() === $this) {
 				$clubLesson->setClub(null);
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * @return Collection|UserClubSubscribe[]
+	 */
+	public function getUserClubSubscribes(): Collection
+	{
+		return $this->userClubSubscribes;
+	}
+
+	public function addUserClubSubscribe(UserClubSubscribe $userClubSubscribe): self
+	{
+		if (!$this->userClubSubscribes->contains($userClubSubscribe)) {
+			$this->userClubSubscribes[] = $userClubSubscribe;
+			$userClubSubscribe->setClub($this);
+		}
+		return $this;
+	}
+
+	public function removeUserClubSubscribe(UserClubSubscribe $userClubSubscribe): self
+	{
+		if ($this->userClubSubscribes->contains($userClubSubscribe)) {
+			$this->userClubSubscribes->removeElement($userClubSubscribe);
+			// set the owning side to null (unless already changed)
+			if ($userClubSubscribe->getClub() === $this) {
+				$userClubSubscribe->setClub(null);
 			}
 		}
 

@@ -23,12 +23,6 @@ class UserClubSubscribe
 	private $user;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="userClubSubscribes")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $club;
-
-	/**
 	 * @ORM\Column(type="json")
 	 */
 	private $roles;
@@ -43,32 +37,27 @@ class UserClubSubscribe
 	 */
 	private $unsubscribe_date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="userClubSubscribes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $club;
+
 	public function getId(): ?int
-   	{
-   		return $this->id;
-   	}
+	{
+		return $this->id;
+	}
 
 	public function getUser(): ?User
-   	{
-   		return $this->user;
-   	}
+	{
+		return $this->user;
+	}
 
 	public function setUser(?User $user): self
-   	{
-   		$this->user = $user;
-   		return $this;
-   	}
-
-	public function getClub(): ?Club
-   	{
-   		return $this->club;
-   	}
-
-	public function setClub(?Club $club): self
-   	{
-   		$this->club = $club;
-   		return $this;
-   	}
+	{
+		$this->user = $user;
+		return $this;
+	}
 
 	public function getRoles(): ?array
 	{
@@ -100,6 +89,17 @@ class UserClubSubscribe
 	public function setUnsubscribeDate(?\DateTimeInterface $unsubscribe_date): self
 	{
 		$this->unsubscribe_date = $unsubscribe_date;
+		return $this;
+	}
+
+	public function getClub(): ?Club
+	{
+		return $this->club;
+	}
+
+	public function setClub(?Club $club): self
+	{
+		$this->club = $club;
 		return $this;
 	}
 }
