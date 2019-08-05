@@ -45,7 +45,7 @@ class UserRepository extends ServiceEntityRepository
 			  ." FROM account act"
 			  ."  JOIN user teacher ON act.user_id = teacher.id"
 			  ."  JOIN user_club_subscribe tsubsc ON (teacher.id = tsubsc.user_id AND json_contains(tsubsc.roles, json_quote('CLUB_MANAGER')))"
-			  ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id AND NOT json_contains(tsubsc.roles, json_quote('CLUB_MANAGER')))"
+			  ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id AND (NOT json_contains(tsubsc.roles, json_quote('CLUB_MANAGER'))) OR tsubsc.id = usubsc.id)"
 			  ."  JOIN user u ON u.id = usubsc.user_id"
 			  ."  LEFT JOIN account a ON a.user_id = u.id"
 			  ." WHERE act.id = :accountId";
