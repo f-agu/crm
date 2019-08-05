@@ -89,7 +89,7 @@ class SearchDao
               ." FROM account a"
               ."  JOIN user teacher ON a.user_id = teacher.id"
               ."  JOIN user_club_subscribe tsubsc ON (teacher.id = tsubsc.user_id AND json_contains(tsubsc.roles, json_quote('CLUB_MANAGER')))"
-              ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id AND (NOT json_contains(tsubsc.roles, json_quote('CLUB_MANAGER'))) OR tsubsc.id = usubsc.id)"
+              ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id AND (NOT json_contains(usubsc.roles, json_quote('CLUB_MANAGER'))) OR tsubsc.id = usubsc.id)"
               ."  JOIN user u ON u.id = usubsc.user_id"
               ."  LEFT JOIN account au ON au.user_id = u.id"
               ." WHERE a.id = :teacherAccountId"

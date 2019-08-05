@@ -40,8 +40,6 @@ RETURN trim(proper);
 END 
 $$
 
-DELIMITER;
-
 
 -- ============================================
 
@@ -183,48 +181,50 @@ INSERT INTO account(user_id, login, password, roles, has_access)
 
 -- **** USER_LESSON_SUBSCRIBE ****
 
--- TEACHER
-
 INSERT INTO user_club_subscribe(user_id, club_id, roles)
  SELECT u.id AS user_id,
         c.id AS club_id,
-        '["CLUB_MANAGER"]' AS roles
+        concat('["', if(a.user_id IS NOT NULL AND role = 'CLUB_MANAGER', 'CLUB_MANAGER', 'STUDENT'), '"]') AS roles
   FROM (
-   SELECT Eleve_id, convert(ocid, integer) AS ocid
+   SELECT *
     FROM (
-     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[0]') AS ocid
-      FROM develeve_site
-      WHERE Resp_club IS NOT NULL AND Resp_club != ''
-     UNION
-     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[1]') AS ocid
-      FROM develeve_site
-      WHERE Resp_club IS NOT NULL AND Resp_club != ''
-     UNION
-     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[2]') AS ocid
-      FROM develeve_site
-      WHERE Resp_club IS NOT NULL AND Resp_club != ''
-     UNION
-     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[3]') AS ocid
-      FROM develeve_site
-      WHERE Resp_club IS NOT NULL AND Resp_club != ''
-     UNION
-     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[4]') AS ocid
-      FROM develeve_site
-      WHERE Resp_club IS NOT NULL AND Resp_club != ''
-     ) ut
-   WHERE ocid IS NOT NULL
+     SELECT Eleve_id, convert(ocid, integer) AS ocid, 'CLUB_MANAGER' AS role
+      FROM (
+       SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[0]') AS ocid
+        FROM develeve_site
+        WHERE Resp_club IS NOT NULL AND Resp_club != ''
+       UNION
+       SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[1]') AS ocid
+        FROM develeve_site
+        WHERE Resp_club IS NOT NULL AND Resp_club != ''
+       UNION
+       SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[2]') AS ocid
+        FROM develeve_site
+        WHERE Resp_club IS NOT NULL AND Resp_club != ''
+       UNION
+       SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[3]') AS ocid
+        FROM develeve_site
+        WHERE Resp_club IS NOT NULL AND Resp_club != ''
+       UNION
+       SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[4]') AS ocid
+        FROM develeve_site
+        WHERE Resp_club IS NOT NULL AND Resp_club != ''
+       ) ut
+     WHERE ocid IS NOT NULL
+     UNION ALL
+     SELECT Eleve_id, club_id AS ocid, 'STUDENT' AS role
+      FROM develeve_cenacle
+    ) fgb
+    GROUP BY 1, 2, 3
   ) unnest
   JOIN zzmigr_club zc ON unnest.ocid = zc.id
   JOIN club c ON c.uuid = zc.uuid
   JOIN zzmigr_user zu ON unnest.Eleve_id = zu.o_id
   JOIN user u ON zu.uuid = u.uuid
-  JOIN account a ON u.id = a.user_id;
-
--- STUDENT
+  LEFT JOIN account a ON u.id = a.user_id;
 
   
   
-
 -- **** << DROP temporary tables >> ****
 
 DROP TABLE zzmigr_club;
