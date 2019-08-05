@@ -19,6 +19,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use App\Entity\AccountSessionHistory;
+use Psr\Log\LoggerInterface;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -28,13 +29,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	private $urlGenerator;
 	private $csrfTokenManager;
 	private $passwordEncoder;
+	private $logger;
 
-	public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+	public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, LoggerInterface $logger)
 	{
 		$this->entityManager = $entityManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->csrfTokenManager = $csrfTokenManager;
 		$this->passwordEncoder = $passwordEncoder;
+		$this->logger = $logger;
 	}
 
 	public function supports(Request $request)
@@ -84,7 +87,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	{
 		$pwd = $user->getPassword();
 		if(substr($pwd, 0, 5) === 'sha1:') {
-			return $this->checkCredentialsLegacy(substr($pwd, 0, 5), $user);
+			return $this->checkCredentialsLegacy(substr($pwd, 5), $credentials, $user);
 		}
 		return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
 	}
@@ -117,6 +120,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	{
 		$salt = 'gh(-#fgbVD56ù@iutyxc +tyu_75^rrtyè6';
 		$input = sha1($credentials['password'].$salt);
+		$this->logger->info('Upgrade legacy password for user '.$user->getId());
 		if($input === $sha1) {
 			$newpwd = $this->passwordEncoder->encodePassword($user, $credentials['password']);
 			$user->setPassword($newpwd);

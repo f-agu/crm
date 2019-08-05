@@ -174,7 +174,7 @@ CREATE TABLE zzmigr_account AS
    JOIN user u ON u.uuid = z_u.uuid;
 
 UPDATE zzmigr_account
- SET roles = replace(replace(replace(roles, ', "ROLE_USER"', ''), '["ROLE_USER", ', '['), ', "ROLE_USER"]', ']')
+ SET roles = replace(replace(replace(roles, ', "ROLE_USER"', ''), '["ROLE_USER", ', '['), ', "ROLE_USER"]', ']');
 
 INSERT INTO account(user_id, login, password, roles, has_access)
  SELECT user_id, login, password, roles, has_access
@@ -183,10 +183,44 @@ INSERT INTO account(user_id, login, password, roles, has_access)
 
 -- **** USER_LESSON_SUBSCRIBE ****
 
-SELECT *
-   
- FROM develeve_cenacle
-  JOIN 
+INSERT INTO user_club_subscribe(user_id, club_id, roles)
+ SELECT u.id AS user_id,
+        c.id AS club_id,
+        '["CLUB_MANAGER"]' AS roles
+  FROM (
+   SELECT Eleve_id, convert(ocid, integer) AS ocid
+    FROM (
+     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[0]') AS ocid
+      FROM develeve_site
+      WHERE Resp_club IS NOT NULL AND Resp_club != ''
+     UNION
+     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[1]') AS ocid
+      FROM develeve_site
+      WHERE Resp_club IS NOT NULL AND Resp_club != ''
+     UNION
+     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[2]') AS ocid
+      FROM develeve_site
+      WHERE Resp_club IS NOT NULL AND Resp_club != ''
+     UNION
+     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[3]') AS ocid
+      FROM develeve_site
+      WHERE Resp_club IS NOT NULL AND Resp_club != ''
+     UNION
+     SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[4]') AS ocid
+      FROM develeve_site
+      WHERE Resp_club IS NOT NULL AND Resp_club != ''
+     ) ut
+   WHERE ocid IS NOT NULL
+  ) unnest
+  JOIN zzmigr_club zc ON unnest.ocid = zc.id
+  JOIN club c ON c.uuid = zc.uuid
+  JOIN zzmigr_user zu ON unnest.Eleve_id = zu.o_id
+  JOIN user u ON zu.uuid = u.uuid
+  JOIN account a ON u.id = a.user_id;
+
+
+  
+  
 
 -- **** << DROP temporary tables >> ****
 
