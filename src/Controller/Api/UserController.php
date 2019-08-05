@@ -31,7 +31,7 @@ class UserController extends AbstractController
 
 	/**
 	 * @Route("/api/user", name="api_user_list-all", methods={"GET"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 * @OA\Get(
 	 *     path="/api/user",
 	 *     summary="List of users",
@@ -75,7 +75,7 @@ class UserController extends AbstractController
 					'lastname' => 'ASC',
 					'firstname' => 'ASC'
 				], $pager->getElementByPage() + 1, $pager->getOffset());
-		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_TEACHER")) {
+		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_CLUB_MANAGER")) {
 			$data = $this->getDoctrine()->getManager()
 				->getRepository(User::class)
 				->findInMyClubs($account->getId(), null, $pager->getOffset(), $pager->getElementByPage() + 1);
@@ -116,6 +116,9 @@ class UserController extends AbstractController
 		if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
 			array_push($grantedRoles, 'ROLE_ADMIN');
 		}
+		if($this->get('security.authorization_checker')->isGranted('ROLE_CLUB_MANAGER')) {
+			array_push($grantedRoles, 'ROLE_CLUB_MANAGER');
+		}
 		if($this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
 			array_push($grantedRoles, 'ROLE_TEACHER');
 		}
@@ -128,26 +131,26 @@ class UserController extends AbstractController
 		if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
 			array_push($grantedRoles, 'IS_AUTHENTICATED_ANONYMOUSLY');
 		}
-		
+
 		$account = $this->getUser();
 		if($account) {
 			$me = new UserMeView($account->getUser(), $grantedRoles);
 		} else {
 			$me = new MeAnonymousView($grantedRoles);
 		}
-		
+
 		$hateoas = HateoasBuilder::create()->build();
 		$json = json_decode($hateoas->serialize($me, 'json'));
-		
+
 		return new Response(json_encode($json), 200, array(
 			'Content-Type' => 'application/hal+json'
 		));
 	}
-	
-	
+
+
 	/**
 	 * @Route("/api/user/{uuid}", name="api_user_one", methods={"GET"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 * @OA\Get(
 	 *     path="/api/user/{uuid}",
 	 *     summary="Give an user",
@@ -176,10 +179,10 @@ class UserController extends AbstractController
 		$account = $this->getUser();
 		$data = [];
 		$userRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
-		
+
 		if($this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) {
 			$data = $userRepository->findInAll($uuid);
-		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_TEACHER")) {
+		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_CLUB_MANAGER")) {
 			$data = $userRepository->findInMyClubs($account->getId(), $uuid);
 // 		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_USER")) {
 // 			$data = array($account->getUser());
@@ -196,10 +199,10 @@ class UserController extends AbstractController
 			'Content-Type' => 'application/hal+json'
 		));
 	}
-		
+
 	/**
  	 * @Route("/api/user", name="api_user_create-one", methods={"POST"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 * @OA\Post(
 	 *     path="/api/user",
 	 *     summary="Create an user",
@@ -245,7 +248,7 @@ class UserController extends AbstractController
 
 	/**
 	 * @Route("/api/user/{uuid}", name="api_user_update-one", methods={"PUT"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 * @OA\Put(
 	 *     path="/api/user/{uuid}",
 	 *     summary="Update an user",
@@ -273,38 +276,38 @@ class UserController extends AbstractController
 			$this->denyAccessUnlessGranted('ROLE_USER', 'User not found or access denied', 'User not found or access denied');
 		}
 		$requestUtil = new RequestUtil($serializer, $translator);
-		
+
 		try {
 			$userUpdate = $requestUtil->validate($request, UserUpdate::class);
 		} catch (ViolationException $e) {
 			return ShortResponse::error("data", $e->getErrors())
 			->setStatusCode(Response::HTTP_BAD_REQUEST);
 		}
-		
+
 		try {
 			$service = new UserService($this->getDoctrine()->getManager(), $request);
 		} catch (\Exception $e) {
 			return ShortResponse::exception('Initialization failed, '.$e->getMessage());
 		}
-		
+
 		try {
 			$user = $service->update($this->getUser(), $uuid, $userUpdate);
 		} catch (\Exception $e) {
 			return ShortResponse::exception('Query failed, please try again shortly ('.$e->getMessage().')');
 		}
-		
+
 		$output = array('user' => new UserView($user));
 		$hateoas = HateoasBuilder::create()->build();
 		$json = json_decode($hateoas->serialize($output, 'json'));
-		
+
 		return new Response(json_encode($json), 200, array(
 			'Content-Type' => 'application/hal+json'
 		));
 	}
-	
+
 	/**
 	 * @Route("/api/user/{uuid}", name="api_user_update-one", methods={"DELETE"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 * @OA\Delete(
 	 *     path="/api/user/{uuid}",
 	 *     summary="Delete an user",
@@ -331,26 +334,26 @@ class UserController extends AbstractController
 		if(! self::one($uuid)) {
 			$this->denyAccessUnlessGranted('ROLE_USER', 'User not found or access denied', 'User not found or access denied');
 		}
-		
+
 		// TODO
-		
-		
+
+
 // 		try {
 // 			$service = new UserService($this->getDoctrine()->getManager(), $request);
 // 		} catch (\Exception $e) {
 // 			return ShortResponse::exception('Initialization failed, '.$e->getMessage());
 // 		}
-		
+
 // 		try {
 // 			$user = $service->update($this->getUser(), $uuid, $userUpdate);
 // 		} catch (\Exception $e) {
 // 			return ShortResponse::exception('Query failed, please try again shortly ('.$e->getMessage().')');
 // 		}
-		
+
 // 		$output = array('user' => new UserView($user));
 // 		$hateoas = HateoasBuilder::create()->build();
 // 		$json = json_decode($hateoas->serialize($output, 'json'));
-		
+
 		return new Response(json_encode($json), 200, array(
 			'Content-Type' => 'application/hal+json'
 		));

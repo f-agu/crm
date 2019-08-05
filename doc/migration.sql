@@ -158,22 +158,43 @@ INSERT INTO user(uuid, lastname, firstname, sex, birthday, address, zipcode, cit
 
 CREATE TABLE zzmigr_account AS 
 
+ SELECT o_id, user_id, login, password_sha1,
+        json_remove(),
+        has_access
+  FROM (
+   SELECT eleve_id AS o_id,
+          u.id AS user_id,
+          o_s.Email AS login,
+          substr(Pwd, 1, 40) AS password_sha1,
+          json_array(if(Statut = 'Prof', 'ROLE_TEACHER', 'ROLE_USER'), if(Statut = 'Elève', 'ROLE_STUDENT', null)) AS roles_json,
+          Acces = 'O' AS has_access
+    FROM develeve_site o_s
+     JOIN zzmigr_user z_u ON o_s.eleve_id = z_u.o_id
+     JOIN user u ON u.uuid = z_u.uuid
+  ) t;
 
- SELECT eleve_id AS o_id,
-        u.id AS user_id,
-        o_s.Email AS login,
-        substr(Pwd, 1, 40) AS password_sha1,
-        json_array(if(Statut = 'Prof', 'ROLE_TEACHER', null), if(Statut = 'Elève', 'ROLE_STUDENT', null)) AS roles,
-        Acces = 'O' AS has_access
-  FROM develeve_site o_s
-   JOIN zzmigr_user z_u ON o_s.eleve_id = z_u.o_id
-   JOIN user u ON u.uuid = z_u.uuid
-  LIMIT 10;
-
-
+SELECT Resp_club, Statut
+ FROM develeve_site
+ WHERE Resp_club IS NOT NULL
+ 
+--- Prof / Elève
+ 
+ 
 select JSON_ARRAY( IF(500<1000, "YES", "NO"), null);
 
 select json_array(if(Status = 'Prof', 'ROLE_TEACHER', null), );
+
+
+select json_remove(
+             json_array(if(500<1000, "y", "n"), null, null),
+             replace(json_search(json_array(null, if(500<1000, "y", "n"), null, 'end'), 'all', 'null'), '"', '')
+            );
+
+
+select replace(json_search(json_array(if(500<1000, "y", "n"), null, null), 'all', 'null'), '"', '');
+
+select JSON_UNQUOTE(json_search(json_array(if(500<1000, "y", "n"), null, null), 'all', 'null');
+
 
 
 SELECT substr('81943ddddf5d23118d932358613a96aa8c04a123DFBG4875%7+1.7JJHG#245H', 1, 40);
@@ -183,6 +204,7 @@ SELECT substr('81943ddddf5d23118d932358613a96aa8c04a123DFBG4875%7+1.7JJHG#245H',
 DROP TABLE zzmigr_club;
 DROP TABLE zzmigr_club_location;
 DROP TABLE zzmigr_club_lesson;
+--DROP TABLE zzmigr_user;
 
 
 

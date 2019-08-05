@@ -27,7 +27,7 @@ class SearchDao
         $params = array('query' => $paramLC);
         if($this->authorizationChecker->isGranted("ROLE_ADMIN")) {
             array_push($unions, $this::inUserAll());
-        } elseif($this->authorizationChecker->isGranted("ROLE_TEACHER")) {
+        } elseif($this->authorizationChecker->isGranted("ROLE_CLUB_MANAGER")) {
             array_push($unions, $this::inUserInMyClubs());
             $params['teacherAccountId'] = $connectedAccount->getId();
         }

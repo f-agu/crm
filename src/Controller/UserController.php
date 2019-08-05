@@ -11,7 +11,7 @@ class UserController extends AbstractController
 {
 	/**
 	 * @Route("/user", name="web_user_all", methods={"GET"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 */
 	public function viewAll(Request $request)
 	{
@@ -26,7 +26,7 @@ class UserController extends AbstractController
 
 	/**
 	 * @Route("/user/{uuid}", name="web_user_one", methods={"GET"})
-	 * @IsGranted("ROLE_TEACHER")
+	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 */
 	public function viewOne($uuid)
 	{
