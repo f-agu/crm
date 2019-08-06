@@ -31,7 +31,7 @@ class UserController extends AbstractController
 
 	/**
 	 * @Route("/api/user", name="api_user_list-all", methods={"GET"})
-	 * @IsGranted("ROLE_CLUB_MANAGER")
+	 * @IsGranted("ROLE_TEACHER")
 	 * @OA\Get(
 	 *     path="/api/user",
 	 *     summary="List of users",
@@ -150,7 +150,7 @@ class UserController extends AbstractController
 
 	/**
 	 * @Route("/api/user/{uuid}", name="api_user_one", methods={"GET"})
-	 * @IsGranted("ROLE_CLUB_MANAGER")
+	 * @IsGranted("ROLE_TEACHER")
 	 * @OA\Get(
 	 *     path="/api/user/{uuid}",
 	 *     summary="Give an user",
@@ -306,7 +306,7 @@ class UserController extends AbstractController
 	}
 
 	/**
-	 * @Route("/api/user/{uuid}", name="api_user_update-one", methods={"DELETE"})
+	 * @Route("/api/user/{uuid}", name="api_user_delete-one", methods={"DELETE"})
 	 * @IsGranted("ROLE_CLUB_MANAGER")
 	 * @OA\Delete(
 	 *     path="/api/user/{uuid}",

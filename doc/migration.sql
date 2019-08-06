@@ -6,7 +6,7 @@ mysqldump -h127.0.0.1 -p<password> <database> develeve_site develeve_blacklist d
 On "destination" database :
 
 mysql -h127.0.0.1 -p<password> --database=<database> < dump_src.sql
-
+mysql -h127.0.0.1 -p<password> --database=<database> < doc/migration.sql
 
 
 */

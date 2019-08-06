@@ -94,7 +94,7 @@ function handleError(formName, errorJson) {
 		}
 	});
 	
-	console.log(form, form.checkValidity());
+	//console.log(form, form.checkValidity());
 	event.preventDefault();
 	event.stopPropagation();
 }
