@@ -110,7 +110,16 @@ function resetValidation(formId) {
 }
 
 function handleOk(formId, okJson) {
-	
+	$("#" + formId + " :input").each(function() {
+		var type = $(this).prop('type');
+		if(type != 'button' ) {
+			if(type == 'radio' ) {
+				
+			} else {
+				$(this).data("previous", $(this).val());
+			}
+		}
+	});
 }
 
 function handleError(formId, errorJson) {

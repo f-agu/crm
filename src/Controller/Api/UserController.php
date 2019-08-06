@@ -270,7 +270,7 @@ class UserController extends AbstractController
 	 *     @OA\Response(response="200", description="Successful")
 	 * )
 	 */
-	public function updateOne($uuid, Request $request, SerializerInterface $serializer, TranslatorInterface $translator)
+	public function updateOne($uuid, Request $request, SerializerInterface $serializer, TranslatorInterface $translator, LoggerInterface $logger)
 	{
 		if(! self::one($uuid)) {
 			$this->denyAccessUnlessGranted('ROLE_USER', 'User not found or access denied', 'User not found or access denied');
@@ -291,7 +291,7 @@ class UserController extends AbstractController
 		}
 
 		try {
-			$user = $service->update($this->getUser(), $uuid, $userUpdate);
+			$user = $service->update($this->getUser(), $uuid, $userUpdate, $logger);
 		} catch (\Exception $e) {
 			return ShortResponse::exception('Query failed, please try again shortly ('.$e->getMessage().')');
 		}

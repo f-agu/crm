@@ -57,7 +57,7 @@ class UserHistory
 	{
 		$this->modification_date = new \DateTime();
 	}
-	
+
 	public function getId(): ?int
 	{
 		return $this->id;
@@ -112,7 +112,7 @@ class UserHistory
 		return $this->previous_value;
 	}
 
-	public function setPreviousValue(string $previous_value): self
+	public function setPreviousValue(?string $previous_value): self
 	{
 		$this->previous_value = $previous_value;
 		return $this;
@@ -123,7 +123,7 @@ class UserHistory
 		return $this->new_value;
 	}
 
-	public function setNewValue(string $new_value): self
+	public function setNewValue(?string $new_value): self
 	{
 		$this->new_value = $new_value;
 		return $this;
@@ -139,12 +139,12 @@ class UserHistory
 		$this->action = $action;
 		return $this;
 	}
-	
+
 	public static function diffToHistories($diffArray, Account $modifierAccount, User $modifiedUser) {
-		$excludes = ['id', 'uuid', 'created']; 
-		
+		$excludes = ['id', 'uuid', 'created'];
+
 		$histories = [];
-		
+
 		// new / created
 		foreach ($diffArray['new'] as $key => $value) {
 			if(! in_array($key, $excludes) && $value !== null && $value !== '{}') {
@@ -157,7 +157,7 @@ class UserHistory
 				array_push($histories, $userHistory);
 			}
 		}
-		
+
 		// removed / deleted
 		foreach ($diffArray['removed'] as $key => $value) {
 			if(! in_array($key, $excludes) && $value !== null && $value !== '{}') {
@@ -170,7 +170,7 @@ class UserHistory
 				array_push($histories, $userHistory);
 			}
 		}
-		
+
 		// edited / updated
 		foreach ($diffArray['edited'] as $key => $values) {
 			if(! in_array($key, $excludes)) {
@@ -184,7 +184,7 @@ class UserHistory
 				array_push($histories, $userHistory);
 			}
 		}
-		
+
 		return $histories;
 	}
 }
