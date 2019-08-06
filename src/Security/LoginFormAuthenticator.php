@@ -111,10 +111,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 		//throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
 	}
 
+	//********************************************
+
 	protected function getLoginUrl()
 	{
 		return $this->urlGenerator->generate('app_login');
 	}
+
+	//********************************************
 
 	private function checkCredentialsLegacy($sha1, $credentials, Account $user)
 	{

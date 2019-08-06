@@ -113,8 +113,10 @@ function handleOk(formId, okJson) {
 	$("#" + formId + " :input").each(function() {
 		var type = $(this).prop('type');
 		if(type != 'button' ) {
-			if(type == 'radio' ) {
-				
+			console.log('handleOk', type);
+			if(type == 'radio') {
+				console.log($(this).prop( "checked" ));
+				//$('#filterDay input:radio:checked').val()
 			} else {
 				$(this).data("previous", $(this).val());
 			}
@@ -127,7 +129,7 @@ function handleError(formId, errorJson) {
 	var data = errorJson.extra;
 	Object.keys(data).forEach(function(k) {
 		var input = $("#" + formId + " [name='" + k + "']");
-		console.log('input', k, input.attr('type'));
+		//console.log('input', k, input.attr('type'));
 		if(input) {
 			input.addClass("is-invalid");
 			var findFrom = input.parent();
