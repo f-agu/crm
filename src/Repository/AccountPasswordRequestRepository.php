@@ -40,6 +40,8 @@ class AccountPasswordRequestRepository extends ServiceEntityRepository
 		if(count($accounts) == 1) {
 			$request = new AccountPasswordRequest();
 			$request->setAccount($accounts[0]);
+			$this->getEntityManager()->persist($request);
+			$this->getEntityManager()->flush();
 			return $request;
 		}
 		return null;

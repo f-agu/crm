@@ -10,12 +10,12 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("club")
  * @Hateoas\Relation("self", href = "expr('/api/club/' ~ object.getUuid())")
+ * @Hateoas\Relation("logo", href = "expr('/api/club/' ~ object.getUuid() ~ '/logo')")
  */
 class ClubView
 {
 	private $uuid;
 	private $name;
-	private $logo;
 	private $website_url;
 	private $facebook_url;
 	private $locations;
@@ -24,7 +24,6 @@ class ClubView
 	{
 		$this->uuid = $club->getUuid();
 		$this->name = $club->getName();
-		$this->logo = $club->getLogo();
 		$this->website_url = $club->getWebsiteUrl();
 		$this->facebook_url = $club->getFacebookUrl();
 		$this->locations = $locations;
@@ -38,11 +37,6 @@ class ClubView
 	public function getName(): ?string
 	{
 		return $this->name;
-	}
-
-	public function getLogo(): ?string
-	{
-		return $this->logo;
 	}
 
 	public function getWebsiteUrl(): ?string

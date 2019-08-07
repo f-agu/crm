@@ -8,6 +8,13 @@ use OpenApi\Annotations as OA;
 
 
 /**
- * @OA\Info(title="CRM", version="0.1")
+ * @OA\Info(
+ *   title="CRM",
+ *   version="0.1",
+ *   @OA\License(
+ *     name="Apache License 2.0",
+ *     url="http://www.apache.org/licenses/LICENSE-2.0.txt"
+ *   )
+ * )
  */
 class SwaggerInfo {}

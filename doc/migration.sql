@@ -1,16 +1,3 @@
-/*
-On "source" database :
-
-mysqldump -h127.0.0.1 -p<password> <database> develeve_site develeve_blacklist develeve_cenacle devclub > dump_src.sql
-
-On "destination" database :
-
-mysql -h127.0.0.1 -p<password> --database=<database> < dump_src.sql
-mysql -h127.0.0.1 -p<password> --database=<database> < doc/migration.sql
-
-
-*/
-
 
 
 DROP FUNCTION IF EXISTS `camel_case`;

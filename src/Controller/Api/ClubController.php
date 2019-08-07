@@ -5,10 +5,8 @@ namespace App\Controller\Api;
 use App\Entity\Club;
 use Hateoas\HateoasBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Model\ClubView;
 use App\Entity\ClubLocation;
 use OpenApi\Annotations as OA;
 use App\Media\MediaManager;
@@ -44,7 +42,7 @@ class ClubController extends AbstractController
 	}
 
 	/**
-	 * @Route("/api/club/{uuid}", name="api_club_one", methods={"GET"})
+	 * @Route("/api/club/{uuid}", name="api_club_one", methods={"GET"}, requirements={"uuid"="[a-zA-Z0-9]{16}"})
 	 * @OA\Get(
 	 *     path="/api/club/{uuid}",
 	 *     summary="Give a club",
@@ -55,7 +53,8 @@ class ClubController extends AbstractController
      *         required=true,
      *         @OA\Schema(
      *             format="string",
-     *             type="string"
+     *             type="string",
+     *             pattern="[a-zA-Z0-9]{16}"
      *         )
      *     ),
 	 *     @OA\Response(response="200", description="Successful")
@@ -83,7 +82,7 @@ class ClubController extends AbstractController
 	}
 
 	/**
-	 * @Route("/api/club/{uuid}/logo", name="api_club_one_logo", methods={"GET"})
+	 * @Route("/api/club/{uuid}/logo", name="api_club_one_logo", methods={"GET"}, requirements={"uuid"="[a-zA-Z0-9]{16}"})
 	 * @OA\Get(
 	 *     path="/api/club/{uuid}/logo",
 	 *     summary="Give a club",
@@ -94,7 +93,8 @@ class ClubController extends AbstractController
 	 *         required=true,
 	 *         @OA\Schema(
 	 *             format="string",
-	 *             type="string"
+	 *             type="string",
+	 *             pattern="[a-zA-Z0-9]{16}"
 	 *         )
 	 *     ),
 	 *     @OA\Response(response="200", description="Successful")
