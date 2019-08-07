@@ -84,7 +84,7 @@ class UserViewModel
 		$this->uuid = $user->getUuid();
 		$this->lastname = $user->getLastname();
 		$this->firstname = $user->getFirstname();
-		$this->birthday = new DateModel($user->getBirthday());
+		$this->birthday = new Birthday($user->getBirthday());
 		$this->sex = $user->getSex();
 		$this->address = $user->getAddress();
 		$this->zipcode = $user->getZipcode();

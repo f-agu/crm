@@ -133,7 +133,10 @@
 					</td>
 					<th scope="row">{{ user.lastname | default('') }}</th>
 					<td scope="row">{{ user.firstname | default('') }}</td>
-					<td scope="row" class="table-col2">{{ user.birthday.date_fr | default('') }}</td>
+					<td scope="row" class="table-col2">
+						{{ user.birthday.date_fr | default('') }}<br>
+						{% trans with {'%age%': user.birthday.age_in_year | default('')} %}%age% years old{% endtrans %}
+					</td>
 					<td scope="row" class="table-col3">
 						{{ user.address | default('') }}<br>
 						{{ user.zipcode | default('') }}&nbsp;{{ user.city | default('') }}
