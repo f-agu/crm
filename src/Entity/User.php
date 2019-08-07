@@ -101,7 +101,7 @@ class User
 	private $blacklist_date;
 
 	/**
-	 * @ORM\Column(type="string", length=512, nullable=true)
+	 * @ORM\Column(type="string", length=1000, nullable=true)
 	 */
 	private $blacklist_reason;
 

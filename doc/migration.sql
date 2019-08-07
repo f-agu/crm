@@ -1,9 +1,7 @@
 
-
 DROP FUNCTION IF EXISTS `camel_case`;
 
-DELIMITER $$
-
+DELIMITER ;;
 CREATE FUNCTION `camel_case`(str varchar(128)) RETURNS varchar(128)
 BEGIN
 DECLARE n, pos INT DEFAULT 1;
@@ -24,9 +22,8 @@ if length(trim(str)) > 0 then
 end if;
 
 RETURN trim(proper);
-END 
-$$
-
+END ;;
+DELIMITER ;
 
 -- ============================================
 
@@ -111,8 +108,8 @@ CREATE TABLE zzmigr_user AS
         Email AS mails,
         Date_ins AS created,
         0 AS blacklist_id,
-        null AS blacklist_date,
-        null AS blacklist_reason
+        cast(null AS char(1000)) AS blacklist_date,
+        cast(null AS char(1000)) AS blacklist_reason
   FROM develeve_cenacle;
 
 INSERT INTO zzmigr_user
@@ -175,7 +172,7 @@ INSERT INTO user_club_subscribe(user_id, club_id, roles)
   FROM (
    SELECT *
     FROM (
-     SELECT Eleve_id, convert(ocid, integer) AS ocid, 'CLUB_MANAGER' AS role
+     SELECT Eleve_id, cast(ocid as signed) AS ocid, 'CLUB_MANAGER' AS role
       FROM (
        SELECT Eleve_id, json_extract(concat('[', replace(Resp_club, ';', ','), ']'), '$[0]') AS ocid
         FROM develeve_site
