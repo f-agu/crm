@@ -2,7 +2,7 @@
 /.project
 /.settings/
 /*.bak
-
+/media/
 
 
 ###> symfony/framework-bundle ###
