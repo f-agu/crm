@@ -76,10 +76,10 @@
 					<div class="col-sm-10">
 						<div class="btn-group btn-group-toggle disabled" data-toggle="buttons">
 							<label class="btn btn-outline-secondary disabled {% if user.sex == 'F' %}active btn-disabled-active{%  endif %}" data-previous="{{ user.sex == 'F' }}">
-								<input type="radio" name="sex" id="sex_female" autocomplete="off" value="F"> {% trans %}Female{% endtrans %}
+								<input type="radio" name="sex" id="sex_female" autocomplete="off" value="F"> {% include 'svg/female.svg' %} {% trans %}Female{% endtrans %}
 							</label>
 							<label class="btn btn-outline-secondary disabled {% if user.sex == 'M' %}active btn-disabled-active{%  endif %}" data-previous="{{ user.sex == 'M' }}">
-								<input type="radio" name="sex" id="sex_male" autocomplete="off" value="M"> {% trans %}Male{% endtrans %}
+								<input type="radio" name="sex" id="sex_male" autocomplete="off" value="M"> {% include 'svg/male.svg' %} {% trans %}Male{% endtrans %}
 							</label>
 						</div>
 						<div class="invalid-feedback"></div>

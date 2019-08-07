@@ -44,10 +44,10 @@
 								<div class="col"> {# <!-- ========= sex ========= --> #}
     								<div class="btn-group btn-group-toggle" data-toggle="buttons">
     									<label class="btn btn-outline-secondary">
-    										<input type="radio" name="sex" id="sex_female" autocomplete="off" value="F"> {% trans %}Female{% endtrans %}
+    										<input type="radio" name="sex" id="sex_female" autocomplete="off" value="F"> {% include 'svg/female.svg' %} {% trans %}Female{% endtrans %}
     									</label>
     									<label class="btn btn-outline-secondary">
-    										<input type="radio" name="sex" id="sex_male" autocomplete="off" value="M"> {% trans %}Male{% endtrans %}
+    										<input type="radio" name="sex" id="sex_male" autocomplete="off" value="M"> {% include 'svg/male.svg' %} {% trans %}Male{% endtrans %}
     									</label>
     								</div>
     								<div class="invalid-feedback"></div>
@@ -109,15 +109,41 @@
 	<table class="table clickable" id="table-users">
 		<thead>
 			<tr>
+				<th scope="col" class="table-col-sex">&nbsp;</th>
 				<th scope="col">{% trans %}Lastname{% endtrans %}</th>
 				<th scope="col">{% trans %}Firstname{% endtrans %}</th>
+				<th scope="col" class="table-col2">{% trans %}Birthday{% endtrans %}</th>
+				<th scope="col" class="table-col3">{% trans %}Adress{% endtrans %}</th>
+				<th scope="col" class="table-col4">{% trans %}Phone{% endtrans %}</th>
+				<th scope="col" class="table-col5">{% trans %}Nationality{% endtrans %}</th>
+				<th scope="col" class="table-col6">{% trans %}Mails{% endtrans %}</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for user in users %}
 				<tr id="{{ user.uuid }}">
-					<th scope="row">{{ user.lastname }}</th>
-					<td>{{ user.firstname }}</td>
+					<td class="table-col-sex">
+						{% if user.sex == 'F' %}
+							{% include 'svg/female.svg' %}
+						{%  elseif user.sex == 'M' %}
+							{% include 'svg/male.svg' %}
+						{%  else %}
+							&nbsp;
+						{% endif %}
+					</td>
+					<th scope="row">{{ user.lastname | default('') }}</th>
+					<td scope="row">{{ user.firstname | default('') }}</td>
+					<td scope="row" class="table-col2">{{ user.birthday.date_fr | default('') }}</td>
+					<td scope="row" class="table-col3">
+						{{ user.address | default('') }}<br>
+						{{ user.zipcode | default('') }}&nbsp;{{ user.city | default('') }}
+					</td>
+					<td scope="row" class="table-col4">
+						{{ user.phone | default('') }}<br>
+						{{ user.phone_emergency | default('') }}
+					</td>
+					<td scope="row" class="table-col5">{{ user.nationality | default('') }}</td>
+					<td scope="row" class="table-col6">{{ user.mails | default('') }}</td>
 				</tr>
 			{% endfor %}
 		</tbody>
