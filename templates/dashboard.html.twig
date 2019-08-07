@@ -13,37 +13,9 @@
 			{{ render(controller('App\\Controller\\MenuLeftController::viewMenuLeft')) }}
 		</ul>
 	</nav>
-	        
-	{#
-
-
-	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0">
-		<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="{{ path('home') }}"><img src="/assets/img/logo.png" style="max-height:32px" /></a>
-		<input class="form-control form-control-dark w-100" type="text" placeholder="Rechercher" aria-label="Rechercher">
-		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap">
-				{% if user == null %}
-					<h3><a class="nav-link" href="/login">{% trans %}Sign in{% endtrans %}</a></h3>
-				{% else %}
-					<h3><a class="nav-link" href="/logout">{% trans %}Sign out{% endtrans %}</a></h3>
-				{% endif %}
-			</li>
-		</ul>
-	</nav>
-	 
-	    <nav class="navbar navbar-light bg-light navbar-expand-lg"> 
-	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	        	<span class="navbar-toggler-icon"></span>
-	        </button>
-	        <!-- appeler le logo apres le bouton -->
-	        <a class="navbar-brand" href="#">Logo</a>
-	        
-	        <!-- suite du menu -->
-	    </nav>
-	  #}  
 
 	<div id="content">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 20px">
 			<div class="container-fluid" style="/*border-style: solid; border-color: blue;*/">
 				<div class="buttondivforsidenav">
 					<button type="button" id="sidebarCollapse" class="btn btn-primary">

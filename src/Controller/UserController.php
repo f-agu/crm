@@ -23,7 +23,7 @@ class UserController extends AbstractController
 		$user = $this->getUser();
 		$response = $this->forward('App\Controller\Api\UserController::listAll', ['request' => $request]);
 		$json = json_decode($response->getContent());
-		return $this->render('users.html.twig', [
+		return $this->render('user/users.html.twig', [
 			'connectedUser' => $user,
 			'users' => $json->users
 		]);
@@ -32,7 +32,7 @@ class UserController extends AbstractController
 	/**
 	 * @Route("/user/me/pwd/request", name="web_user_me_password_request_view", methods={"GET"})
 	 */
-	public function requestPassword(LoggerInterface $logger)
+	public function requestPasswordView(LoggerInterface $logger)
 	{
 		$user = $this->getUser();
 		if( ! $user) {
@@ -43,10 +43,10 @@ class UserController extends AbstractController
 		return $this->render('forgot-password.html.twig');
 	}
 
-		/**
+	/**
 	 * @Route("/user/me/pwd/request", name="web_user_me_password_request_send", methods={"POST"})
 	 */
-	public function requestPassword(Request $request, LoggerInterface $logger)
+	public function requestPasswordSend(Request $request, LoggerInterface $logger)
 	{
 		$user = $this->getUser();
 		if( ! $user) {
@@ -87,7 +87,7 @@ class UserController extends AbstractController
 		$user = $this->getUser();
 		$response = $this->forward('App\Controller\Api\UserController::one', ['uuid' => $uuid]);
 		$json = json_decode($response->getContent());
-		return $this->render('user.html.twig', [
+		return $this->render('user/user.html.twig', [
 			'connectedUser' => $user,
 			'user' => $json->user
 		]);
