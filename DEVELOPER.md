@@ -52,15 +52,13 @@ Create a symbolic link to the crm project : with a `cmd`, in the wamp folder :
 mklink /D www <path_to_crm_project>\public_html
 ```
 
-### Initialize the database    
+### Initialize the database
 
 In the crm folder project, with cmd :
 
 ```
-php bin/console doctrine:database:create
-php bin/console make:migration
-php bin/console doctrine:migrations:migrate
-php bin/console doctrine:fixtures:load
+recreatedb
+php bin/console crm:migration --domainname=<legacy domain> --dump=dump_src.sql
 ```
 
 Inspect the result with a browser : http://localhost/phpmyadmin/  (user : root, password : )
@@ -80,7 +78,7 @@ Ensure Wamp64 is running.
 Recreate / update the database :
 
 ```
-./recreatedb.sh
+recreatedb
 php bin/console crm:migration --domainname=<legacy domain> --dump=dump_src.sql
 ```
 
