@@ -17,6 +17,15 @@ If you have a error message like this : "MSVCR110.dll is missing", download the 
 
 ## Prepare your environment
 
+### Configure Git
+
+Ignore `chmod` modification :
+
+```
+git config core.fileMode false
+```
+
+
 ### Sources
 
 In a new folder (ex: c:\projects), with a bash or cmd, retreive the project :
