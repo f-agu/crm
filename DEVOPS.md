@@ -13,6 +13,14 @@ On "destination" database :
 php bin/console crm:migration --domainname=<legacy-domain-name> --dump=dump_src.sql
 ```
 
+# To the production server
+
+Ignore `chmod` modification :
+
+```
+git config core.fileMode false
+```
+
 
 # Backup database
 
