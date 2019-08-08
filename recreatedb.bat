@@ -9,4 +9,6 @@ php bin/console make:migration
 php bin/console doctrine:migrations:migrate --no-interaction
 php bin/console doctrine:fixtures:load --no-interaction --group=MenuItemFixtures
 
-
+echo 'To add fake values :'
+echo.
+echo 'php bin/console doctrine:fixtures:load --append --group=ClubsFixtures --group=AccountUserFixtures --group=UserClubLinkFixtures'
