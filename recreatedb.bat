@@ -10,7 +10,13 @@ php bin/console doctrine:migrations:migrate --no-interaction
 php bin/console doctrine:fixtures:load --no-interaction --group=MenuItemFixtures
 
 echo.
-echo 'To add fake values :'
+echo To add fake values :
 echo.
-echo 'php bin/console doctrine:fixtures:load --append --group=ClubsFixtures --group=AccountUserFixtures --group=UserClubLinkFixtures'
+echo php bin/console doctrine:fixtures:load --append --group=ClubsFixtures --group=AccountUserFixtures --group=UserClubLinkFixtures
+echo.
+echo.
+echo.
+echo To migrate real values :
+echo.
+echo php bin/console crm:migration --domainname=legacydomain.fr --dump=dump_src.sql
 echo.
