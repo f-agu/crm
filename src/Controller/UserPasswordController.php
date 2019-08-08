@@ -10,6 +10,9 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Psr\Log\LoggerInterface;
 use App\Entity\AccountPasswordRequest;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use App\Emails\EmailFactory;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Emails\PasswordRequestEmailParameters;
 
 class UserPasswordController extends AbstractController
 {
@@ -19,6 +22,10 @@ class UserPasswordController extends AbstractController
 	 */
 	public function requestPasswordView(LoggerInterface $logger)
 	{
+		$obj = $this->container->get('twig');
+		var_dump(get_class($obj));
+		var_dump($obj);
+
 		/*$user = $this->getUser();
 		if($user != null) {
 			$logger->info('RequestPassword not available for authenticated user: '.$user->getId());
@@ -30,7 +37,7 @@ class UserPasswordController extends AbstractController
 	/**
 	 * @Route("/user/pwd/request", name="web_user_password_request_send", methods={"POST"})
 	 */
-	public function requestPasswordSend(Request $request, LoggerInterface $logger, CsrfTokenManagerInterface $csrfTokenManager)
+	public function requestPasswordSend(Request $request, LoggerInterface $logger, CsrfTokenManagerInterface $csrfTokenManager, \Swift_Mailer $mailer, TranslatorInterface $translator)
 	{
 		/*$user = $this->getUser();
 		if($user != null) {
@@ -54,8 +61,18 @@ class UserPasswordController extends AbstractController
 		$request = $this->getDoctrine()->getManager()->getRepository(AccountPasswordRequest::class)->buildByValidLogin($login);
 
 		if($request != null) {
-			// AccountPasswordRequest
 			$logger->info('RequestPassword: generate for: '.$login);
+			// AccountPasswordRequest
+			$mailFactory = new EmailFactory($mailer, $translator, $this->container->get('twig'), $logger);
+// TODO
+			$mailFactory->buildAndSend(
+				new PasswordRequestEmailParameters(),
+				'toto@domain.org',
+				[
+					'requestUuid' => $request->getUuid(),
+					'name' => 'TODO'
+				]);
+
 		} else {
 			$logger->info('RequestPassword: login not found or not opened: '.$login);
 		}
@@ -69,4 +86,5 @@ class UserPasswordController extends AbstractController
 	{
 
 	}
+
 }

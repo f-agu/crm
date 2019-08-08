@@ -34,10 +34,12 @@ composer install
 
 Run wamp64.
 
-In the crm folder project, copy the `.env` to `.env.local`. Edit it and replace `DATABASE_URL=...` with :
+In the crm folder project, copy the `.env` to `.env.local`. Edit it (add or replace if necessary) :
 
 ```
 DATABASE_URL=mysql://root:@127.0.0.1:3306/my_db
+
+MAILER_URL=smtp://your-smtp-host:25?encryption=tls&auth_mode=login&username=&password=
 ```
 
 ### Configure Wamp
@@ -78,9 +80,8 @@ Ensure Wamp64 is running.
 Recreate / update the database :
 
 ```
-php bin/console make:migration
-php bin/console doctrine:migrations:migrate
-php bin/console doctrine:fixtures:load
+./recreatedb.sh
+php bin/console crm:migration --domainname=<legacy domain> --dump=dump_src.sql
 ```
 
 
@@ -99,7 +100,6 @@ In the production server :
 git pull
 composer install
 php bin/console make:migration
-php bin/console doctrine:migrations:migrate
 ```
 
 # Cache
@@ -115,6 +115,10 @@ php bin/console cache:clear
 
 Swagger is available  : http://localhost/swagger/index.html
 
+
+# Email
+
+To debug the renderer, try this : http://localhost/debug/email
 
 
 # Database
