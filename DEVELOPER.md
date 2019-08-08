@@ -98,6 +98,7 @@ In the production server :
 git pull
 composer install
 php bin/console make:migration
+php bin/console doctrine:migrations:migrate
 ```
 
 # Cache
