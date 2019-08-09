@@ -27,3 +27,20 @@ git config core.fileMode false
 ```
 php bin/console db:dump backup
 ```
+
+
+# Push to production and database reinitialization
+
+Edit `.env.local` to set `APP_ENV` to `dev`.
+
+```
+git pull
+chmod 750 recreatedb.sh
+./recreatedb.sh
+
+# Replace legacydomain.fr by the current domain name
+
+php bin/console crm:migration --domainname=legacydomain.fr --dump=dump_src.sql
+```
+
+Restore the `APP_ENV` to `prod` in the file `.env.local`.
