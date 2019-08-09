@@ -23,25 +23,37 @@ class AccountPasswordRequestRepository extends ServiceEntityRepository
 
 	public function buildByValidLogin($login): ?AccountPasswordRequest
 	{
-		$sql = "SELECT a.*"
+		$sql = "SELECT a.*,"
+			  ."       apr.id AS aid, apr.account_id AS aaid, apr.uuid AS auuid, apr.create_date AS acd"
 			  ." FROM user u"
 			  ."  JOIN account a ON u.id = a.user_id"
 			  ."  LEFT JOIN account_password_request apr ON apr.account_id = a.id"
 			  ." WHERE login = :login"
 			  ."  AND blacklist_date IS NULL"
-			  ."  AND a.has_access"
-			  ."  AND apr.id IS NULL";
+			  ."  AND a.has_access";
 
 		$rsm = new ResultSetMappingBuilder($this->getEntityManager());
 		$rsm->addRootEntityFromClassMetadata('App\Entity\Account', 'a');
+		$rsm->addScalarResult('aid', 'aid');
+		$rsm->addScalarResult('aaid', 'aaid');
+		$rsm->addScalarResult('auuid', 'auuid');
+		$rsm->addScalarResult('acd', 'acd', 'datetime');
 		$query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
 		$query->setParameter('login', $login);
-		$accounts = $query->getResult();
-		if(count($accounts) == 1) {
+		$result = $query->getResult();
+		if(count($result) == 1) {
 			$request = new AccountPasswordRequest();
-			$request->setAccount($accounts[0]);
-			$this->getEntityManager()->persist($request);
-			$this->getEntityManager()->flush();
+			$request->setAccount($result[0][0]);
+			$apr_id = $result[0]['aid'];
+			if($apr_id != null) {
+				$request
+				->setCreateDate($result[0]['acd'])
+				->setId($apr_id)
+				->setUuid($result[0]['auuid']);
+			} else {
+				$this->getEntityManager()->persist($request);
+				$this->getEntityManager()->flush();
+			}
 			return $request;
 		}
 		return null;

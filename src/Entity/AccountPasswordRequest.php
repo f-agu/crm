@@ -31,13 +31,12 @@ class AccountPasswordRequest
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
-	private $end_date;
+	private $create_date;
 
 	public function __construct()
 	{
 		$this->uuid = StringUtils::random_str(40);
-		$now = new \DateTime();
-		$this->end_date = $now->add(new \DateInterval("PT2H"));
+		$this->create_date = new \DateTime();
 	}
 
 	public function getId(): ?int
@@ -45,6 +44,12 @@ class AccountPasswordRequest
 		return $this->id;
 	}
 
+	public function setId(int $id): self
+	{
+		$this->id = $id;
+		return $this;
+	}
+	
 	public function getAccount(): ?Account
 	{
 		return $this->account;
@@ -67,14 +72,14 @@ class AccountPasswordRequest
 		return $this;
 	}
 
-	public function getEndDate(): ?\DateTimeInterface
+	public function getCreateDate(): ?\DateTimeInterface
 	{
-		return $this->end_date;
+		return $this->create_date;
 	}
 
-	public function setEndDate(\DateTimeInterface $end_date): self
+	public function setCreateDate(\DateTimeInterface $create_date): self
 	{
-		$this->end_date = $end_date;
+		$this->create_date = $create_date;
 		return $this;
 	}
 }

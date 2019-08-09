@@ -26,6 +26,14 @@ use App\Util\Pager;
 class UserController extends AbstractController
 {
 
+	private $logger;
+	
+	public function __construct(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
+	
+	
 	/**
 	 * @Route("/api/user", name="api_user_list-all", methods={"GET"})
 	 * @IsGranted("ROLE_TEACHER")
@@ -59,25 +67,30 @@ class UserController extends AbstractController
 	 *     )
 	 * )
 	 */
-	public function listAll(Request $request, LoggerInterface $logger)
+	public function listAll(Request $request)
 	{
 		$pager = new Pager($request);
 
 		$account = $this->getUser();
 		$data = array();
 		if($this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) {
+			$this->logger->debug('List users for ROLE_ADMIN');
 			$data = $this->getDoctrine()->getManager()
 				->getRepository(User::class)
 				->findBy([], [
 					'lastname' => 'ASC',
 					'firstname' => 'ASC'
 				], $pager->getElementByPage() + 1, $pager->getOffset());
-		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_CLUB_MANAGER")) {
+		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_TEACHER")) {
+			$this->logger->debug('List users for ROLE_TEACHER');
 			$data = $this->getDoctrine()->getManager()
 				->getRepository(User::class)
 				->findInMyClubs($account->getId(), null, $pager->getOffset(), $pager->getElementByPage() + 1);
 		} elseif($this->get('security.authorization_checker')->isGranted("ROLE_USER")) {
+			$this->logger->debug('List users for ROLE_USER');
 			$data = array($account->getUser());
+		} else {
+			$this->logger->debug('List users for nobody !');
 		}
 
 		$datasliced = array_slice($data, 0, $pager->getElementByPage());

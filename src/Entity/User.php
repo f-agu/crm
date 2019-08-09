@@ -85,9 +85,9 @@ class User
 	private $nationality;
 
 	/**
-	 * @ORM\Column(type="string", length=512, nullable=true)
+	 * @ORM\Column(type="json")
 	 */
-	private $mails;
+	private $mails = [];
 
 	/**
 	 * @Assert\NotNull
@@ -137,7 +137,6 @@ class User
 	public function setUuid(string $uuid): self
 	{
 		$this->uuid = $uuid;
-
 		return $this;
 	}
 
@@ -149,7 +148,6 @@ class User
 	public function setLastname(string $lastname): self
 	{
 		$this->lastname = $lastname;
-
 		return $this;
 	}
 
@@ -161,7 +159,6 @@ class User
 	public function setFirstname(string $firstname): self
 	{
 		$this->firstname = $firstname;
-
 		return $this;
 	}
 
@@ -173,7 +170,6 @@ class User
 	public function setSex(string $sex): self
 	{
 		$this->sex = $sex;
-
 		return $this;
 	}
 
@@ -185,7 +181,6 @@ class User
 	public function setBirthday(\DateTimeInterface $birthday): self
 	{
 		$this->birthday = $birthday;
-
 		return $this;
 	}
 
@@ -197,7 +192,6 @@ class User
 	public function setAddress(?string $address): self
 	{
 		$this->address = $address;
-
 		return $this;
 	}
 
@@ -209,7 +203,6 @@ class User
 	public function setZipcode(?string $zipcode): self
 	{
 		$this->zipcode = $zipcode;
-
 		return $this;
 	}
 
@@ -221,7 +214,6 @@ class User
 	public function setCity(?string $city): self
 	{
 		$this->city = $city;
-
 		return $this;
 	}
 
@@ -233,7 +225,6 @@ class User
 	public function setPhone(?string $phone): self
 	{
 		$this->phone = $phone;
-
 		return $this;
 	}
 
@@ -245,7 +236,6 @@ class User
 	public function setPhoneEmergency(?string $phone_emergency): self
 	{
 		$this->phone_emergency = $phone_emergency;
-
 		return $this;
 	}
 
@@ -257,19 +247,17 @@ class User
 	public function setNationality(?string $nationality): self
 	{
 		$this->nationality = $nationality;
-
 		return $this;
 	}
 
-	public function getMails(): ?string
+	public function getMails(): array
 	{
 		return $this->mails;
 	}
 
-	public function setMails(?string $mails): self
+	public function setMails(array $mails): self
 	{
 		$this->mails = $mails;
-
 		return $this;
 	}
 
@@ -281,7 +269,6 @@ class User
 	public function setCreated(\DateTimeInterface $created): self
 	{
 		$this->created = $created;
-
 		return $this;
 	}
 
@@ -293,7 +280,6 @@ class User
 	public function setBlacklistDate(?\DateTimeInterface $blacklist_date): self
 	{
 		$this->blacklist_date = $blacklist_date;
-
 		return $this;
 	}
 
@@ -305,7 +291,6 @@ class User
 	public function setBlacklistReason(?string $blacklist_reason): self
 	{
 		$this->blacklist_reason = $blacklist_reason;
-
 		return $this;
 	}
 

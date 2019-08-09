@@ -9,6 +9,7 @@
 /.env.local
 /.env.local.php
 /.env.*.local
+/.env.*.local.bak
 /public/bundles/
 /src/Migrations/Version2019*
 /var/

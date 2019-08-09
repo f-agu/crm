@@ -41,7 +41,7 @@ class UserService
 		$user->setPhone($userCreate->getPhone());
 		$user->setPhoneEmergency($userCreate->getPhoneEmergency());
 		$user->setNationality($userCreate->getNationality());
-		$user->setMails($userCreate->getMails());
+		$user->setMails($userCreate->getMailsToArray());
 		$this->em->persist($user);
 		$this->em->flush();
 
@@ -77,7 +77,7 @@ class UserService
 		$previousUser->setPhone($userUpdate->getPhone());
 		$previousUser->setPhoneEmergency($userUpdate->getPhoneEmergency());
 		$previousUser->setNationality($userUpdate->getNationality());
-		$previousUser->setMails($userUpdate->getMails());
+		$previousUser->setMails($userUpdate->getMailsToArray());
 		$this->em->flush();
 
 		// history

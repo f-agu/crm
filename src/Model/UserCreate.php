@@ -124,7 +124,6 @@ class UserCreate
 	public function setSex(string $sex): self
 	{
 		$this->sex = $sex;
-
 		return $this;
 	}
 
@@ -137,7 +136,6 @@ class UserCreate
 	public function setAddress(?string $address): self
 	{
 		$this->address = $address;
-
 		return $this;
 	}
 
@@ -149,7 +147,6 @@ class UserCreate
 	public function setZipcode(?string $zipcode): self
 	{
 		$this->zipcode = $zipcode;
-
 		return $this;
 	}
 
@@ -161,7 +158,6 @@ class UserCreate
 	public function setCity(?string $city): self
 	{
 		$this->city = $city;
-
 		return $this;
 	}
 
@@ -173,7 +169,6 @@ class UserCreate
 	public function setPhone(?string $phone): self
 	{
 		$this->phone = $phone;
-
 		return $this;
 	}
 
@@ -185,7 +180,6 @@ class UserCreate
 	public function setPhoneEmergency(?string $phone_emergency): self
 	{
 		$this->phone_emergency = $phone_emergency;
-
 		return $this;
 	}
 
@@ -197,7 +191,6 @@ class UserCreate
 	public function setNationality(?string $nationality): self
 	{
 		$this->nationality = $nationality;
-
 		return $this;
 	}
 
@@ -205,11 +198,18 @@ class UserCreate
 	{
 		return $this->mails;
 	}
-
+	
+	public function getMailsToArray(): array
+	{
+		if($this->mails == null || '' === $this->mails) {
+			return [];
+		}
+		return explode(',', str_replace(' ', '', $this->mails));
+	}
+	
 	public function setMails(?string $mails): self
 	{
 		$this->mails = $mails;
-
 		return $this;
 	}
 }

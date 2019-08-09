@@ -22,7 +22,7 @@ class RequestUtil
 		$this->validator = Validation::createValidatorBuilder()
 		      ->enableAnnotationMapping()
 		      ->getValidator();
-	   $this->violator = new ViolationUtil($translator);
+		$this->violator = new ViolationUtil($translator);
 	}
 
 	public function validate(Request $request, string $model): object
@@ -41,7 +41,7 @@ class RequestUtil
 		$errors = $this->validator->validate($object);
 
 		if ($errors->count()) {
-		    throw new ViolationException($this->violator->build($errors));
+			throw new ViolationException($this->violator->build($errors));
 		}
 
 		return $object;

@@ -45,7 +45,6 @@ class EmailFactory
 
 		$numSent = $this->mailer->send($message);
 		$this->logger->debug('Email sent "'.$params->getTitle().'" to "'.$totxt.'": '.$numSent);
-
 	}
 }
 

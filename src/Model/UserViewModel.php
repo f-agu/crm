@@ -7,6 +7,7 @@ use App\Util\DateUtils;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use OpenApi\Annotations as OA;
+use App\Validator\Constraints\Birthday;
 
 /**
  * @Serializer\XmlRoot("user")
@@ -92,7 +93,7 @@ class UserViewModel
 		$this->phone = $user->getPhone();
 		$this->phone_emergency = $user->getPhoneEmergency();
 		$this->nationality = $user->getNationality();
-		$this->mails = $user->getMails();
+		$this->mails = implode(', ', $user->getMails());
 		$this->created = new DateModel($user->getCreated());
 	}
 
