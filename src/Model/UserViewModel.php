@@ -7,7 +7,6 @@ use App\Util\DateUtils;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use OpenApi\Annotations as OA;
-use App\Validator\Constraints\Birthday;
 
 /**
  * @Serializer\XmlRoot("user")

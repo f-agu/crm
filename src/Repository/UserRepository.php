@@ -42,12 +42,7 @@ class UserRepository extends ServiceEntityRepository
 	public function findInMyClubs($accountId, $uuid = null, $offset = 0, $limit = 20)
 	{
 		$sql = $this->prepareUserAccountSelect()
-			  ." FROM account act"
-			  ."  JOIN user teacher ON act.user_id = teacher.id"
-			  ."  JOIN user_club_subscribe tsubsc ON (teacher.id = tsubsc.user_id AND json_contains(tsubsc.roles, json_quote('CLUB_TEACHER')))"
-			  ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id AND (NOT json_contains(usubsc.roles, json_quote('CLUB_TEACHER'))) OR tsubsc.id = usubsc.id)"
-			  ."  JOIN user u ON u.id = usubsc.user_id"
-			  ."  LEFT JOIN account a ON a.user_id = u.id"
+			  .$this->joinInMyClubs()
 			  ." WHERE act.id = :accountId";
 		if($uuid) {
 			$sql = $sql." AND u.uuid = :uuid";
@@ -91,6 +86,18 @@ class UserRepository extends ServiceEntityRepository
 			->getOneOrNullResult()
 		;
 	}*/
+	
+	public static function joinInMyClubs() {
+		return" FROM account act"
+			  ."  JOIN user teacher ON act.user_id = teacher.id"
+			  ."  JOIN user_club_subscribe tsubsc ON ("
+			  ."        teacher.id = tsubsc.user_id"
+			  ."         AND (json_contains(tsubsc.roles, json_quote('TEACHER')) OR json_contains(tsubsc.roles, json_quote('CLUB_MANAGER')))"
+			  ."        )"
+			  ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id OR tsubsc.id = usubsc.id)"
+			  ."  JOIN user u ON u.id = usubsc.user_id"
+			  ."  LEFT JOIN account a ON a.user_id = u.id";
+	}
 
 	//*****************************************************************
 

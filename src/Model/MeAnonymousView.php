@@ -6,7 +6,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\XmlRoot("me")
- * @Hateoas\Relation("self", href = "/api/me")
+ * @Hateoas\Relation("self", href = "/api/user/me")
  */
 class MeAnonymousView
 {

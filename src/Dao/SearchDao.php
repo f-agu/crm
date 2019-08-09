@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Account;
 use App\Model\SearchResultView;
 use Doctrine\ORM\Query\ResultSetMapping;
+use App\Repository\UserRepository;
 
 class SearchDao
 {
@@ -23,7 +24,7 @@ class SearchDao
             ->transliterate($query);
         $paramLC = '%'.mb_strtolower($paramLC).'%';
 
-        $unions = array($this::inClub());
+        $unions = array($this::inClubAll());
         $params = array('query' => $paramLC);
         if($this->authorizationChecker->isGranted("ROLE_ADMIN")) {
             array_push($unions, $this::inUserAll());
@@ -86,26 +87,21 @@ class SearchDao
     private function inUserInMyClubs()
     {
         return "SELECT 'user' AS type, u.uuid, CONCAT(u.lastname, ' ', u.firstname) AS name"
-              ." FROM account a"
-              ."  JOIN user teacher ON a.user_id = teacher.id"
-              ."  JOIN user_club_subscribe tsubsc ON (teacher.id = tsubsc.user_id AND json_contains(tsubsc.roles, json_quote('CLUB_MANAGER')))"
-              ."  JOIN user_club_subscribe usubsc ON (tsubsc.club_id = usubsc.club_id AND (NOT json_contains(usubsc.roles, json_quote('CLUB_MANAGER'))) OR tsubsc.id = usubsc.id)"
-              ."  JOIN user u ON u.id = usubsc.user_id"
-              ."  LEFT JOIN account au ON au.user_id = u.id"
-              ." WHERE a.id = :teacherAccountId"
+              .UserRepository::joinInMyClubs()
+              ." WHERE act.id = :teacherAccountId"
               ."   AND (remove_accents(lower(u.lastname)) LIKE :query"
               ."     OR remove_accents(lower(u.firstname)) LIKE :query"
               ."     OR remove_accents(lower(u.mails)) LIKE :query"
               ."     OR remove_accents(lower(u.address)) LIKE :query"
               ."     OR remove_accents(lower(u.city)) LIKE :query"
               ."     OR remove_accents(lower(u.nationality)) LIKE :query"
-              ."     OR remove_accents(lower(au.login)) LIKE :query"
+              ."     OR remove_accents(lower(a.login)) LIKE :query"
               ."   	 )"
               ." GROUP BY 1, 2, 3"
               ;
     }
 
-    private function inClub()
+    private function inClubAll()
     {
         return "SELECT 'club' AS type, c.uuid, c.name"
               ." FROM club c"
