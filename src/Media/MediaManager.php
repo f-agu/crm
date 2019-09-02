@@ -26,9 +26,9 @@ class MediaManager
 		$finder = new Finder();
 		foreach ($finder->in($folder)->name($basename.'*') as $file) {
 			// $file is Symfony\Component\Finder\SplFileInfo
-			return new Media($file);
+			return new Media($file, $this->projectPath);
 		}
-		return new Media();
+		return new Media(null, $this->projectPath);
 	}
 
 	public function downloadAndSave($url, $category, $basename)

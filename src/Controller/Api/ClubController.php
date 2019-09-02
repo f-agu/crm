@@ -104,11 +104,7 @@ class ClubController extends AbstractController
 	{
 		$mediaManager = new MediaManager($appKernel, $logger);
 		$media = $mediaManager->find('club', $uuid);
-		if(! $media->isFound()) {
-			// TODO get default logo
-			return new Response('', Response::HTTP_NOT_FOUND);
-		}
-		return new BinaryFileResponse($media->getFile());
+		return new BinaryFileResponse($media->getFileOrDefault('assets/clubs/defaultlogo.gif'));
 	}
 
 }
