@@ -15,6 +15,22 @@ Install the following softwares (keep order) :
 If you have a error message like this : "MSVCR110.dll is missing", download the fix from https://www.microsoft.com/fr-FR/download/details.aspx?id=30679
 
 
+### Configure installed software
+
+Add into your `PATH` php and MySQL.
+
+Into Windows 10 :
+* open Explore : `Windows` + `E`
+* Right click on `This PC` > `Properties`  (French : `Ce PC` > `Propriétés`)
+* `Advanced system settings`  (French : `Paramètres système avancés`)
+* `Environment variables...`  (French : `Varibles d'environnement...`)
+* Update the `PATH` and add 2 paths (replace `<your wamp folder>` by the real value) :
+  * `<your wamp folder>\bin\php\php7.2.14`  (ex: `c:\wamp64\bin\php\php7.2.14` )
+  * `<your wamp folder>\bin\mysql\mysql5.7.24\bin`  (ex: `c:\wamp64\bin\mysql\mysql5.7.24\bin` )
+
+Restart Eclipse.
+
+
 ## Prepare your environment
 
 ### Configure Git
