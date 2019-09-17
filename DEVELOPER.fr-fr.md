@@ -62,7 +62,7 @@ Une table correspond (en général) à une Entity. Donc pour créer un table, il
 php bin/console make:entity
 ```
 
-Répondre aux questions, et par magie, le script vient de créer une classe Entity (dans le dossier /src/Entity/)avec tous les champs nécessaires.
+Répondre aux questions, et par magie, le script vient de créer une classe Entity (dans le dossier /src/Entity/) avec tous les champs nécessaires.
 
 Pour appliquer les changements sur la DB :
 
@@ -80,7 +80,19 @@ La DB a été modifié.
 php bin/console make:entity
 ```
 
+Mettre à jour la DB :
+
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+
 ### Supprimer une table une table
 
-Simplement supprimer l'Entity
+Simplement supprimer l'Entity et mettre à jour la DB :
 
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
