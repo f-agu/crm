@@ -69,47 +69,47 @@
 		
 		<div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
 			<form id="club_address_form" action="/api/club/{{ club.uuid }}" method="POST" class="needs-validation" novalidate>
-    			{% for location in club.locations %}
-    				<div class="border border-dark rounded p-1">
-        				<div class="row">
-        					<label for="staticName-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Name{% endtrans %}</strong></label>
-        					<div class="col-sm-10">
-        						<input type="text" readonly class="form-control-plaintext" id="staticName-{{ location.uuid }}" value="{{ location.name | default('') }}">
-        					</div>
-        				</div>
-        				<div class="row">
-        					<label for="staticAddress-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Address{% endtrans %}</strong></label>
-        					<div class="col-sm-10">
-        						<input type="text" readonly class="form-control-plaintext" id="staticAddress-{{ location.uuid }}" value="{{ location.address | default('') }}">
-        					</div>
-        				</div>
-        				<div class="row">
-        					<label for="staticCity-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}City{% endtrans %}</strong></label>
-        					<div class="col-sm-10">
-        						<input type="text" readonly class="form-control-plaintext" id="staticCity-{{ location.uuid }}" value="{{ location.city | default('') }}">
-        					</div>
-        				</div>
-        				<div class="row">
-        					<label for="staticZipcode-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Zip code{% endtrans %}</strong></label>
-        					<div class="col-sm-10">
-        						<input type="text" readonly class="form-control-plaintext" id="staticZipcode-{{ location.uuid }}" value="{{ location.zipcode | default('') }}">
-        					</div>
-        				</div>
-        				<div class="row">
-        					<label for="staticCounty-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}County{% endtrans %}</strong></label>
-        					<div class="col-sm-10">
-        						<input type="text" readonly class="form-control-plaintext" id="staticCounty-{{ location.uuid }}" value="{{ location.county | default('') }}">
-        					</div>
-        				</div>
-        				<div class="row">
-        					<label for="staticCountry-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Country{% endtrans %}</strong></label>
-        					<div class="col-sm-10">
-        						<input type="text" readonly class="form-control-plaintext" id="staticCountry-{{ location.uuid }}" value="{{ location.country | default('') }}">
-        					</div>
-        				</div>
-    				</div>
-    			{% endfor %}
-    		</form>
+				{% for location in club.locations %}
+					<div class="p-1">
+						<div class="row">
+							<label for="staticName-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Name{% endtrans %}</strong></label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" id="staticName-{{ location.uuid }}" value="{{ location.name | default('') }}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="staticAddress-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Address{% endtrans %}</strong></label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" id="staticAddress-{{ location.uuid }}" value="{{ location.address | default('') }}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="staticCity-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}City{% endtrans %}</strong></label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" id="staticCity-{{ location.uuid }}" value="{{ location.city | default('') }}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="staticZipcode-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Zip code{% endtrans %}</strong></label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" id="staticZipcode-{{ location.uuid }}" value="{{ location.zipcode | default('') }}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="staticCounty-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}County{% endtrans %}</strong></label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" id="staticCounty-{{ location.uuid }}" value="{{ location.county | default('') }}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="staticCountry-{{ location.uuid }}" class="col-sm-2 col-form-label"><strong>{% trans %}Country{% endtrans %}</strong></label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" id="staticCountry-{{ location.uuid }}" value="{{ location.country | default('') }}">
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</form>
 		</div>
 		
 		
