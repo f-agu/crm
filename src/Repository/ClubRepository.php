@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Entity\ClubLocation;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Club|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,7 +21,7 @@ class ClubRepository extends ServiceEntityRepository
 {
 	private $registry;
 
-	public function __construct(RegistryInterface $registry)
+	public function __construct(ManagerRegistry $registry)
 	{
 		parent::__construct($registry, Club::class);
 		$this->registry = $registry;

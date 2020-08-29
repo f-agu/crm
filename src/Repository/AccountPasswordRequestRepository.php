@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method AccountPasswordRequest|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,7 +17,7 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
  */
 class AccountPasswordRequestRepository extends ServiceEntityRepository
 {
-	public function __construct(RegistryInterface $registry)
+	public function __construct(ManagerRegistry $registry)
 	{
 		parent::__construct($registry, AccountPasswordRequest::class);
 	}
