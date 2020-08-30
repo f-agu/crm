@@ -36,10 +36,13 @@ class MediaManager
 		$folder = $this->getCategoryFolder($category);
 		$newfname = $folder.DIRECTORY_SEPARATOR.$basename.strtolower(substr($url, strrpos($url, '.')));
 		try {
-			$context = stream_context_create(array('ssl' => array(
-				'verify_peer' => false,
-				'verify_peer_name' => false
-			)));
+			$context = stream_context_create(array(
+				'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false
+			),
+				'http' => array(
+					'header' => 'User-Agent: Mozilla/5.0 (Linux) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36')));
 			$file = fopen($url, 'rb', false, $context);
 			if ($file) {
 				$newf = fopen ($newfname, 'wb');

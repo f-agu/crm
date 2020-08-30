@@ -35,7 +35,7 @@ class UserViewModel
 	private $birthday;
 
 	/**
-	 * @OA\Property(type="enum", enum={"F", "M"}, example="F")
+	 * @OA\Property(type="string", example="F")
 	 */
 	private $sex;
 

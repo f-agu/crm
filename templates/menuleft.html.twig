@@ -1,5 +1,29 @@
 {% for menuItem in menuItems %}
 	
+	{% if menuItem.code == 'cenacle' %} {# TODO ============================== #}
+		<li class="nav-item">
+			<a class="nav-link" href="/cenacle">
+				<span data-feather="box"></span>
+				{% trans %}Cenacle{% endtrans %}
+			</a>
+		</li>
+	{% endif %}
+	{% if menuItem.code == 'master' %} {# TODO ============================== #}
+		<li class="nav-item">
+			<a class="nav-link" href="/master-rm">
+				<span data-feather="user"></span>
+				{% trans %}Master{% endtrans %}
+			</a>
+		</li>
+	{% endif %}
+	{% if menuItem.code == 'sport' %} {# TODO ============================== #}
+		<li class="nav-item">
+			<a class="nav-link" href="/sport">
+				<span data-feather="zap"></span>
+				{% trans %}Sports{% endtrans %}
+			</a>
+		</li>
+	{% endif %}
 	{% if menuItem.code == 'clubs' %}
 		<li class="nav-item">
 			<a class="nav-link" href="/club">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -365,6 +365,10 @@
         <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
         <target>Ce mot de passe a été divulgué lors d'une fuite de données, il ne doit plus être utilisé. Veuillez utiliser un autre mot de passe.</target>
       </trans-unit>
+      <trans-unit id="VvxxWas" resname="This value should be between {{ min }} and {{ max }}.">
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>Cette valeur doit être comprise entre {{ min }} et {{ max }}.</target>
+      </trans-unit>
       <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
         <source>This form should not contain extra fields.</source>
         <target>Ce formulaire ne doit pas contenir des champs supplémentaires.</target>
@@ -376,6 +380,78 @@
       <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>Le jeton CSRF est invalide. Veuillez renvoyer le formulaire.</target>
+      </trans-unit>
+      <trans-unit id="h3g5ioA" resname="Your password must be at least {{length}} characters long.">
+        <source>Your password must be at least {{length}} characters long.</source>
+        <target>Le mot de passe doit faire au moins {{length}} caractères.</target>
+      </trans-unit>
+      <trans-unit id="HQt7pPu" resname="Your password must include at least one letter.">
+        <source>Your password must include at least one letter.</source>
+        <target>Le mot de passe doit contenir au moins une lettre.</target>
+      </trans-unit>
+      <trans-unit id="4kGnTpC" resname="Your password must include both upper and lower case letters.">
+        <source>Your password must include both upper and lower case letters.</source>
+        <target>Le mot de passe doit contenir des majuscules et des minuscules.</target>
+      </trans-unit>
+      <trans-unit id=".1LWj9Y" resname="Your password must include at least one number.">
+        <source>Your password must include at least one number.</source>
+        <target>Le mot de passe doit contenir au moins un chiffre.</target>
+      </trans-unit>
+      <trans-unit id="KRX2OiI" resname="Your password must contain at least one special character.">
+        <source>Your password must contain at least one special character.</source>
+        <target>Le mot de passe doit contenir au moins un caractère spécial.</target>
+      </trans-unit>
+      <trans-unit id="emtnsRQ" resname="password_too_weak">
+        <source>password_too_weak</source>
+        <target>Le mot de passe doit avoir une force d'au moins "{{ min_strength }}", la force actuelle est "{{ current_strength }}", essayez ceci : {{ strength_tips }}.</target>
+      </trans-unit>
+      <trans-unit id="1bMxj6N" resname="rollerworks_password.strength_level.very_weak">
+        <source>rollerworks_password.strength_level.very_weak</source>
+        <target>Très faible</target>
+      </trans-unit>
+      <trans-unit id="PkF6Qnr" resname="rollerworks_password.strength_level.weak">
+        <source>rollerworks_password.strength_level.weak</source>
+        <target>Faible</target>
+      </trans-unit>
+      <trans-unit id="8UFjc4_" resname="rollerworks_password.strength_level.medium">
+        <source>rollerworks_password.strength_level.medium</source>
+        <target>Moyenne</target>
+      </trans-unit>
+      <trans-unit id="plsDt_k" resname="rollerworks_password.strength_level.strong">
+        <source>rollerworks_password.strength_level.strong</source>
+        <target>Forte</target>
+      </trans-unit>
+      <trans-unit id="TDaSddR" resname="rollerworks_password.strength_level.very_strong">
+        <source>rollerworks_password.strength_level.very_strong</source>
+        <target>Très forte</target>
+      </trans-unit>
+      <trans-unit id="b69aHE_" resname="rollerworks_password.tip.letters">
+        <source>rollerworks_password.tip.letters</source>
+        <target>ajouter des lettres (majuscules/minuscules)</target>
+      </trans-unit>
+      <trans-unit id="r9VRzdv" resname="rollerworks_password.tip.numbers">
+        <source>rollerworks_password.tip.numbers</source>
+        <target>ajouter des chiffres</target>
+      </trans-unit>
+      <trans-unit id="0UmFw8K" resname="rollerworks_password.tip.lowercase_letters">
+        <source>rollerworks_password.tip.lowercase_letters</source>
+        <target>ajouter des minuscules</target>
+      </trans-unit>
+      <trans-unit id="8C7ce2C" resname="rollerworks_password.tip.uppercase_letters">
+        <source>rollerworks_password.tip.uppercase_letters</source>
+        <target>ajouter des majuscules</target>
+      </trans-unit>
+      <trans-unit id="BcuJ4QC" resname="rollerworks_password.tip.special_chars">
+        <source>rollerworks_password.tip.special_chars</source>
+        <target>ajouter des caractères spéciaux</target>
+      </trans-unit>
+      <trans-unit id="b4R_iJG" resname="rollerworks_password.tip.length">
+        <source>rollerworks_password.tip.length</source>
+        <target>ajouter plus de caractères</target>
+      </trans-unit>
+      <trans-unit id="9ZViZeS" resname="This password was found in a database of compromised passwords. It has been used {{ used }} times. For security purposes you must use something else.">
+        <source>This password was found in a database of compromised passwords. It has been used {{ used }} times. For security purposes you must use something else.</source>
+        <target>Ce mot de passe a été trouvé dans une base de données de mots de passe erronés. Il a été utilisé {{ used }} fois. Pour des raisons de sécurité, veuillez choisir un autre mot de passe.</target>
       </trans-unit>
     </body>
   </file>

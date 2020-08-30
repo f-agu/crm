@@ -76,7 +76,7 @@ class MigrationCommand extends Command
 	{
 		foreach($this->doctrine->getManager()->getRepository(Club::class)->findAll() as $club)
 		{
-			$url = 'https://'.$domain.'/param_clubs/logo_club/'.$club->getLogo();
+			$url = 'http://'.$domain.'/param_clubs/logo_club/'.$club->getLogo();
 			echo 'Download logo from '.$url.PHP_EOL;
 			$this->mediaManager->downloadAndSave($url, 'club', $club->getUuid());
 		}
