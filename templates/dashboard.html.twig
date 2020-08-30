@@ -5,11 +5,11 @@
 
 {% block body %}
 
-	<nav id="sidebar">
-		<div class="sidebar-header">
+	<nav id="sidebar" style="height: 100%">
+		<div class="sidebar-header" style="padding-top:10px; padding-bottom: 10px;">
 			<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="{{ path('home') }}"><img src="/assets/img/logo-taekwonkido.png" style="max-height:70px" /></a>
 		</div>
-		<ul class="list-unstyled components">
+		<ul class="list-unstyled components" style="padding-top:5px; padding-bottom: 10px;">
 			{{ render(controller('App\\Controller\\MenuLeftController::viewMenuLeft')) }}
 		</ul>
 	</nav>
@@ -65,8 +65,9 @@
 			$("#sidebar").mCustomScrollbar({
 				theme: "minimal"
 			});
-
-		$('#sidebarCollapse').on('click', function () {
+			$(".mCSB_container").css("height", "100%");
+			
+			$('#sidebarCollapse').on('click', function () {
 			$('#sidebar, #content').toggleClass('active');
 				$('.collapse.in').toggleClass('in');
 				$('a[aria-expanded=true]').attr('aria-expanded', 'false');

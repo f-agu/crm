@@ -17,12 +17,19 @@
 		</li>
 	{% endif %}
 	{% if menuItem.code == 'sport' %} {# TODO ============================== #}
-		<li class="nav-item">
-			<a class="nav-link" href="/sport">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
 				<span data-feather="zap"></span>
 				{% trans %}Sports{% endtrans %}
 			</a>
+			<div class="dropdown-menu nav-item" aria-labelledby="dropdown01">
+				<a class="dropdown-item" href="/taekwonkido">{% trans %}Taekwonkido{% endtrans %}</a>
+				<a class="dropdown-item" href="/taekwondo">{% trans %}Taekwondo{% endtrans %}</a>
+				<a class="dropdown-item" href="/hapkido">{% trans %}Hapkido{% endtrans %}</a>
+				<a class="dropdown-item" href="/sinkidosds">{% trans %}Sinkido Self-Défense Système{% endtrans %}</a>
+			</div>
 		</li>
+
 	{% endif %}
 	{% if menuItem.code == 'clubs' %}
 		<li class="nav-item">
