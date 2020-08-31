@@ -6,7 +6,7 @@ On "source" database :
 On "destination" database :
 
 # mysql -h127.0.0.1 -p<password> --database=<database> < dump_src.sql
-# mysql -h127.0.0.1 -p<password> --database=<database> < doc/migration.sql
+# mysql -h127.0.0.1 -p<password> --database=<database> < doc/sql/migration.sql
 
 
 Download all logo clubs: 

@@ -31,7 +31,13 @@ DELIMITER ;
 
 CREATE TABLE zzmigr_club AS 
  SELECT id,
-        concat(lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)), lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0))) AS uuid,
+        CASE 
+          WHEN camel_case(nom) = 'Taekwondo Club Meudon' THEN 'meudon'
+          WHEN camel_case(nom) = 'Suisse' THEN 'suisse'
+          WHEN camel_case(nom) = 'Taekwonkido Kourou' THEN 'kourou'
+          WHEN logo IS NOT NULL THEN substring_index(logo, '.', 1)
+          ELSE '?????'
+          END AS uuid,
         camel_case(nom) AS name,
         coalesce(logo, 'default.png') AS logo,
         url AS website_url,
@@ -39,6 +45,7 @@ CREATE TABLE zzmigr_club AS
         mailing_list,
         a_supprimer = 'N' AS active
    FROM devclub;
+
 
 
 INSERT INTO club(uuid, name, logo, website_url, facebook_url, mailing_list, active)
