@@ -48,7 +48,7 @@ class MigrationCommand extends Command
 		}
 
 		$this->importDump($srcdump);
-		$this->importDump($this->projectDir.DIRECTORY_SEPARATOR.'doc'.DIRECTORY_SEPARATOR.'migration.sql');
+		$this->importDump($this->projectDir.DIRECTORY_SEPARATOR.'doc'.DIRECTORY_SEPARATOR.'sql'.DIRECTORY_SEPARATOR.'migration.sql');
 
 		$this->downloadClubLobo($domain);
 	}
@@ -80,6 +80,7 @@ class MigrationCommand extends Command
 			echo 'Download logo from '.$url.PHP_EOL;
 			$this->mediaManager->downloadAndSave($url, 'club', $club->getUuid());
 		}
+		
 	}
 
 }

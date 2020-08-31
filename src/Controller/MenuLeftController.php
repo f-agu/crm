@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MenuLeftController extends AbstractController
 {
 
-	public function viewMenuLeft()
+	public function viewMenuLeft($club)
 	{
 		$menuItems = $this->getDoctrine()->getManager()
 				->getRepository(MenuItem::class)
@@ -27,7 +27,7 @@ class MenuLeftController extends AbstractController
 		
 		return $this->render(
 			'menuleft.html.twig',
-			['menuItems' => $filteredMenuItems]
+			['menuItems' => $filteredMenuItems, 'club' => $club]
 		);
 	}
 }

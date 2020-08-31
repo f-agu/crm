@@ -124,13 +124,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	{
 		$salt = 'gh(-#fgbVD56ù@iutyxc +tyu_75^rrtyè6';
 		$input = sha1($credentials['password'].$salt);
-		$this->logger->info('Upgrade legacy password for user '.$user->getId());
 		if($input === $sha1) {
+			$this->logger->info('Upgrade legacy password for user '.$user->getId());
 			$newpwd = $this->passwordEncoder->encodePassword($user, $credentials['password']);
+			$this->logger->info('newpwd '.$newpwd);
 			$user->setPassword($newpwd);
 			$user = $this->entityManager->flush();
 			return true;
 		}
+		$newpwd = $this->passwordEncoder->encodePassword($user, $credentials['password']);
+		$this->logger->info('Bad legacy password for user '.$user->getId());
+		$this->logger->info('newpwd2: '.$newpwd);
 		return false;
 	}
 }

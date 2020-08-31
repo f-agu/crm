@@ -10,7 +10,7 @@
 			<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="{{ path('home') }}"><img src="/assets/img/logo-taekwonkido.png" style="max-height:70px" /></a>
 		</div>
 		<ul class="list-unstyled components" style="padding-top:5px; padding-bottom: 10px;">
-			{{ render(controller('App\\Controller\\MenuLeftController::viewMenuLeft')) }}
+			{{ render(controller('App\\Controller\\MenuLeftController::viewMenuLeft', {'club': club | default() })) }}
 		</ul>
 	</nav>
 

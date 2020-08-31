@@ -1,6 +1,15 @@
 {% for menuItem in menuItems %}
 	
-	{% if menuItem.code == 'cenacle' %} {# TODO ============================== #}
+	{% if menuItem.code == 'pres' and club %}
+		<li class="nav-item menu-left-club">
+			<a class="nav-link" href="/club/{{ club.uuid}}">
+				<span data-feather="box"></span>
+				{% trans %}Presentation{% endtrans %} M {{ club.name | default('') }} N
+			</a>
+		</li>
+	{% endif %}
+	
+	{% if menuItem.code == 'cenacle' %}
 		<li class="nav-item">
 			<a class="nav-link" href="/cenacle">
 				<span data-feather="box"></span>
@@ -8,7 +17,7 @@
 			</a>
 		</li>
 	{% endif %}
-	{% if menuItem.code == 'master' %} {# TODO ============================== #}
+	{% if menuItem.code == 'master' %}
 		<li class="nav-item">
 			<a class="nav-link" href="/master-rm">
 				<span data-feather="user"></span>
@@ -16,7 +25,7 @@
 			</a>
 		</li>
 	{% endif %}
-	{% if menuItem.code == 'sport' %} {# TODO ============================== #}
+	{% if menuItem.code == 'sport' %}
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
 				<span data-feather="zap"></span>

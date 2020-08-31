@@ -23,7 +23,7 @@ class Club
 	private $id;
 	
 	/**
-	 * @ORM\Column(type="string", length=16)
+	 * @ORM\Column(type="string", length=64)
 	 */
 	private $uuid;
 	

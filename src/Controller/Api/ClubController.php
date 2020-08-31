@@ -42,7 +42,7 @@ class ClubController extends AbstractController
 	}
 
 	/**
-	 * @Route("/api/club/{uuid}", name="api_club_one", methods={"GET"}, requirements={"uuid"="[a-zA-Z0-9]{16}"})
+	 * @Route("/api/club/{uuid}", name="api_club_one", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
 	 * @OA\Get(
 	 *     path="/api/club/{uuid}",
 	 *     summary="Give a club",
@@ -54,7 +54,7 @@ class ClubController extends AbstractController
      *         @OA\Schema(
      *             format="string",
      *             type="string",
-     *             pattern="[a-zA-Z0-9]{16}"
+     *             pattern="[a-z0-9_]{2,64}"
      *         )
      *     ),
 	 *     @OA\Response(response="200", description="Successful")
@@ -82,7 +82,7 @@ class ClubController extends AbstractController
 	}
 
 	/**
-	 * @Route("/api/club/{uuid}/logo", name="api_club_one_logo", methods={"GET"}, requirements={"uuid"="[a-zA-Z0-9]{16}"})
+	 * @Route("/api/club/{uuid}/logo", name="api_club_one_logo", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
 	 * @OA\Get(
 	 *     path="/api/club/{uuid}/logo",
 	 *     summary="Give a club",
@@ -94,7 +94,7 @@ class ClubController extends AbstractController
 	 *         @OA\Schema(
 	 *             format="string",
 	 *             type="string",
-	 *             pattern="[a-zA-Z0-9]{16}"
+	 *             pattern="[a-z0-9_]{2,64}"
 	 *         )
 	 *     ),
 	 *     @OA\Response(response="200", description="Successful")
