@@ -1,12 +1,42 @@
 {% for menuItem in menuItems %}
 	
-	{% if menuItem.code == 'pres' and club %}
-		<li class="nav-item menu-left-club">
-			<a class="nav-link" href="/club/{{ club.uuid}}">
-				<span data-feather="box"></span>
-				{% trans %}Presentation{% endtrans %} M {{ club.name | default('') }} N
-			</a>
-		</li>
+	{% if club is defined and club.uuid is defined %}
+		{% if menuItem.code == 'pres' %}
+			<li class="nav-item menu-left-club">
+				<a class="nav-link" href="/club/{{ club.uuid}}">
+					<span data-feather="box"></span>
+					{% trans %}Presentation{% endtrans %}
+					{# {{ club.name | default('') }} #}
+				</a>
+			</li>
+		{% endif %}
+		{% if menuItem.code == 'hours' %}
+			<li class="nav-item menu-left-club">
+				<a class="nav-link" href="/club/{{ club.uuid}}/hours">
+					<span data-feather="clock"></span>
+					{% trans %}Hours{% endtrans %}
+					{# {{ club.name | default('') }} #}
+				</a>
+			</li>
+		{% endif %}
+		{% if menuItem.code == 'price' %}
+			<li class="nav-item menu-left-club">
+				<a class="nav-link" href="/club/{{ club.uuid}}/price">
+					<span data-feather="dollar-sign"></span>
+					{% trans %}Price{% endtrans %}
+					{# {{ club.name | default('') }} #}
+				</a>
+			</li>
+		{% endif %}
+		{% if menuItem.code == 'location' %}
+			<li class="nav-item menu-left-club">
+				<a class="nav-link" href="/club/{{ club.uuid}}/location">
+					<span data-feather="map-pin"></span>
+					{% trans %}Location{% endtrans %}
+					{# {{ club.name | default('') }} #}
+				</a>
+			</li>
+		{% endif %}
 	{% endif %}
 	
 	{% if menuItem.code == 'cenacle' %}

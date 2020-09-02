@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\Routing\Annotation\Route;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ClubController extends AbstractController
 {
@@ -24,14 +27,22 @@ class ClubController extends AbstractController
 	/**
 	 * @Route("/club/{uuid}", name="web_club_one", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
 	 */
-	public function viewOne($uuid)
+	public function viewOne($uuid, LoggerInterface $logger, SessionInterface $session)
 	{
 		$user = $this->getUser();
 		$response = $this->forward('App\Controller\Api\ClubController::one', ['uuid' => $uuid]);
-		$json = json_decode($response->getContent());
+		if($response->getStatusCode() != 200) {
+			return $this->render('club/club-not-found.html.twig', [
+				'connectedUser' => $user
+			]);
+		}
+		$club = json_decode($response->getContent())->club;
+		$session->getFlashBag()->set('club-selected', $club);
+		//$response->headers->setCookie(new Cookie('clubUuid', $uuid));
+		$logger->debug("Set club uuid: ".$uuid);
 		return $this->render('club/club.html.twig', [
-			'connectedUser' => $user,
-			'club' => $json->club
+			'connectedUser' => $user//,
+			//'club' => $club
 		]);
 	}
 

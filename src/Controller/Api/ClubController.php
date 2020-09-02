@@ -71,6 +71,8 @@ class ClubController extends AbstractController
 				->getRepository(ClubLocation::class)
 				->findByClubs([$clubs[0]]);
 			$output = array('club' => $clubloc[0]);
+		} else {
+			return new Response('Club not found: '.$uuid, 404);
 		}
 
 		$hateoas = HateoasBuilder::create()->build();
