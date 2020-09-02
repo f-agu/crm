@@ -37,9 +37,7 @@ class ClubController extends AbstractController
 			]);
 		}
 		$club = json_decode($response->getContent())->club;
-		$session->getFlashBag()->set('club-selected', $club);
-		//$response->headers->setCookie(new Cookie('clubUuid', $uuid));
-		$logger->debug("Set club uuid: ".$uuid);
+		$session->set('club-selected', $club);
 		return $this->render('club/club.html.twig', [
 			'connectedUser' => $user//,
 			//'club' => $club

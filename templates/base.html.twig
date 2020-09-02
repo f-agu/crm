@@ -1,4 +1,4 @@
-{% set club = app.session.flashbag.get('club-selected') | default() %}
+{% set club = app.session.get('club-selected') %}
 
 <!DOCTYPE html>
 <html>
