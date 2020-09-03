@@ -6,7 +6,6 @@
 				<a class="nav-link" href="/club/{{ club.uuid}}">
 					<span data-feather="box"></span>
 					{% trans %}Presentation{% endtrans %}
-					{# {{ club.name | default('') }} #}
 				</a>
 			</li>
 		{% endif %}
@@ -15,7 +14,6 @@
 				<a class="nav-link" href="/club/{{ club.uuid}}/hours">
 					<span data-feather="clock"></span>
 					{% trans %}Hours{% endtrans %}
-					{# {{ club.name | default('') }} #}
 				</a>
 			</li>
 		{% endif %}
@@ -24,7 +22,6 @@
 				<a class="nav-link" href="/club/{{ club.uuid}}/price">
 					<span data-feather="dollar-sign"></span>
 					{% trans %}Price{% endtrans %}
-					{# {{ club.name | default('') }} #}
 				</a>
 			</li>
 		{% endif %}
@@ -33,7 +30,14 @@
 				<a class="nav-link" href="/club/{{ club.uuid}}/location">
 					<span data-feather="map-pin"></span>
 					{% trans %}Location{% endtrans %}
-					{# {{ club.name | default('') }} #}
+				</a>
+			</li>
+		{% endif %}
+		{% if menuItem.code == 'contact' %}
+			<li class="nav-item menu-left-club">
+				<a class="nav-link" href="/club/{{ club.uuid}}/contact">
+					<span data-feather="mail"></span>
+					{% trans %}Contact{% endtrans %}
 				</a>
 			</li>
 		{% endif %}

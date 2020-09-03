@@ -1,5 +1,6 @@
 {% set club = app.session.get('club-selected') %}
-{% set isHome = app.request.attributes.get('_route') == 'home' %}
+{% set currentPage = app.request.attributes.get('_route') %}
+{% set isHome = currentPage == 'home' %}
 
 <!DOCTYPE html>
 <html>
@@ -11,8 +12,8 @@
 		<link rel="icon" href="/favicon.ico">
 		<title>{% block title %}{% endblock %}</title>
 		<link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-		<link href="/assets/dashboard/dashboard.css" rel="stylesheet">
 		<link href="/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+		<link href="/assets/dashboard/dashboard.css" rel="stylesheet">
 		{% block stylesheets %}{% endblock %}
 		{% block stylesheets2 %}{% endblock %}
 	</head>

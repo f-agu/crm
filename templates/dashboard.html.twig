@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</nav>
-		{% if isHome == false and club is defined and club.uuid is defined %}
+		{% if isHome == false and currentPage != 'web_club_list-active' and club is defined and club.uuid is defined %}
 			<table>
 				<tr>
 					<td rowspan="2">

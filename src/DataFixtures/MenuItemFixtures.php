@@ -12,10 +12,14 @@ class MenuItemFixtures extends Fixture
 	public function load(ObjectManager $manager)
 	{
 
+		// for a club
 		$manager->persist($this->createItem("pres", 10, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("hours", 20, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("price", 30, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("location", 40, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
+		$manager->persist($this->createItem("contact", 50, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
+		
+		// global
 		$manager->persist($this->createItem("cenacle", 100, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("master", 110, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
 		$manager->persist($this->createItem("clubs", 120, ["IS_AUTHENTICATED_ANONYMOUSLY"]));
