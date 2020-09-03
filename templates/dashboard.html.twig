@@ -43,23 +43,38 @@
 				</div>
 			</div>
 		</nav>
-	{% if club is defined and club.uuid is defined %}
-		<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="/club/{{ club.uuid }}"><img src="/api/club/{{ club.uuid }}/logo" style="max-height:90px" /></a>
-		<span class=" h3 p-1">{{ club.name }}</span>
-	{% endif %}
+		{% if isHome == false and club is defined and club.uuid is defined %}
+			<table>
+				<tr>
+					<td rowspan="2">
+						<a class="col-sm-3 col-md-2 mr-0" style="padding:2px!important" href="/club/{{ club.uuid }}"><img src="/api/club/{{ club.uuid }}/logo" style="max-height:90px" /></a>
+					</td>
+					<td><span class="h3 p-1">Club {{ club.name }}</span></td>
+				</tr>
+				<tr>
+					<td>
+						<span class="p-1">
+							{% for location in club.locations %}
+								{{ location.city }}
+							{% endfor %}
+						</span>
+					</td>
+				</tr>
+			</table>
+		{% endif %}
 
 		<div>
 			{% block dashboardcontent %}{% endblock %}
 		</div>
 
-
-	{% if club is defined and club.uuid is defined %}
-		{# specific club footer #}
-		<div><h2>club footer</h2></div>
-	{% elseif app.request.attributes.get('_route') != 'home' %}
-		{% include 'footer-crm.html.twig' %}
-	{% endif %}
-
+		{% if isHome == false %}
+			{% if club is defined and club.uuid is defined %}
+				{# specific club footer #}
+				<div><h2>club footer</h2></div>
+			{% else %}
+				{% include 'footer-crm.html.twig' %}
+			{% endif %}
+		{% endif %}
 	</div>
 
 {% endblock %}

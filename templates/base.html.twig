@@ -1,4 +1,5 @@
 {% set club = app.session.get('club-selected') %}
+{% set isHome = app.request.attributes.get('_route') == 'home' %}
 
 <!DOCTYPE html>
 <html>

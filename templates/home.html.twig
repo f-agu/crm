@@ -68,7 +68,12 @@ C'est un programme d'autodéfense accessible, axé sur l'efficacité, il est dir
 				</div>
 			</div>
 			
-			{% include 'footer-crm.html.twig' %}
+			{% if club is defined and club.uuid is defined %}
+				{# specific club footer #}
+				<div><h2>club footer</h2></div>
+			{% elseif app.request.attributes.get('_route') == 'home' %}
+				{% include 'footer-crm.html.twig' %}
+			{% endif %}
 		</div>
 		
 	</div>
