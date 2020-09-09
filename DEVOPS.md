@@ -35,6 +35,8 @@ Edit `.env.local` to set `APP_ENV` to `dev`.
 
 ```
 git pull
+composer install
+composer update
 chmod 750 recreatedb.sh
 ./recreatedb.sh
 

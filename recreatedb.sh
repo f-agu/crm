@@ -4,6 +4,8 @@ php bin/console doctrine:database:drop --force
 php bin/console doctrine:database:create
 
 rm src/Migrations/Version2019*.*
+rm src/Migrations/Version202*.*
+rm src/Migrations/Version203*.*
 
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate --no-interaction
