@@ -21,5 +21,5 @@ echo.
 echo.
 echo To migrate real values :
 echo.
-echo php bin/console crm:migration --domainname=legacydomain.fr --dump=sql\dump_src.sql
+echo php bin/console crm:migration --domainname=legacydomain.fr --dump=dump_src.sql
 echo.

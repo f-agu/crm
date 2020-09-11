@@ -57,7 +57,7 @@ INSERT INTO club(uuid, name, logo, website_url, facebook_url, mailing_list, acti
 CREATE TABLE zzmigr_club_location AS 
  SELECT oc.id AS o_id,
         nc.id AS n_id,
-        concat(lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)), lower(lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0))) AS uuid,
+        concat(mc.uuid, '_0') AS uuid,
         '?' AS name,
         '?' AS address,
         camel_case(ville) AS city,

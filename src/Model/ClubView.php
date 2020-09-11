@@ -49,4 +49,9 @@ class ClubView
 		return $this->facebook_url;
 	}
 
+	public function getLocations()
+	{
+		return $this->locations;
+	}
+	
 }
