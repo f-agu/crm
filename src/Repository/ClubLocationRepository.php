@@ -24,17 +24,18 @@ class ClubLocationRepository extends ServiceEntityRepository
 	}
 
 	public function findByUuid($uuid) {
+		// TODO
 		$sql = "SELECT *"
 			." FROM club_lesson les"
 			."  JOIN club_location loc ON les.club_location_id = loc.id"
-				." WHERE les.club_id IN (:clubIds)"
-					." GROUP BY 1, 2";
-					$rsm = new ResultSetMappingBuilder($this->getEntityManager());
-					$rsm->addRootEntityFromClassMetadata('App\Entity\ClubLocation', 'l');
-					$rsm->addScalarResult('club_id', 'c');
-					$query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
-					$query->setParameter('clubIds', $clubIds);
-					return $query->getResult();
+			." WHERE les.club_id IN (:clubIds)"
+			." GROUP BY 1, 2";
+		$rsm = new ResultSetMappingBuilder($this->getEntityManager());
+		$rsm->addRootEntityFromClassMetadata('App\Entity\ClubLocation', 'l');
+		$rsm->addScalarResult('club_id', 'c');
+		$query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
+		$query->setParameter('clubIds', $clubIds);
+		return $query->getResult();
 	}
 	
 	

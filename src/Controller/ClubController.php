@@ -45,6 +45,27 @@ class ClubController extends AbstractController
 	}
 
 	/**
+	 * @Route("/club/{uuid}/hours", name="web_club_hours", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
+	 */
+	public function viewHours($uuid, LoggerInterface $logger, SessionInterface $session)
+	{
+		$user = $this->getUser();
+		$response = $this->forward('App\Controller\Api\ClubController::one', ['uuid' => $uuid]);
+		if($response->getStatusCode() != 200) {
+			return $this->render('club/club-not-found.html.twig', [
+				'connectedUser' => $user
+			]);
+		}
+		$club = json_decode($response->getContent())->club;
+		$session->set('club-selected', $club);
+		return $this->render('club/club-hours.html.twig', [
+			'connectedUser' => $user//,
+			//'club' => $club
+		]);
+	}
+	
+	
+	/**
 	 * @Route("/club/{uuid}/edit", name="web_club_one_edit", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
 	 */
 	public function viewEdit($uuid)

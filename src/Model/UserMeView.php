@@ -2,9 +2,6 @@
 namespace App\Model;
 
 use App\Entity\User;
-use JMS\Serializer\Annotation as Serializer;
-use Hateoas\Configuration\Annotation as Hateoas;
-use OpenApi\Annotations as OA;
 
 /**
  * @Serializer\XmlRoot("user")

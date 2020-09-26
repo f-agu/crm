@@ -1,8 +1,6 @@
 <?php
 namespace App\Model;
 
-use JMS\Serializer\Annotation as Serializer;
-use OpenApi\Annotations as OA;
 
 /**
  * @Serializer\XmlRoot("date")

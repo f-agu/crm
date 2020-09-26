@@ -1,9 +1,9 @@
 <?php
 namespace App\Security;
 
-use Symfony\Component\Validator\Validation;
 use App\Exception\ViolationException;
 use App\Util\ViolationUtil;
+use Symfony\Component\Validator\Validation;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PasswordValidator

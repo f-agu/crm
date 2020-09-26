@@ -13,6 +13,7 @@ use App\Media\MediaManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use App\Entity\ClubLesson;
 
 
 class ClubController extends AbstractController
@@ -109,4 +110,47 @@ class ClubController extends AbstractController
 		return new BinaryFileResponse($media->getFileOrDefault('assets/clubs/defaultlogo.gif'));
 	}
 
+	/**
+	 * @Route("/api/club/{uuid}/lessons", name="api_club_lessons", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
+	 * @OA\Get(
+	 *     path="/api/club/{uuid}/lessons",
+	 *     summary="Give some hours",
+	 *     @OA\Parameter(
+	 *         description="UUID of club",
+	 *         in="path",
+	 *         name="uuid",
+	 *         required=true,
+	 *         @OA\Schema(
+	 *             format="string",
+	 *             type="string",
+	 *             pattern="[a-z0-9_]{2,64}"
+	 *         )
+	 *     ),
+	 *     @OA\Response(response="200", description="Successful")
+	 * )
+	 */
+	public function getHours($uuid)
+	{
+		// http://localhost/api/club/bry_sur_marne/lessons
+		//return new Response('toto', 200, array(
+		//	'Content-Type' => 'application/hal+json'
+		//));
+		
+		$clubLessons = $this->getDoctrine()->getManager()
+			->getRepository(ClubLesson::class)
+			->findByClubUuid($uuid);
+		
+			dump($clubLessons);
+			return new Response('toto', 200, array(
+			'Content-Type' => 'application/hal+json'
+			));
+			
+			$hateoas = HateoasBuilder::create()->build();
+		$json = json_decode($hateoas->serialize($clubLessons, 'json'));
+		
+		return new Response(json_encode($json), 200, array(
+			'Content-Type' => 'application/hal+json'
+		));
+	}
+	
 }

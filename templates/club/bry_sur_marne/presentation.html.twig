@@ -1,68 +1,9 @@
 <main role="main">
 
-	<div class="d-md-flex flex-md-equal w-100 my-md-3">
-		<div class="bg-dark mr-md-3 p-2 text-center text-white overflow-hidden sc-text">
-			<div class="my-3 py-3">
-				<p class="lead">Le club KORYO TAEKWONDO BRY-SUR-MARNE a été fondé en 1988.
-Les cours "enfants" (6-12 ans) et "adultes" (13 ans et plus), sont distincts.
-Bon nombre de cours adultes sont assurés par Maître Rémi Mollet, expert renommé internationalement.
-Enseignant le TAEKWONDO-TAEKWONKIDO, le HAPKIDO et le GUMDO (sabre coréen), le club s’est fait depuis plus de 20 ans une spécialité des arts martiaux coréens.
-Partageant beaucoup d'activités en commun avec d'autres associations, le club permet une synergie entre les élèves et surtout leur donne la possibilité de s'entraîner pratiquement tous les jours.
-Même si son palmarès sportif en compétition a été des plus impressionnants, l’optique du club n’est pas seulement de former des champions. Pourtant, parmi les nombreux élèves que le club a formés, certains ont brillé sous les plus hauts feux de la compétition : Et l’on ne compte plus les Champions (et Championnes !). citons par exemple Thierry TROUDART qui remporta la Médaille d’Or à la Coupe de Méditerranée et fut 3ème au Championnat du Monde en 1993 à New-York. Ces quelques résultats n’excluent évidemment pas d’autres motivations pour les élèves, telles que bien être, autodéfense, effort physique, correction, art de vivre, etc.
-</p>
-			</div>
-		</div>
-		<div class="bg-light mr-md-3 text-center overflow-hidden">
-				<img class="img-fluid" src="/assets/clubs/bry_sur_marne/TKD_C016.jpg" />
-		</div>
-	</div>
-	
-	
-	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-		<div class="bg-light mr-md-3 text-center overflow-hidden">
-			<img class="img-fluid" src="/assets/clubs/bry_sur_marne/IMG_0138_b.jpg" />
-		</div>
-		<div class="bg-dark mr-md-3 p-2 text-center text-white overflow-hidden sc-text">
-			<div class="my-3 py-3">
-				<p class="lead">L’idée de notre association est de toujours rester proche de la source coréenne : nos adeptes vont donc régulièrement en Corée et, chaque année, nous invitons de grands-maîtres de Taekwondo et d’autres arts martiaux coréens afin d’animer des stages pour nous seulement. Notre but n’est donc pas de pratiquer un Taekwondo "franco-français" mais l’art martial tel qu’il est pratiqué au pays du Matin Calme. Notre école directe est le CHUNG DO KWAN, la toute première école de Taekwondo, fondée à Séoul en 1944 !
-				Toutefois, la spécificité du club est de ne pas seulement enseigner le Taekwondo mais aussi le
-				TAEKWONKIDO. L’école du Taekwonkido, basée sur une pratique réfléchie et plus réaliste, est fondée sur le combat réel et l’autodéfense.
-A partir du Khido du Grand-Maître Michel Morlon, deux experts
-français Maître Rémi Mollet et Maître Jean-Laurent Taddeï, médecin
-spécialisé dans le sport, ont ajouté leur vécu technique et ont fait évoluer
-le Khido en y introduisant notamment des techniques de Taekwondo, de
-Hapkido, de Gumdo (sabre) et d’autres martiaux. Le Taekwonkido est
-une école particulièrement complète et dynamique qui axe son travail sur
-le combat réel et l’autodéfense.
-Deux aspects sont principalement développés : une recherche de la
-force maximale fondée notamment sur l’utilisation de l’énergie cinétique
-et de principes physiques ; un travail réaliste de l’autodéfense qui passe
-par l’utilisation d’une grande palette technique : clés, projections, contrôles
-articulaires, étranglements, low kicks, coups de poing au visage, coups
-de coude, coups de genou, etc.
-				</p>
-			</div>
-		</div>
-	</div>
-		
-		
-	<div class="d-md-flex flex-md-equal w-100 my-md-3">
-		<div class="bg-dark mr-md-3 p-2 text-center text-white overflow-hidden sc-text">
-			<div class="my-3 py-3">
-				<p class="lead">La compétition de Taekwonkido autorise les coups de poing au visage,
-les amenées au sol, les clés de poignet, les projections, les coups de
-pied au corps et à la tête. Le KO est autorisé mais des protections intégrales
-le rendent malgré tout difficile. Le Taekwonkido se veut être aussi
-une méthode éducative prônant des valeurs telles que le goût de l’effort,
-le respect et la courtoisie.
-Enfin, le club suit la ligne technique du CENACLE REMI MOLLET, vaste amicale de clubs, qui permet une synergie entre chaque association affiliée. Le principe est très original : sans supplément de cotisation et, à partir du moment où l’on ne déserte pas son club d’origine, il est possible de s’entraîner dans TOUS les clubs du Cénacle. Des activités en commun (stages, compétitions, entraînements compétition, etc.) sont également organisées.
-</p>
-			</div>
-		</div>
-		<div class="bg-light mr-md-3 text-center overflow-hidden">
-				<img class="img-fluid" src="/assets/clubs/bry_sur_marne/TKKDDA056.jpg" />
-		</div>
-	</div>	
+{% import "presentation-tile-macro.html.twig" as presentation_tile %}
 
-	
+{{ presentation_tile.text_img('/assets/clubs/bry_sur_marne/TKD_C016.jpg', 'club-bry-pres-1') }}
+{{ presentation_tile.img_text('/assets/clubs/bry_sur_marne/IMG_0138_b.jpg', 'club-bry-pres-2') }}
+{{ presentation_tile.text_img('/assets/clubs/bry_sur_marne/TKKDDA056.jpg', 'club-bry-pres-3') }}
+
 </main>

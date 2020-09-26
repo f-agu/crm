@@ -2,19 +2,15 @@
 
 namespace App\Service;
 
-use App\Model\UserCreate;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
+use App\Entity\Account;
 use App\Entity\User;
+use App\Entity\UserHistory;
+use App\Model\UserCreate;
+use App\Model\UserUpdate;
 use App\Util\DateUtils;
 use App\Util\DiffTool;
-use App\Entity\UserHistory;
-use App\Entity\Account;
 use App\Util\TreeWalker;
-use App\Model\UserUpdate;
+use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 
 

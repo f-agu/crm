@@ -3,12 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Club;
-use App\Model\ClubLocationView;
-use App\Model\ClubView;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Entity\ClubLocation;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**

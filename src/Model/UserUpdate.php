@@ -1,7 +1,6 @@
 <?php
 namespace App\Model;
 
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
