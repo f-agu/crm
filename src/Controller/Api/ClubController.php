@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Entity\ClubLesson;
+use App\Model\ClubLessonView;
 
 
 class ClubController extends AbstractController
@@ -139,14 +140,17 @@ class ClubController extends AbstractController
 		$clubLessons = $this->getDoctrine()->getManager()
 			->getRepository(ClubLesson::class)
 			->findByClubUuid($uuid);
-		
-			dump($clubLessons);
-			return new Response('toto', 200, array(
-			'Content-Type' => 'application/hal+json'
-			));
+		if(count($clubLessons) == 0) {
+			return new Response('Club not found: '.$uuid, 404);
+		}
 			
-			$hateoas = HateoasBuilder::create()->build();
-		$json = json_decode($hateoas->serialize($clubLessons, 'json'));
+		$lessonList = array();
+		foreach($clubLessons as &$clubLesson) {
+			array_push($lessonList, new ClubLessonView($clubLesson));
+		}
+		
+		$hateoas = HateoasBuilder::create()->build();
+		$json = json_decode($hateoas->serialize($lessonList, 'json'));
 		
 		return new Response(json_encode($json), 200, array(
 			'Content-Type' => 'application/hal+json'

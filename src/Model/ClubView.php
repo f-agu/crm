@@ -22,7 +22,7 @@ class ClubView
 
 	public function __construct(Club $club, $locations)
 	{
-		$this->uuid = $club->getClubUuid();
+		$this->uuid = $club->getUuid();
 		$this->name = $club->getName();
 		$this->website_url = $club->getWebsiteUrl();
 		$this->facebook_url = $club->getFacebookUrl();

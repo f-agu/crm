@@ -50,6 +50,7 @@ class ClubController extends AbstractController
 	public function viewHours($uuid, LoggerInterface $logger, SessionInterface $session)
 	{
 		$user = $this->getUser();
+		
 		$response = $this->forward('App\Controller\Api\ClubController::one', ['uuid' => $uuid]);
 		if($response->getStatusCode() != 200) {
 			return $this->render('club/club-not-found.html.twig', [
@@ -57,10 +58,18 @@ class ClubController extends AbstractController
 			]);
 		}
 		$club = json_decode($response->getContent())->club;
+		
+		$response = $this->forward('App\Controller\Api\ClubController::getHours', ['uuid' => $uuid]);
+		if($response->getStatusCode() != 200) {
+			return $this->render('club/club-hours-not-found.html.twig', [
+				'connectedUser' => $user
+			]);
+		}
+		$clubLessons = json_decode($response->getContent());
 		$session->set('club-selected', $club);
 		return $this->render('club/club-hours.html.twig', [
-			'connectedUser' => $user//,
-			//'club' => $club
+			'connectedUser' => $user,
+			'clubLessons' => $clubLessons
 		]);
 	}
 	

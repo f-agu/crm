@@ -16,8 +16,8 @@ class ClubLocationView
 
 	public function __construct(ClubLocation $location)
 	{
-		$this->uuid = $location->getClubLocationUuid();
-		$this->name = $location->getClubLocationName();
+		$this->uuid = $location->getUuid();
+		$this->name = $location->getName();
 		$this->address = $location->getAddress();
 		$this->city = $location->getCity();
 		$this->zipcode = $location->getZipcode();
