@@ -387,6 +387,34 @@ C'est un programme d'autodéfense accessible, axé sur l'efficacité, il est dir
         <source>Le Maître</source>
         <target>Le Maître</target>
       </trans-unit>
+      <trans-unit id="monday" resname="monday">
+        <source>monday</source>
+        <target>lundi</target>
+      </trans-unit>
+      <trans-unit id="tuesday" resname="tuesday">
+        <source>tuesday</source>
+        <target>mardi</target>
+      </trans-unit>
+      <trans-unit id="wednesday" resname="wednesday">
+        <source>wednesday</source>
+        <target>mercredi</target>
+      </trans-unit>
+      <trans-unit id="thursday" resname="thursday">
+        <source>thursday</source>
+        <target>jeudi</target>
+      </trans-unit>
+      <trans-unit id="friday" resname="friday">
+        <source>friday</source>
+        <target>vendredi</target>
+      </trans-unit>
+      <trans-unit id="saturday" resname="saturday">
+        <source>saturday</source>
+        <target>samedi</target>
+      </trans-unit>
+      <trans-unit id="sunday" resname="sunday">
+        <source>sunday</source>
+        <target>dimanche</target>
+      </trans-unit>
       <trans-unit id="G8m.mhi" resname="Le Cénacle Rémi Mollet est une école d'Arts Martiaux Français, Coréens et asiatiques.&#10;On y enseigne principalement le Taekwonkido, Taekwondo, mais aussi le Hapkido et le Gumdo.&#10;Le Cénacle est composé d'une trentaine de clubs (dojang) répartis dans &#10;toute la France. Il y a même un club aux Pays-Bas et des sympathisants en Suisse, en Angleterre, etc.">
         <source>Le Cénacle Rémi Mollet est une école d'Arts Martiaux Français, Coréens et asiatiques.
 On y enseigne principalement le Taekwonkido, Taekwondo, mais aussi le Hapkido et le Gumdo.
