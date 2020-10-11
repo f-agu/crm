@@ -1,4 +1,13 @@
 day_of_week,start_time,end_time,discipline,age_level,location
 tuesday,19:00,19:30,Taekwonkido,all,bry_sur_marne_0
-tuesday,19:30,20:30,Taekwondo,child-graded/adult-*,bry_sur_marne_0
+tuesday,19:30,20:30,Taekwondo,child[belt:>blue]/adult[*],bry_sur_marne_0
 tuesday,20:30,21:30,Hapkido,all,bry_sur_marne_0
+tuesday,20:30,21:30,Hapkido,all,bry_sur_marne_0
+wednesday,18:45,19:45,Taekwondo,child[age:6-9],bry_sur_marne_0
+wednesday,19:45,20:45,Taekwondo,child[age:10-12],bry_sur_marne_0
+thursday,19:15,20:15,Sinkido self-defense système,all,bry_sur_marne_0
+thursday,20:15,21:15,Hapkido,all,bry_sur_marne_0
+thursday,20:15,21:15,Taekwondo,child[belt:>blue]/adult[*],bry_sur_marne_0
+thursday,21:00,21:30,Hapkido,adult[belt:black],bry_sur_marne_0
+friday,18:45,19:45,Taekwondo,child[age:6-9],bry_sur_marne_0
+friday,19:45,20:45,Taekwondo,child[age:10-12],bry_sur_marne_0
