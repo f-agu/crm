@@ -56,7 +56,7 @@ class MigrationCommand extends Command
 		$this->importDump($this->projectDir.DIRECTORY_SEPARATOR.'doc'.DIRECTORY_SEPARATOR.'sql'.DIRECTORY_SEPARATOR.'migration.sql');
 
 		echo PHP_EOL.'====== Logo ======'.PHP_EOL;
-		//$this->downloadClubLobo($domain);
+		$this->downloadClubLobo($domain);
 		
 		echo PHP_EOL.'====== CSV Locations ======'.PHP_EOL;
 		$locations = $this->loadCSVLocations();
