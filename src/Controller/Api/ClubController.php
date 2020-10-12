@@ -130,13 +130,8 @@ class ClubController extends AbstractController
 	 *     @OA\Response(response="200", description="Successful")
 	 * )
 	 */
-	public function getHours($uuid)
+	public function getLessons($uuid)
 	{
-		// http://localhost/api/club/bry_sur_marne/lessons
-		//return new Response('toto', 200, array(
-		//	'Content-Type' => 'application/hal+json'
-		//));
-		
 		$clubLessons = $this->getDoctrine()->getManager()
 			->getRepository(ClubLesson::class)
 			->findByClubUuid($uuid);

@@ -45,9 +45,9 @@ class ClubController extends AbstractController
 	}
 
 	/**
-	 * @Route("/club/{uuid}/hours", name="web_club_hours", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
+	 * @Route("/club/{uuid}/lessons", name="web_club_lessons", methods={"GET"}, requirements={"uuid"="[a-z0-9_]{2,64}"})
 	 */
-	public function viewHours($uuid, LoggerInterface $logger, SessionInterface $session)
+	public function viewLessons($uuid, LoggerInterface $logger, SessionInterface $session)
 	{
 		$user = $this->getUser();
 		
@@ -59,15 +59,15 @@ class ClubController extends AbstractController
 		}
 		$club = json_decode($response->getContent())->club;
 		
-		$response = $this->forward('App\Controller\Api\ClubController::getHours', ['uuid' => $uuid]);
+		$response = $this->forward('App\Controller\Api\ClubController::getLessons', ['uuid' => $uuid]);
 		if($response->getStatusCode() != 200) {
-			return $this->render('club/club-hours-not-found.html.twig', [
+			return $this->render('club/club-lessons-not-found.html.twig', [
 				'connectedUser' => $user
 			]);
 		}
 		$clubLessons = json_decode($response->getContent());
 		$session->set('club-selected', $club);
-		return $this->render('club/club-hours.html.twig', [
+		return $this->render('club/club-lessons.html.twig', [
 			'connectedUser' => $user,
 			'clubLessons' => $clubLessons
 		]);
